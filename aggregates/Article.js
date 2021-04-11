@@ -16,13 +16,10 @@ class Article {
   }
 
   render(parentNode) {
-    const wrapper = document.createElement("div");
-    wrapper.setAttribute('class', 'preview-image-wrapper');
+    const prevPic = new PreviewImage(this.previewPicture);
+    prevPic.render(parentNode);
 
-    const img = document.createElement("img");
-    img.src = this.previewPicture;
-
-    parentNode.appendChild(wrapper);
-    wrapper.appendChild(img);
+    const abstPar = new Paragraph(this.abstract);
+    abstPar.render(parentNode);
   }
 }
