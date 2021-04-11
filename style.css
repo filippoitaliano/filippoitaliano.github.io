@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'Objectivity-Light';
+  src: url('Objectivity-Light.woff');
+}
+
+.preview-image-wrapper {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 5px solid rgb(189, 11, 11);
+  overflow: hidden;
+  position: relative;
+}
+
+.preview-image-wrapper img {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.paragraph-wrapper p {
+  font-family: 'Objectivity-Light', sans-serif;
+  font-size: 25px;
+}
