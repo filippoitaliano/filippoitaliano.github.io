@@ -49,4 +49,7 @@ window.onload = function() {
     const obj = new Article(article.id, article.relevance, article.promoted, article.abstract, article.previewPicture, article.paragraphs);
     obj.render(appRoot);
   });
+
+  const link = new Link('ciaone', 'ciaone');
+  link.render(appRoot);
 };
