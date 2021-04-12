@@ -16,10 +16,15 @@ class Article {
   }
 
   render(parentNode) {
+    const wrapper = document.createElement('div');
+    wrapper.setAttribute('class', 'article-wrapper');
+    
+    parentNode.appendChild(wrapper);
+
     const prevPic = new PreviewImage(this.previewPicture);
-    prevPic.render(parentNode);
+    prevPic.render(wrapper);
 
     const abstPar = new Paragraph(this.abstract);
-    abstPar.render(parentNode);
+    abstPar.render(wrapper);
   }
 }

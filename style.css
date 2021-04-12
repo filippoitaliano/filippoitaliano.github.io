@@ -4,8 +4,8 @@
 }
 
 .preview-image-wrapper {
-  width: 260px;
-  height: 260px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 5px solid rgb(189, 11, 11);
   overflow: hidden;
@@ -22,5 +22,11 @@
 
 .paragraph-wrapper p {
   font-family: 'Objectivity-Light', sans-serif;
-  font-size: 25px;
+  font-size: 20px;
+}
+
+.article-wrapper {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: 20% 80%;
 }
