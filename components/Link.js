@@ -5,24 +5,20 @@ class Link {
   }
 
   render(parentNode) {
-    const wrapper = document.createElement("div");
-    wrapper.setAttribute('class', 'link-wrapper');
-
     const a = document.createElement("a");
     a.href = this.href;
-
-    const arrow = document.createTextNode('0xE2 0x9F 0xB6');
-    const arrowStyled = document.createElement('span');
-    arrowStyled.setAttribute('class', 'link-arrow-span');
-    arrowStyled.appendChild(arrow);
-
+    a.setAttribute('class', 'link-a');
+    
+    const arrow = document.createElement('span');
+    arrow.setAttribute('class', 'link-arrow-span');
+    arrow.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="31.432" height="9.664" viewBox="234.9 304.668 31.432 9.664"><defs><style>.a{fill:none;stroke:red;stroke-linecap:round;stroke-width:1.2px;}</style></defs><line class="a" x2="30" transform="translate(235.5 309.5)"/><line class="a" x2="6" y2="4" transform="translate(259.5 305.5)"/><line class="a" y1="4" x2="6" transform="translate(259.5 309.5)"/></svg>';
+    
     const text = document.createTextNode(this.text);
     const textSpan = document.createElement('span');
     textSpan.appendChild(text);
 
-    parentNode.appendChild(wrapper);
-    wrapper.appendChild(a);
-    a.appendChild(arrowStyled);
+    parentNode.appendChild(a);
+    a.appendChild(arrow);
     a.appendChild(textSpan);
   }
 }

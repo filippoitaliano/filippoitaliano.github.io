@@ -1,6 +1,10 @@
 @font-face {
   font-family: 'Objectivity-Light';
-  src: url('Objectivity-Light.woff');
+  src: url('media/Objectivity-Light.woff');
+}
+
+body {
+  font-family: 'Objectivity-Light', sans-serif;
 }
 
 .preview-image-wrapper {
@@ -21,7 +25,6 @@
 }
 
 .paragraph-wrapper p {
-  font-family: 'Objectivity-Light', sans-serif;
   font-size: 20px;
 }
 
@@ -31,6 +34,11 @@
   grid-template-columns: 20% 80%;
 }
 
+.link-a {
+  text-decoration: none;
+  color: initial;
+}
+
 .link-arrow-span {
-  color: red;
+  margin-right: 10px;
 }
