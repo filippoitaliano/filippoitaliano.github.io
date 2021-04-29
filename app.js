@@ -56,11 +56,11 @@ const renderContent = () => {
 
   switch(getLocationHashEntityType()) {
     case '#article': {
+      const link = new Link('index.html', 'home');
+      link.appendTo(renderedGridLayout);
       const articleData = data.articles.find((a) => a.id === getLocationHashEntityId())
       const article = new Article(articleData.id, articleData.title, articleData.relevance, true, articleData.abstract, articleData.previewPicture, articleData.paragraphs)
       article.appendTo(renderedGridLayout);
-      const link = new Link('index.html', 'home');
-      link.appendTo(renderedGridLayout);
       break;
     }
     default: {
@@ -68,8 +68,6 @@ const renderContent = () => {
         const article = new Article(articleData.id, articleData.title, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs);
         article.appendTo(renderedGridLayout);
       });
-      const link = new Link('#article/d4823511-b688-4972-9956-25c0e3ef7130', 'React Redux Article');
-      link.appendTo(renderedGridLayout);
     }
   }
 }

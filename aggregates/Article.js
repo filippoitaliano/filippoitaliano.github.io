@@ -33,8 +33,14 @@ class Article {
     const prevPic = new PreviewImage(this.previewPicture, this.previewImageType());
     prevPic.appendTo(articleWrapper);
 
+    const abstractWrapper = createNode('abstract-wrapper');
+    articleWrapper.appendChild(abstractWrapper);
+
     const abstPar = new Paragraph(this.abstract);
-    abstPar.appendTo(articleWrapper);
+    abstPar.appendTo(abstractWrapper);
+
+    const link = new Link(`#article/${this.id}`, 'leggi tutto');
+    link.appendTo(abstractWrapper);
 
     if (this.promoted) {
       const title = new Title(this.title);

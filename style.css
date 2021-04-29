@@ -47,7 +47,7 @@ body {
   display: grid;
 }
 
-.promoted-article-wrapper .paragraph-wrapper {
+.promoted-article-wrapper .abstract-wrapper {
   grid-column-start: 3;
   grid-column-end: 7;
 }
@@ -62,9 +62,13 @@ body {
   grid-column-end: 7;
 }
 
-.article-wrapper .paragraph-wrapper {
+.article-wrapper .abstract-wrapper {
   grid-column-start: 2;
   grid-column-end: 5;
+}
+
+.abstract-wrapper .paragraph-wrapper .paragraph-body-text {
+  margin-bottom: 0;
 }
 
 .link-a {
@@ -78,7 +82,8 @@ body {
 
 .grid-layout-wrapper {
   display: grid;
-  grid-template-columns: 16% 16% 16% 16% 16% 16% ;
+  grid-template-columns: 16% 16% 16% 16% 16% 16%;
+  grid-row-gap: 30px;
 }
 
 .title-wrapper .title-body-text {
