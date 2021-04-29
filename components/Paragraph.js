@@ -5,14 +5,12 @@ class Paragraph {
   }
 
   appendTo(parentNode) {
-    const wrapper = document.createElement('div');
-    wrapper.setAttribute('class', 'paragraph-wrapper');
-
+    const paragraphWrapper = createNode('paragraph-wrapper');
     const text = document.createTextNode(this.text);
-    const bodyText = document.createElement('p');
+    const bodyText = createNode('paragraph-body-text', 'p');
 
-    parentNode.appendChild(wrapper);
-    wrapper.appendChild(bodyText);
+    parentNode.appendChild(paragraphWrapper);
+    paragraphWrapper.appendChild(bodyText);
     bodyText.appendChild(text);
   }
 }

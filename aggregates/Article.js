@@ -22,25 +22,23 @@ class Article {
   }
 
   appendTo(parentNode) {
-    const wrapper = document.createElement('div');
-    wrapper.setAttribute('class', 'article-wrapper');
-    
-    parentNode.appendChild(wrapper);
+    const articleWrapper = createNode('article-wrapper');
+    parentNode.appendChild(articleWrapper);
 
     const prevPic = new PreviewImage(this.previewPicture, this.previewImageType());
-    prevPic.appendTo(wrapper);
+    prevPic.appendTo(articleWrapper);
 
     const abstPar = new Paragraph(this.abstract);
-    abstPar.appendTo(wrapper);
+    abstPar.appendTo(articleWrapper);
 
     const title = new Title(this.title);
-    title.appendTo(wrapper);
+    title.appendTo(articleWrapper);
 
-    const bodyWrapper = document.createElement('div');
+    const bodyWrapper = createNode('body-wrapper');
     this.paragraphs.forEach((paragraph) => {
       const body = new Paragraph(paragraph.body);
       body.appendTo(bodyWrapper);
     });
-    wrapper.appendChild(bodyWrapper);
+    articleWrapper.appendChild(bodyWrapper);
   }
 }

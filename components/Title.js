@@ -4,14 +4,11 @@ class Title {
   }
 
   appendTo(parentNode) {
-    const wrapper = document.createElement('div');
-    wrapper.setAttribute('class', 'title-wrapper');
+    const titleWrapper = createNode('title-wrapper');
+    const titleBodyText = createNode('title-body-text', 'h1');
+    titleBodyText.appendChild(document.createTextNode(this.text));
 
-    const text = document.createTextNode(this.text);
-    const bodyText = document.createElement('h1');
-
-    parentNode.appendChild(wrapper);
-    wrapper.appendChild(bodyText);
-    bodyText.appendChild(text);
+    parentNode.appendChild(titleWrapper);
+    titleWrapper.appendChild(titleBodyText);
   }
 }

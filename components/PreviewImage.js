@@ -17,13 +17,11 @@ class PreviewImage {
   }
 
   appendTo(parentNode) {
-    const wrapper = document.createElement("div");
-    wrapper.setAttribute('class', `preview-image-wrapper ${this.wrapperClassByType()}`);
+    const previewImageWrapper = createNode(`preview-image-wrapper ${this.wrapperClassByType()}`)
+    const previewImageImg = createNode('preview-image-img', 'img');
+    previewImageImg.src = this.src;
 
-    const img = document.createElement("img");
-    img.src = this.src;
-
-    parentNode.appendChild(wrapper);
-    wrapper.appendChild(img);
+    parentNode.appendChild(previewImageWrapper);
+    previewImageWrapper.appendChild(previewImageImg);
   }
 }
