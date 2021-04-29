@@ -6,8 +6,9 @@ class Article {
   previewPicture;
   paragraphs;
 
-  constructor(id, relevance, promoted, abstract, previewPicture, paragraphs) {
+  constructor(id, title, relevance, promoted, abstract, previewPicture, paragraphs) {
     this.id = id;
+    this.title = title;
     this.relevance = relevance;
     this.promoted = promoted;
     this.abstract = abstract;
@@ -31,5 +32,15 @@ class Article {
 
     const abstPar = new Paragraph(this.abstract);
     abstPar.appendTo(wrapper);
+
+    const title = new Title(this.title);
+    title.appendTo(wrapper);
+
+    const bodyWrapper = document.createElement('div');
+    this.paragraphs.forEach((paragraph) => {
+      const body = new Paragraph(paragraph.body);
+      body.appendTo(bodyWrapper);
+    });
+    wrapper.appendChild(bodyWrapper);
   }
 }
