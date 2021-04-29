@@ -4,7 +4,7 @@ class Paragraph {
     this.text = text;
   }
 
-  render(parentNode) {
+  appendTo(parentNode) {
     const wrapper = document.createElement('div');
     wrapper.setAttribute('class', 'paragraph-wrapper');
 

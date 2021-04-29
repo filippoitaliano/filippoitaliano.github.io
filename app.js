@@ -45,11 +45,11 @@ const data = {
 window.onload = function() {
   const appRoot = document.getElementById("app");
 
-  data.articles.forEach((article) => {
-    const obj = new Article(article.id, article.relevance, article.promoted, article.abstract, article.previewPicture, article.paragraphs);
-    obj.render(appRoot);
+  data.articles.forEach((articleData) => {
+    const article = new Article(articleData.id, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs);
+    article.appendTo(appRoot);
   });
 
   const link = new Link('ciaone', 'ciaone');
-  link.render(appRoot);
+  link.appendTo(appRoot);
 };

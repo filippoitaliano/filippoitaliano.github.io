@@ -4,7 +4,7 @@ class Link {
     this.text = text;
   }
 
-  render(parentNode) {
+  appendTo(parentNode) {
     const a = document.createElement("a");
     a.href = this.href;
     a.setAttribute('class', 'link-a');
