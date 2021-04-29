@@ -44,16 +44,24 @@ const data = {
 
 window.onload = function() {
   const appRoot = document.getElementById("app");
-
   const gridLayout = new GridLayout();
   gridLayout.appendTo(appRoot);
   const renderedGridLayout = gridLayout.getRenderedChild();
 
-  data.articles.forEach((articleData) => {
-    const article = new Article(articleData.id, articleData.title, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs);
+  if (getLocationHashEntityType() === '#article') {
+    console.log(data.articles);
+    const articleData = data.articles.find((a) => a.id === getLocationHashEntityId())
+    const article = new Article(articleData.id, articleData.title, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs)
     article.appendTo(renderedGridLayout);
-  });
+    const link = new Link('index.html', 'home');
+    link.appendTo(renderedGridLayout);
+  } else {
+    data.articles.forEach((articleData) => {
+      const article = new Article(articleData.id, articleData.title, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs);
+      article.appendTo(renderedGridLayout);
+    });
 
-  const link = new Link('ciaone', 'ciaone');
-  link.appendTo(renderedGridLayout);
+    const link = new Link('#article/b80baaa9-1b0e-490c-8dd1-ab87e66e7a68', 'article');
+    link.appendTo(renderedGridLayout);
+  }
 };
