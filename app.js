@@ -43,25 +43,33 @@ const data = {
 };
 
 window.onload = function() {
-  const appRoot = document.getElementById("app");
+  window.addEventListener("hashchange", renderContent);
+  renderContent();
+};
+
+const renderContent = () => {
+  const root = document.getElementById("app");
+  root.innerHTML = null;
   const gridLayout = new GridLayout();
-  gridLayout.appendTo(appRoot);
+  gridLayout.appendTo(root);
   const renderedGridLayout = gridLayout.getRenderedChild();
 
-  if (getLocationHashEntityType() === '#article') {
-    console.log(data.articles);
-    const articleData = data.articles.find((a) => a.id === getLocationHashEntityId())
-    const article = new Article(articleData.id, articleData.title, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs)
-    article.appendTo(renderedGridLayout);
-    const link = new Link('index.html', 'home');
-    link.appendTo(renderedGridLayout);
-  } else {
-    data.articles.forEach((articleData) => {
-      const article = new Article(articleData.id, articleData.title, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs);
+  switch(getLocationHashEntityType()) {
+    case '#article': {
+      const articleData = data.articles.find((a) => a.id === getLocationHashEntityId())
+      const article = new Article(articleData.id, articleData.title, articleData.relevance, true, articleData.abstract, articleData.previewPicture, articleData.paragraphs)
       article.appendTo(renderedGridLayout);
-    });
-
-    const link = new Link('#article/b80baaa9-1b0e-490c-8dd1-ab87e66e7a68', 'article');
-    link.appendTo(renderedGridLayout);
+      const link = new Link('index.html', 'home');
+      link.appendTo(renderedGridLayout);
+      break;
+    }
+    default: {
+      data.articles.forEach((articleData) => {
+        const article = new Article(articleData.id, articleData.title, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs);
+        article.appendTo(renderedGridLayout);
+      });
+      const link = new Link('#article/d4823511-b688-4972-9956-25c0e3ef7130', 'React Redux Article');
+      link.appendTo(renderedGridLayout);
+    }
   }
-};
+}
