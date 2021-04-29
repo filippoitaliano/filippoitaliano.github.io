@@ -45,11 +45,15 @@ const data = {
 window.onload = function() {
   const appRoot = document.getElementById("app");
 
+  const gridLayout = new GridLayout();
+  gridLayout.appendTo(appRoot);
+  const renderedGridLayout = gridLayout.getRenderedChild();
+
   data.articles.forEach((articleData) => {
     const article = new Article(articleData.id, articleData.title, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs);
-    article.appendTo(appRoot);
+    article.appendTo(renderedGridLayout);
   });
 
   const link = new Link('ciaone', 'ciaone');
-  link.appendTo(appRoot);
+  link.appendTo(renderedGridLayout);
 };

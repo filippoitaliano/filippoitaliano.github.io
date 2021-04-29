@@ -21,8 +21,13 @@ class Article {
     return PreviewImage.TYPE.normal;
   }
 
+  articleClassName() {
+    if (this.promoted) return 'promoted-article-wrapper';
+    return 'article-wrapper';
+  }
+
   appendTo(parentNode) {
-    const articleWrapper = createNode('article-wrapper');
+    const articleWrapper = createNode(`${this.articleClassName()} grid-layout-wrapper`);
     parentNode.appendChild(articleWrapper);
 
     const prevPic = new PreviewImage(this.previewPicture, this.previewImageType());
@@ -31,14 +36,16 @@ class Article {
     const abstPar = new Paragraph(this.abstract);
     abstPar.appendTo(articleWrapper);
 
-    const title = new Title(this.title);
-    title.appendTo(articleWrapper);
+    if (this.promoted) {
+      const title = new Title(this.title);
+      title.appendTo(articleWrapper);
 
-    const bodyWrapper = createNode('body-wrapper');
-    this.paragraphs.forEach((paragraph) => {
-      const body = new Paragraph(paragraph.body);
-      body.appendTo(bodyWrapper);
-    });
-    articleWrapper.appendChild(bodyWrapper);
+      const bodyWrapper = createNode('body-wrapper');
+      this.paragraphs.forEach((paragraph) => {
+        const body = new Paragraph(paragraph.body);
+        body.appendTo(bodyWrapper);
+      });
+      articleWrapper.appendChild(bodyWrapper);
+    }
   }
 }

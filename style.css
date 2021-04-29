@@ -3,6 +3,11 @@
   src: url('media/Objectivity-Light.woff');
 }
 
+@font-face {
+  font-family: 'Objectivity-Bold';
+  src: url('media/Objectivity-Bold.woff');
+}
+
 body {
   font-family: 'Objectivity-Light', sans-serif;
 }
@@ -36,10 +41,30 @@ body {
   font-size: 20px;
 }
 
-.article-wrapper {
-  margin: 20px;
+.article-wrapper, .promoted-article-wrapper {
+  grid-column-start: 2;
+  grid-column-end: 6;
   display: grid;
-  grid-template-columns: 20% 80%;
+}
+
+.promoted-article-wrapper .paragraph-wrapper {
+  grid-column-start: 3;
+  grid-column-end: 7;
+}
+
+.promoted-article-wrapper .title-wrapper {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+
+.promoted-article-wrapper .body-wrapper {
+  grid-column-start: 1;
+  grid-column-end: 7;
+}
+
+.article-wrapper .paragraph-wrapper {
+  grid-column-start: 2;
+  grid-column-end: 5;
 }
 
 .link-a {
@@ -49,4 +74,15 @@ body {
 
 .link-arrow-span {
   margin-right: 10px;
+}
+
+.grid-layout-wrapper {
+  display: grid;
+  grid-template-columns: 16% 16% 16% 16% 16% 16% ;
+}
+
+.title-wrapper .title-body-text {
+  font-family: 'Objectivity-Bold', sans-serif;
+  font-size: 72px;
+  margin-bottom: 0px;
 }
