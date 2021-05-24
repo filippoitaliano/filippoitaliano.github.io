@@ -1,9 +1,13 @@
 window.onload = function() {
-  window.addEventListener("hashchange", renderContent);
-  renderContent();
+  get('http://$$$/articles', (articles) => {
+    if (articles) {
+      window.addEventListener("hashchange", renderContent);
+      renderContent(articles);
+    }
+  });
 };
 
-const renderContent = () => {
+const renderContent = (data) => {
   const root = document.getElementById("app");
   root.innerHTML = null;
   const gridLayout = new GridLayout();
