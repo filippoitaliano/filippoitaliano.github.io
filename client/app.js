@@ -1,14 +1,14 @@
 window.onload = function() {
-  get('http://filippoitaliano.hopto.org/articles', (data) => {
-    if (data) {
-      renderContent(data);
+  get('http://filippoitaliano.hopto.org/articles', (articles) => {
+    if (articles) {
+      renderContent(articles);
       // Routing is emulated using location hash, hashchange is the main routing event
-      window.addEventListener("hashchange", () => renderContent(data));
+      window.addEventListener("hashchange", () => renderContent(articles));
     }
   });
 };
 
-const renderContent = (data) => {
+const renderContent = (articles) => {
   const root = document.getElementById("app");
   clearNodeContent(root);
 
@@ -25,14 +25,14 @@ const renderContent = (data) => {
     case '#article': {
       const link = new Link('index.html', 'home');
       link.appendTo(renderedGridLayout);
-      const articleData = data.articles.find((a) => a.id === getLocationHashEntityId())
+      const articleData = articles.find((a) => a.id === getLocationHashEntityId())
       const article = new Article(articleData, true)
       article.appendTo(renderedGridLayout);
       break;
     }
 
     default: {
-      data.articles.forEach((articleData) => {
+      articles.forEach((articleData) => {
         const article = new Article(articleData);
         article.appendTo(renderedGridLayout);
       });
