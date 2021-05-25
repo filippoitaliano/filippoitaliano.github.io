@@ -1,5 +1,5 @@
 window.onload = function() {
-  get('http://$$$/articles', (articles) => {
+  get('http://filippoitaliano.hopto.org/articles', (articles) => {
     if (articles) {
       window.addEventListener("hashchange", renderContent);
       renderContent(articles);
