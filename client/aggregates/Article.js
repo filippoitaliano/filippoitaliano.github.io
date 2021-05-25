@@ -1,13 +1,13 @@
 class Article {
 
-  constructor(articleData = { id, title, relevance, promoted, abstract, previewPicture, paragraphs }, displayAll) {
+  constructor(articleData = { id, title, relevance, promoted, abstract, previewPicture, body }, displayAll) {
     this.id = articleData.id;
     this.title = articleData.title;
     this.relevance = articleData.relevance;
     this.promoted = articleData.promoted;
     this.abstract = articleData.abstract;
     this.previewPicture = articleData.previewPicture;
-    this.paragraphs = articleData.paragraphs;
+    this.body = articleData.body;
     this.displayAll = displayAll;
   }
 
@@ -45,9 +45,12 @@ class Article {
       title.appendTo(articleWrapper);
 
       const bodyWrapper = createNode('body-wrapper');
-      this.paragraphs.forEach((paragraph) => {
-        const body = new Paragraph(paragraph.body);
-        body.appendTo(bodyWrapper);
+      this.body.forEach((element) => {
+        switch(element.type) {
+          case 'p':
+            const p = new Paragraph(element.content);
+            p.appendTo(bodyWrapper);   
+        }
       });
       articleWrapper.appendChild(bodyWrapper);
     }

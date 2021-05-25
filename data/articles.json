@@ -6,9 +6,10 @@
     "title": "Sed maptis facilisis nibh sodales",
     "abstract": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
     "previewPicture": "../data/placeholder.jpg",
-    "paragraphs": [
+    "body": [
       {
-        "body": "Integer tristique dui dolor. Integer dolor nisl, scelerisque quis blandit in, imperdiet fringilla leo. Fusce eu leo ac ex posuere viverra. Vivamus quis auctor nisi. Praesent vitae risus et augue scelerisque pulvinar ut at lorem. In hac habitasse platea dictumst. Donec eget lectus viverra, sagittis urna eu, malesuada quam. Etiam dui velit, euismod pellentesque malesuada non, vehicula sed nibh."
+        "type": "p",
+        "content": "Integer tristique dui dolor. Integer dolor nisl, scelerisque quis blandit in, imperdiet fringilla leo. Fusce eu leo ac ex posuere viverra. Vivamus quis auctor nisi. Praesent vitae risus et augue scelerisque pulvinar ut at lorem. In hac habitasse platea dictumst. Donec eget lectus viverra, sagittis urna eu, malesuada quam. Etiam dui velit, euismod pellentesque malesuada non, vehicula sed nibh."
       }
     ]
   },
@@ -19,9 +20,10 @@
     "title": "Integer tristique dui dolor",
     "abstract": "Integer tristique dui dolor. Integer dolor nisl, scelerisque quis blandit in, imperdiet fringilla leo. Fusce eu leo ac ex posuere viverra.",
     "previewPicture": "../data/placeholder.jpg",
-    "paragraphs": [
+    "body": [
       {
-        "body": "Morbi posuere rutrum elit. Integer et enim sagittis, molestie neque a, ultricies nunc. Proin a nisi quam. Nam sed aliquam neque, eu gravida mi. Suspendisse potenti. Vivamus et volutpat libero, a aliquam nisi. Vivamus congue mattis purus vitae ultrices. Proin eu aliquet sapien."
+        "type": "p",
+        "content": "Morbi posuere rutrum elit. Integer et enim sagittis, molestie neque a, ultricies nunc. Proin a nisi quam. Nam sed aliquam neque, eu gravida mi. Suspendisse potenti. Vivamus et volutpat libero, a aliquam nisi. Vivamus congue mattis purus vitae ultrices. Proin eu aliquet sapien."
       }
     ]
   },
@@ -32,9 +34,10 @@
     "title": "Aenean quis dolor dui.",
     "abstract": "Curabitur at feugiat tellus, fringilla semper neque. Nunc pulvinar purus feugiat eros consectetur imperdiet.",
     "previewPicture": "../data/placeholder.jpg",
-    "paragraphs": [
+    "body": [
       {
-        "body": "Pellentesque nunc nulla, sollicitudin vel tortor quis, laoreet volutpat elit. Nunc viverra commodo metus, a semper risus pretium vel. Aenean ultrices, leo in consequat bibendum, velit lacus tristique neque, sed tempor augue tortor rutrum lacus. Quisque malesuada non magna nec efficitur. In mi neque, congue vitae egestas ut, interdum eget odio. Phasellus a aliquam ipsum, quis tincidunt enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec enim tortor, tincidunt at eleifend at, feugiat a nisi. Ut ut tortor viverra, cursus tortor vehicula, viverra mauris. Sed elementum, augue sollicitudin tempus sagittis, mi sem elementum urna, nec laoreet est libero ut ligula. Integer eu est libero. Nam feugiat ut est sit amet imperdiet. Praesent vitae cursus orci, a tristique ante. Donec et placerat tortor, vel iaculis est."
+        "type": "p",
+        "content": "Pellentesque nunc nulla, sollicitudin vel tortor quis, laoreet volutpat elit. Nunc viverra commodo metus, a semper risus pretium vel. Aenean ultrices, leo in consequat bibendum, velit lacus tristique neque, sed tempor augue tortor rutrum lacus. Quisque malesuada non magna nec efficitur. In mi neque, congue vitae egestas ut, interdum eget odio. Phasellus a aliquam ipsum, quis tincidunt enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec enim tortor, tincidunt at eleifend at, feugiat a nisi. Ut ut tortor viverra, cursus tortor vehicula, viverra mauris. Sed elementum, augue sollicitudin tempus sagittis, mi sem elementum urna, nec laoreet est libero ut ligula. Integer eu est libero. Nam feugiat ut est sit amet imperdiet. Praesent vitae cursus orci, a tristique ante. Donec et placerat tortor, vel iaculis est."
       }
     ]
   }
