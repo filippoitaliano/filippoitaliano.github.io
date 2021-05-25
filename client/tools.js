@@ -2,15 +2,19 @@ const createNode = (className, elementType = 'div') => {
   const node = document.createElement(elementType);
   node.setAttribute('class', className);
   return node;
-}
+};
+
+const clearNodeContent = (node) => {
+  node.innerHTML = null;
+};
 
 const getLocationHashEntityType = () => {
   return location.hash.split('/')[0];
-}
+};
 
-const getLocationHashEntityId = (locationHash) => {
+const getLocationHashEntityId = () => {
   return location.hash.split('/')[1];
-}
+};
 
 const get = async (url, callback) => {
   const xhr = new XMLHttpRequest();
@@ -25,4 +29,4 @@ const get = async (url, callback) => {
       }
     }
   }
-}
+};
