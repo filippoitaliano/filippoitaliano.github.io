@@ -17,6 +17,8 @@ const renderContent = (data) => {
   gridLayout.appendTo(root);
   const renderedGridLayout = gridLayout.getRenderedChild();
 
+  Topbar.appendTo(renderedGridLayout);
+
   // This is the router, casing by entity type
   switch(getLocationHashEntityType()) {
 

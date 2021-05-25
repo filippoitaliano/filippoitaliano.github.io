@@ -82,7 +82,8 @@ body {
 
 .grid-layout-wrapper {
   display: grid;
-  grid-template-columns: 16% 16% 16% 16% 16% 16%;
+  width: 100%;
+  grid-template-columns: repeat(6, 1fr);
   grid-row-gap: 30px;
 }
 
@@ -90,4 +91,31 @@ body {
   font-family: 'Objectivity-Bold', sans-serif;
   font-size: 72px;
   margin-bottom: 0px;
+}
+
+.topbar-wrapper {
+  background-color: whitesmoke;
+  grid-column-start: 1;
+  grid-column-end: 7;
+  height: 80px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: center;
+}
+
+.topbar-title {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  font-size: 35px;
+}
+
+.topbar-nav {
+  grid-column-start: 4;
+  grid-column-end: 7;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.topbar-nav-element {
+
 }
