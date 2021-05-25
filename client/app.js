@@ -4,6 +4,8 @@ window.onload = function() {
       renderContent(articles);
       // Routing is emulated using location hash, hashchange is the main routing event
       window.addEventListener("hashchange", () => renderContent(articles));
+    } else {
+      renderFallback();
     }
   });
 };
@@ -12,7 +14,7 @@ const renderContent = (articles) => {
   const root = document.getElementById("app");
   clearNodeContent(root);
 
-  // TODO: I don't like GridLayout API
+  // TODO: I don't like GridLayout API neither the css implementation
   const gridLayout = new GridLayout();
   gridLayout.appendTo(root);
   const renderedGridLayout = gridLayout.getRenderedChild();
@@ -39,4 +41,15 @@ const renderContent = (articles) => {
     }
 
   }
-}
+};
+
+const renderFallback = () => {
+  const root = document.getElementById("app");
+  clearNodeContent(root);
+
+  const wrapper = createNode('fallback-wrapper');
+  root.appendChild(wrapper);
+
+  const title = new Title('The server is down for a moment 😿');
+  title.appendTo(wrapper);
+};

@@ -134,6 +134,13 @@ body {
   column-gap: 60px;
 }
 
-.topbar-nav-element {
+.topbar-nav-element {}
 
+.fallback-wrapper {
+  display: grid;
+  justify-content: center;
+}
+
+.fallback-wrapper .title-wrapper h1 {
+  font-size: 40px;
 }

@@ -18,6 +18,7 @@ const getLocationHashEntityId = () => {
 
 const get = async (url, callback) => {
   const xhr = new XMLHttpRequest();
+  xhr.timeout = 500;
   xhr.open('GET', url);
   xhr.send();
   xhr.onreadystatechange = function() { 
@@ -28,5 +29,6 @@ const get = async (url, callback) => {
         callback(null);
       }
     }
+    else callback(null);
   }
 };
