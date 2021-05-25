@@ -39,20 +39,30 @@ class Article {
     const link = new Link(`#article/${this.id}`, 'leggi tutto');
     link.appendTo(abstractWrapper);
 
-    // TODO: show only first paragraph without media if promoted
     if (this.promoted || this.displayAll) {
       const title = new Title(this.title);
       title.appendTo(articleWrapper);
 
-      const bodyWrapper = createNode('body-wrapper');
-      this.body.forEach((element) => {
-        switch(element.type) {
-          case 'p':
-            const p = new Paragraph(element.content);
-            p.appendTo(bodyWrapper);   
+      if (this.body.length > 0) {
+        const bodyWrapper = createNode('body-wrapper');
+
+        if (this.displayAll) {
+          this.body.forEach((element) => {
+            switch(element.type) {
+              case 'p':
+                const p = new Paragraph(element.content);
+                p.appendTo(bodyWrapper);   
+            }
+          });
+        } else {
+          const firstParagrah = this.body.find((element) => element.type === 'p');
+          if (firstParagrah) {
+            const p = new Paragraph(firstParagrah.content);
+            p.appendTo(bodyWrapper);  
+          }
         }
-      });
-      articleWrapper.appendChild(bodyWrapper);
+        articleWrapper.appendChild(bodyWrapper);
+      }
     }
   }
 
