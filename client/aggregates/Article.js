@@ -1,6 +1,6 @@
 class Article {
 
-  constructor(articleData = { id, title, relevance, promoted, abstract, previewPicture, body }, displayAll) {
+  constructor(articleData = { id, title, relevance, promoted, abstract, previewPicture, body }, fullContent) {
     this.id = articleData.id;
     this.title = articleData.title;
     this.relevance = articleData.relevance;
@@ -8,18 +8,17 @@ class Article {
     this.abstract = articleData.abstract;
     this.previewPicture = articleData.previewPicture;
     this.body = articleData.body;
-    this.displayAll = displayAll;
+    this.fullContent = fullContent;
   }
 
   previewImageType() {
-    if (this.promoted) return PreviewImage.TYPE.promoted;
-    return PreviewImage.TYPE.normal;
+    if (this.fullContent || this.promoted) return PreviewImage.TYPE.normal;
+    return PreviewImage.TYPE.small;
   }
 
   articleClassName() {
-    // TODO: bad className or two different cases
-    if (this.promoted || this.displayAll) return 'promoted-article-wrapper';
-    return 'article-wrapper';
+    if (this.fullContent || this.promoted) return 'article-wrapper';
+    return 'article-preview-wrapper';
   }
 
   appendTo(parentNode) {
@@ -39,14 +38,14 @@ class Article {
     const link = new Link(`#article/${this.id}`, 'leggi tutto');
     link.appendTo(abstractWrapper);
 
-    if (this.promoted || this.displayAll) {
+    if (this.fullContent || this.promoted) {
       const title = new Title(this.title);
       title.appendTo(articleWrapper);
 
       if (this.body.length > 0) {
         const bodyWrapper = createNode('body-wrapper');
 
-        if (this.displayAll) {
+        if (this.fullContent) {
           this.body.forEach((element) => {
             switch(element.type) {
               case 'p':

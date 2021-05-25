@@ -5,15 +5,15 @@ class PreviewImage {
   };
 
   constructor(url, type) {
-    this.type = type || PreviewImage.TYPE.normal;
+    this.type = type || PreviewImage.TYPE.small;
     this.src = url;
   }
 
   wrapperClassByType() {
-    if (this.type === PreviewImage.TYPE.normal) {
-      return 'preview-image-normal-wrapper';
+    if (this.type === PreviewImage.TYPE.small) {
+      return 'small-preview-image-wrapper';
     }
-    return 'preview-image-promoted-wrapper';
+    return 'preview-image-wrapper';
   }
 
   appendTo(parentNode) {

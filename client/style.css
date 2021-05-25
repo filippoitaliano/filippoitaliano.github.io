@@ -12,13 +12,13 @@ body {
   font-family: 'Objectivity-Light', sans-serif;
 }
 
-.preview-image-wrapper {
+.preview-image-wrapper, .small-preview-image-wrapper {
   border-radius: 50%;
   overflow: hidden;
   position: relative;
 }
 
-.preview-image-wrapper img {
+.preview-image-wrapper img, .small-preview-image-wrapper img {
   display: block;
   position: absolute;
   top: 0;
@@ -26,12 +26,12 @@ body {
   width: 100%;
 }
 
-.preview-image-promoted-wrapper {
+.preview-image-wrapper {
   width: 260px;
   height: 260px;
 }
 
-.preview-image-normal-wrapper {
+.small-preview-image-wrapper {
   width: 80px;
   height: 80px;
   border: 5px solid #707070;
@@ -41,28 +41,40 @@ body {
   font-size: 20px;
 }
 
-.article-wrapper, .promoted-article-wrapper {
+.article-preview-wrapper {
+  margin: 20px;
   grid-column-start: 2;
   grid-column-end: 6;
   display: grid;
+  align-items: center;
+  justify-items: center;
 }
 
-.promoted-article-wrapper .abstract-wrapper {
+.article-wrapper {
+  grid-column-start: 2;
+  grid-column-end: 6;
+  display: grid;
+  align-items: center;
+}
+
+.article-wrapper .abstract-wrapper {
   grid-column-start: 3;
   grid-column-end: 7;
 }
 
-.promoted-article-wrapper .title-wrapper {
+.article-wrapper .title-wrapper {
   grid-column-start: 1;
   grid-column-end: 5;
+  margin-top: 30px;
 }
 
-.promoted-article-wrapper .body-wrapper {
+.article-wrapper .body-wrapper {
   grid-column-start: 1;
   grid-column-end: 7;
+  margin-bottom: 30px;
 }
 
-.article-wrapper .abstract-wrapper {
+.article-preview-wrapper .abstract-wrapper {
   grid-column-start: 2;
   grid-column-end: 5;
 }
@@ -84,7 +96,6 @@ body {
   display: grid;
   width: 100%;
   grid-template-columns: repeat(6, 1fr);
-  grid-row-gap: 30px;
 }
 
 .title-wrapper .title-body-text {
@@ -94,13 +105,13 @@ body {
 }
 
 .topbar-wrapper {
-  background-color: whitesmoke;
   grid-column-start: 1;
   grid-column-end: 7;
   height: 80px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .topbar-title {
