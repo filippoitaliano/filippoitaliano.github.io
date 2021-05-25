@@ -1,19 +1,14 @@
 class Article {
-  id;
-  relevance;
-  promoted;
-  abstract;
-  previewPicture;
-  paragraphs;
 
-  constructor(id, title, relevance, promoted, abstract, previewPicture, paragraphs) {
-    this.id = id;
-    this.title = title;
-    this.relevance = relevance;
-    this.promoted = promoted;
-    this.abstract = abstract;
-    this.previewPicture = previewPicture;
-    this.paragraphs = paragraphs;
+  constructor(articleData = { id, title, relevance, promoted, abstract, previewPicture, paragraphs }, displayAll) {
+    this.id = articleData.id;
+    this.title = articleData.title;
+    this.relevance = articleData.relevance;
+    this.promoted = articleData.promoted;
+    this.abstract = articleData.abstract;
+    this.previewPicture = articleData.previewPicture;
+    this.paragraphs = articleData.paragraphs;
+    this.displayAll = displayAll;
   }
 
   previewImageType() {
@@ -22,7 +17,8 @@ class Article {
   }
 
   articleClassName() {
-    if (this.promoted) return 'promoted-article-wrapper';
+    // TODO: bad className or two different cases
+    if (this.promoted || this.displayAll) return 'promoted-article-wrapper';
     return 'article-wrapper';
   }
 
@@ -39,10 +35,12 @@ class Article {
     const abstPar = new Paragraph(this.abstract);
     abstPar.appendTo(abstractWrapper);
 
+    // TODO: link at the end of the first paragraph if promoted
     const link = new Link(`#article/${this.id}`, 'leggi tutto');
     link.appendTo(abstractWrapper);
 
-    if (this.promoted) {
+    // TODO: show only first paragraph without media if promoted
+    if (this.promoted || this.displayAll) {
       const title = new Title(this.title);
       title.appendTo(articleWrapper);
 
@@ -54,4 +52,5 @@ class Article {
       articleWrapper.appendChild(bodyWrapper);
     }
   }
+
 }

@@ -12,9 +12,9 @@ const renderContent = (data) => {
   const root = document.getElementById("app");
   clearNodeContent(root);
 
+  // TODO: I don't like GridLayout API
   const gridLayout = new GridLayout();
   gridLayout.appendTo(root);
-
   const renderedGridLayout = gridLayout.getRenderedChild();
 
   // This is the router, casing by entity type
@@ -24,14 +24,14 @@ const renderContent = (data) => {
       const link = new Link('index.html', 'home');
       link.appendTo(renderedGridLayout);
       const articleData = data.articles.find((a) => a.id === getLocationHashEntityId())
-      const article = new Article(articleData.id, articleData.title, articleData.relevance, true, articleData.abstract, articleData.previewPicture, articleData.paragraphs)
+      const article = new Article(articleData, true)
       article.appendTo(renderedGridLayout);
       break;
     }
 
     default: {
       data.articles.forEach((articleData) => {
-        const article = new Article(articleData.id, articleData.title, articleData.relevance, articleData.promoted, articleData.abstract, articleData.previewPicture, articleData.paragraphs);
+        const article = new Article(articleData);
         article.appendTo(renderedGridLayout);
       });
     }
