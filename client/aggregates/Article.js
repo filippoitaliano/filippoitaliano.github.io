@@ -25,8 +25,10 @@ class Article {
     const articleWrapper = createNode(`${this.articleClassName()} grid-layout-wrapper`);
     parentNode.appendChild(articleWrapper);
 
+    const previewImageWrapper = createNode('article-preview-image-wrapper');
+    articleWrapper.appendChild(previewImageWrapper);
     const prevPic = new PreviewImage(this.previewPicture, this.previewImageType());
-    prevPic.appendTo(articleWrapper);
+    prevPic.appendTo(previewImageWrapper);
 
     const abstractWrapper = createNode('abstract-wrapper');
     articleWrapper.appendChild(abstractWrapper);
