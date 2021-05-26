@@ -17,8 +17,8 @@ class Article {
   }
 
   articleClassName() {
-    if (this.fullContent || this.promoted) return 'article-wrapper';
-    return 'article-preview-wrapper';
+    if (this.fullContent || this.promoted) return 'six-columns-grid-container article-wrapper';
+    return 'six-columns-grid-container article-preview-wrapper';
   }
 
   appendTo(parentNode) {

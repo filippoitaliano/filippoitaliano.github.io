@@ -15,29 +15,24 @@ const renderContent = (articles) => {
   const root = document.getElementById("app");
   clearNodeContent(root);
 
-  // TODO: I don't like GridLayout API neither the css implementation
-  const gridLayout = new GridLayout();
-  gridLayout.appendTo(root);
-  const renderedGridLayout = gridLayout.getRenderedChild();
-
-  Topbar.appendTo(renderedGridLayout);
+  Topbar.appendTo(root);
 
   // This is the router, casing by entity type
   switch(getLocationHashEntityType()) {
 
     case '#article': {
       const link = new Link('index.html', 'home');
-      link.appendTo(renderedGridLayout);
+      link.appendTo(root);
       const articleData = articles.find((a) => a.id === getLocationHashEntityId())
       const article = new Article(articleData, true)
-      article.appendTo(renderedGridLayout);
+      article.appendTo(root);
       break;
     }
 
     default: {
       articles.forEach((articleData) => {
         const article = new Article(articleData);
-        article.appendTo(renderedGridLayout);
+        article.appendTo(root);
       });
     }
 

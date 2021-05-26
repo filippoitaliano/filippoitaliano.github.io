@@ -11,6 +11,16 @@
 body {
   font-family: 'Objectivity-Light', sans-serif;
   background-color: #f3ece3;
+  margin: 0;
+}
+
+.six-columns-grid-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  column-gap: 60px;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
 .preview-image-wrapper, .small-preview-image-wrapper {
@@ -22,9 +32,9 @@ body {
 .preview-image-wrapper img, .small-preview-image-wrapper img {
   display: block;
   position: absolute;
+  width: 100%;
   top: 0;
   left: 0;
-  width: 100%;
 }
 
 .preview-image-wrapper {
@@ -35,7 +45,6 @@ body {
 .small-preview-image-wrapper {
   width: 100px;
   height: 100px;
-  /* border: 5px solid #707070; */
 }
 
 .paragraph-wrapper p {
@@ -43,18 +52,12 @@ body {
 }
 
 .article-preview-wrapper {
-  margin-top: 20px;
   justify-items: center;
 }
 
 .article-wrapper, .article-preview-wrapper {
   grid-column-start: 1;
   grid-column-end: 7;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  column-gap: 60px;
-  align-items: center;
 }
 
 .article-wrapper .article-preview-image-wrapper, .article-preview-wrapper .article-preview-image-wrapper {
@@ -70,13 +73,11 @@ body {
 .article-wrapper .title-wrapper {
   grid-column-start: 2;
   grid-column-end: 5;
-  margin-top: 30px;
 }
 
 .article-wrapper .body-wrapper {
   grid-column-start: 2;
   grid-column-end: 6;
-  margin-bottom: 30px;
 }
 
 .article-preview-wrapper .abstract-wrapper {
@@ -97,28 +98,18 @@ body {
   margin-right: 10px;
 }
 
-.grid-layout-wrapper {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(6, 1fr);
-  column-gap: 60px;
-}
-
 .title-wrapper .title-body-text {
   font-family: 'Objectivity-Bold', sans-serif;
   font-size: 72px;
   margin-bottom: 0px;
+  margin-top: 60px;
 }
 
 .topbar-wrapper {
   grid-column-start: 1;
   grid-column-end: 7;
   height: 80px;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  column-gap: 60px;
   align-items: center;
-  margin-bottom: 30px;
 }
 
 .topbar-title {
@@ -130,9 +121,7 @@ body {
 .topbar-nav {
   grid-column-start: 4;
   grid-column-end: 7;
-  display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 60px;
 }
 
 .topbar-nav-element {}

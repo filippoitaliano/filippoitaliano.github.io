@@ -1,7 +1,7 @@
 class Topbar {
 
   static appendTo(parentNode) {
-    const topbarWrapper = createNode('topbar-wrapper');
+    const topbarWrapper = createNode('six-columns-grid-container topbar-wrapper');
     parentNode.appendChild(topbarWrapper);
 
     const topbarTitle = createNode('topbar-title');
