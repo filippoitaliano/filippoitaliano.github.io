@@ -10,6 +10,7 @@
 
 body {
   font-family: 'Objectivity-Light', sans-serif;
+  background-color: #f3ece3;
 }
 
 .preview-image-wrapper, .small-preview-image-wrapper {
@@ -32,9 +33,9 @@ body {
 }
 
 .small-preview-image-wrapper {
-  width: 80px;
-  height: 80px;
-  border: 5px solid #707070;
+  width: 100px;
+  height: 100px;
+  /* border: 5px solid #707070; */
 }
 
 .paragraph-wrapper p {
