@@ -21,11 +21,13 @@ const encodeBase64 = (path) => `data:image/jpg;base64, ${fs.readFileSync(path, {
 const articles = fs.readFileSync('../data/articles.json');
 
 const server = https.createServer(OPTIONS, (request, response) => {
-  const { origin } = request.headers;
-  if (ALLOWED_ORIGINS.includes(origin)) {
-    response.setHeader('Access-Control-Allow-Origin', origin);
-    response.setHeader('Vary', 'Origin');
-  }
+  // const { origin } = request.headers;
+  // if (ALLOWED_ORIGINS.includes(origin)) {
+  //   response.setHeader('Access-Control-Allow-Origin', origin);
+  //   response.setHeader('Vary', 'Origin');
+  // }
+
+  response.setHeader('Access-Control-Allow-Origin', '*');
 
   const parsedUrl = url.parse(request.url, true);
 
