@@ -1,5 +1,5 @@
 window.onload = function() {
-  get('http://filippoitaliano.hopto.org/articles', (articles) => {
+  get('https://www.wholejs.com/articles', (articles) => {
     if (articles) {
       renderContent(articles);
       // Routing is emulated using location hash, hashchange is the main routing event

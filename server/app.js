@@ -1,16 +1,22 @@
-const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const url = require('url');
 
 const hostname = '0.0.0.0';
-const port = 80;
+const port = 443;
+
+const options = {
+  ca: fs.readFileSync('./free.ca'),
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem')
+};
 
 const encodeBase64 = (path) => fs.readFileSync(path, { encoding: 'base64' });
 
 const articles = fs.readFileSync('../data/articles.json');
 
-const server = http.createServer((request, response) => {
-  response.setHeader('Access-Control-Allow-Origin', '*');
+const server = https.createServer(options, (request, response) => {
+  response.setHeader('Access-Control-Allow-Origin', 'https://www.wholejs.com');
 
   const parsedUrl = url.parse(request.url, true);
 
