@@ -37,7 +37,7 @@ class Article {
     abstPar.appendTo(abstractWrapper);
 
     // TODO: link at the end of the first paragraph if promoted
-    const link = new Link(`#article/${this.id}`, 'leggi tutto');
+    const link = new ArrowLink(`#article/${this.id}`, 'leggi tutto');
     link.appendTo(abstractWrapper);
 
     if (this.fullContent || this.promoted) {

@@ -21,8 +21,6 @@ const renderContent = (articles) => {
   switch(getLocationHashEntityType()) {
 
     case '#article': {
-      const link = new Link('index.html', 'home');
-      link.appendTo(root);
       const articleData = articles.find((a) => a.id === getLocationHashEntityId())
       const article = new Article(articleData, true)
       article.appendTo(root);
