@@ -22,13 +22,14 @@ const get = async (url, callback) => {
   xhr.open('GET', url);
   xhr.send();
   xhr.onreadystatechange = function() { 
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      try {
-        callback(JSON.parse(xhr.responseText));
-      } catch (error) {
-        callback(null);
-      }
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        try {
+          callback(JSON.parse(xhr.responseText));
+        } catch (error) {
+          callback(null);
+        }
+      } else callback(null);
     }
-    else callback(null);
   }
 };

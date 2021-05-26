@@ -1,11 +1,12 @@
 window.onload = function() {
+  renderLoader()
   get('https://www.wholejs.com/articles', (articles) => {
     if (articles) {
-      renderContent(articles);
+      setTimeout(() => renderContent(articles), 200);
       // Routing is emulated using location hash, hashchange is the main routing event
       window.addEventListener("hashchange", () => renderContent(articles));
     } else {
-      renderFallback();
+      setTimeout(renderFallback, 200);
     }
   });
 };
@@ -53,3 +54,14 @@ const renderFallback = () => {
   const title = new Title('The server is down for a moment 😿');
   title.appendTo(wrapper);
 };
+
+const renderLoader = () => {
+  const root = document.getElementById("app");
+  clearNodeContent(root);
+
+  const wrapper = createNode('fallback-wrapper');
+  root.appendChild(wrapper);
+
+  const title = new Title('⏳');
+  title.appendTo(wrapper);
+}
