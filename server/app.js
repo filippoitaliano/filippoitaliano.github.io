@@ -16,7 +16,7 @@ const OPTIONS = {
   cert: fs.readFileSync('./cert.pem')
 };
 
-const encodeBase64 = (path) => fs.readFileSync(path, { encoding: 'base64' });
+const encodeBase64 = (path) => `data:image/jpg;base64, ${fs.readFileSync(path, { encoding: 'base64' })}`;
 
 const articles = fs.readFileSync('../data/articles.json');
 
@@ -32,10 +32,11 @@ const server = https.createServer(OPTIONS, (request, response) => {
   if (parsedUrl.pathname === '/articles' && request.method == 'GET') {
     response.statusCode = 200;
     response.setHeader('Content-type', 'application/json');
-    JSON.parse(articles).forEach((article) => {
-      article.previewPicture = encodeBase64(article.previewPicture);
-    });
-    response.end(articles);
+    const parsed = JSON.parse(articles).map((article) => ({
+      ...article,
+      previewPicture: encodeBase64(article.previewPicture),
+    }));
+    response.end(JSON.stringify(parsed));
   }
 
 });
