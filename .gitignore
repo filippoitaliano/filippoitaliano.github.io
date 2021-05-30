@@ -1,4 +1,4 @@
 *.pem
 *.bat
 *.ca
-data/generic.log
+*.log
