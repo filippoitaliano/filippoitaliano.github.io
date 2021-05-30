@@ -20,6 +20,20 @@ const encodeBase64 = (path) => `data:image/jpg;base64, ${fs.readFileSync(path, {
 
 const articles = fs.readFileSync('../data/articles.json');
 
+const updateCounter = () => {
+  const logPath = '../data/generic.log';
+  let log;
+  try {
+    log = JSON.parse(fs.readFileSync(logPath));
+  } catch (error) {
+    log = { counter: 0 };
+  }
+
+  log.counter += 1;
+
+  fs.writeFileSync(logPath, JSON.stringify(log));
+}
+
 const server = https.createServer(OPTIONS, (request, response) => {
   // const { origin } = request.headers;
   // if (ALLOWED_ORIGINS.includes(origin)) {
@@ -41,6 +55,7 @@ const server = https.createServer(OPTIONS, (request, response) => {
     response.end(JSON.stringify(parsed));
   }
 
+  updateCounter();
 });
 
 server.listen(PORT, HOSTNAME, () => {
