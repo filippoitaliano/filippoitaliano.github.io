@@ -52,7 +52,11 @@ class Article {
             switch(element.type) {
               case 'p':
                 const p = new Paragraph(element.content);
-                p.appendTo(bodyWrapper);   
+                p.appendTo(bodyWrapper);
+                break;
+              case 'code': 
+                const c = new Code(element.content, element.codeType);
+                c.appendTo(bodyWrapper);
             }
           });
         } else {

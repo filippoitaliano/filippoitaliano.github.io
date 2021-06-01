@@ -16,7 +16,8 @@
         "content": "Su Windows 10 è possibile leggere gli attributi monitorati dal sistema per conoscere lo stato corrente dei drive insallati. È sufficiente utilizzare i seguenti comandi tramite CMD assicurandosi che sia avviato come amministratore."
       },
       {
-        "type": "p",
+        "type": "code",
+        "codeType": "CMD",
         "content": "wmic diskdrive get status"
       },
       {
@@ -24,7 +25,8 @@
         "content": "Questo comando ritorna \"OK\" per ogni drive rilevabile che non presenta segnali di anomali. Altri possibili stati possono essere \"BAD\", \"CAUTION\", \"UNKNOWN\". Per ottenere un dato più dettagliato sullo stato degli stessi indicatori è possibile eseguire il seguente comando."
       },
       {
-        "type": "p",
+        "type": "code",
+        "codeType": "CMD",
         "content": "wmic /namespace:\\\\root\\wmi path MSStorageDriver_FailurePredictStatus"
       }
     ]
