@@ -3,8 +3,8 @@
     "id": "b80baaa9-1b0e-490c-8dd1-ab87e66e7a68",
     "relevance": 0,
     "promoted": true,
-    "title": "Verificare la salute di un SSD su Windows 10",
-    "abstract": "Come controllare velocemente con CMD lo stato di salute dei drive.",
+    "title": "Verificare lo stato di salute di un SSD",
+    "abstract": "Se il tuo sistema si basa su dischi a stato solido controllane periodicamente lo stato di salute. Un paio di comandi CMD e pochi secondi sono sufficienti.",
     "previewPicture": "../data/diskdrive-status.png",
     "body": [
       {

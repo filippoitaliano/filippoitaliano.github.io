@@ -65,6 +65,8 @@ class Article {
             const p = new Paragraph(firstParagrah.content);
             p.appendTo(bodyWrapper);  
           }
+          const separator = createNode('article-promoted-separator');
+          bodyWrapper.appendChild(separator);
         }
         articleWrapper.appendChild(bodyWrapper);
       }

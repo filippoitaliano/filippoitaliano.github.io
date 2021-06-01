@@ -124,8 +124,8 @@ body {
 .title-wrapper .title-body-text {
   font-family: 'Objectivity-Bold', sans-serif;
   font-size: 72px;
-  margin-bottom: 0px;
-  margin-top: 120px;
+  margin-top: 80px;
+  margin-bottom: 40px;
 }
 
 .topbar-wrapper {
@@ -180,4 +180,12 @@ body {
   padding: 10px;
   color: #f71735;
   font-size: 10px;
+}
+
+
+.article-promoted-separator {
+  background-color: #f71735;
+  /* width: a; */
+  height: 1px;
+  margin: 80px 0 40px;
 }
