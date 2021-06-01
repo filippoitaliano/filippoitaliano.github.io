@@ -3,21 +3,29 @@
     "id": "b80baaa9-1b0e-490c-8dd1-ab87e66e7a68",
     "relevance": 0,
     "promoted": true,
-    "title": "Sed maptis facilisis nibh sodales",
-    "abstract": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. Nunc viverra commodo metus, a semper risus pretium vel. Pellentesque nunc nulla, sollicitudin vel tortor quis, laoreet volutpat elit.",
-    "previewPicture": "../data/placeholder.jpg",
+    "title": "Verificare la salute di un SSD su Windows 10",
+    "abstract": "Come controllare velocemente con CMD lo stato di salute dei drive.",
+    "previewPicture": "../data/diskdrive-status.png",
     "body": [
       {
         "type": "p",
-        "content": "Integer tristique dui dolor. Integer dolor nisl, scelerisque quis blandit in, imperdiet fringilla leo. Fusce eu leo ac ex posuere viverra. Vivamus quis auctor nisi. Praesent vitae risus et augue scelerisque pulvinar ut at lorem. In hac habitasse platea dictumst. Donec eget lectus viverra, sagittis urna eu, malesuada quam. Etiam dui velit, euismod pellentesque malesuada non, vehicula sed nibh."
+        "content": "Gli hard drive in genere e gli SSD nello specifico sono dotati di un sistema di monitoraggio per rilevare e segnalare comportamenti non ottimali dell'hardware che possono preannunciare un guasto. Il sistema è il <a href=\"https://en.wikipedia.org/wiki/S.M.A.R.T.\" target=\"_blank\">Self-Monitoring, Analysis and Reporting Technology</a>. La maggioranza dei guasti hardware è dovuta al graduale deterioramento dei componenti. Per questo il sistema SMART è abbastanza affidabile se preso in considerazione."
       },
       {
         "type": "p",
-        "content": "Morbi posuere rutrum elit. Integer et enim sagittis, molestie neque a, ultricies nunc. Proin a nisi quam. Nam sed aliquam neque, eu gravida mi. Suspendisse potenti. Vivamus et volutpat libero, a aliquam nisi. Vivamus congue mattis purus vitae ultrices. Proin eu aliquet sapien."
+        "content": "Su Windows 10 è possibile leggere gli attributi monitorati dal sistema per conoscere lo stato corrente dei drive insallati. È sufficiente utilizzare i seguenti comandi tramite CMD assicurandosi che sia avviato come amministratore."
       },
       {
         "type": "p",
-        "content": "Pellentesque nunc nulla, sollicitudin vel tortor quis, laoreet volutpat elit. Nunc viverra commodo metus, a semper risus pretium vel. Aenean ultrices, leo in consequat bibendum, velit lacus tristique neque, sed tempor augue tortor rutrum lacus. Quisque malesuada non magna nec efficitur. In mi neque, congue vitae egestas ut, interdum eget odio. Phasellus a aliquam ipsum, quis tincidunt enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec enim tortor, tincidunt at eleifend at, feugiat a nisi. Ut ut tortor viverra, cursus tortor vehicula, viverra mauris. Sed elementum, augue sollicitudin tempus sagittis, mi sem elementum urna, nec laoreet est libero ut ligula. Integer eu est libero. Nam feugiat ut est sit amet imperdiet. Praesent vitae cursus orci, a tristique ante. Donec et placerat tortor, vel iaculis est."
+        "content": "wmic diskdrive get status"
+      },
+      {
+        "type": "p",
+        "content": "Questo comando ritorna \"OK\" per ogni drive rilevabile che non presenta segnali di anomali. Altri possibili stati possono essere \"BAD\", \"CAUTION\", \"UNKNOWN\". Per ottenere un dato più dettagliato sullo stato degli stessi indicatori è possibile eseguire il seguente comando."
+      },
+      {
+        "type": "p",
+        "content": "wmic /namespace:\\\\root\\wmi path MSStorageDriver_FailurePredictStatus"
       }
     ]
   },

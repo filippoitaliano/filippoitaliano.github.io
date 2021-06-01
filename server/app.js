@@ -31,6 +31,7 @@ const updateCounter = () => {
 
   log.counter += 1;
 
+  console.log(log);
   fs.writeFileSync(logPath, JSON.stringify(log));
 }
 
