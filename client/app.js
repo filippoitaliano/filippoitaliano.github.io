@@ -2,11 +2,11 @@ window.onload = function() {
   renderLoader()
   get('https://www.wholejs.com/articles', (articles) => {
     if (articles) {
-      setTimeout(() => renderContent(articles), 200);
+      setTimeout(() => renderContent(articles), 1000);
       // Routing is emulated using location hash, hashchange is the main routing event
       window.addEventListener("hashchange", () => renderContent(articles));
     } else {
-      setTimeout(renderFallback, 200);
+      setTimeout(renderFallback, 1000);
     }
   });
 };
