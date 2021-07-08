@@ -13,9 +13,9 @@ const ALLOWED_ORIGINS = [
 ];
 
 const HTTPS_OPTIONS = {
-  ca: fs.readFileSync('./ssl/free.ca'),
-  key: fs.readFileSync('./ssl/key.pem'),
-  cert: fs.readFileSync('./ssl/cert.pem')
+  ca: fs.readFileSync('./free.ca'),
+  key: fs.readFileSync('./key.pem'),
+  cert: fs.readFileSync('./cert.pem')
 };
 
 const createServer = (callback) => {
