@@ -12,15 +12,13 @@ const ALLOWED_ORIGINS = [
   'https://filippoitaliano.github.io',
 ];
 
-const HTTPS_OPTIONS = {
-  ca: fs.readFileSync('./free.ca'),
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem')
-};
-
 const createServer = (callback) => {
   if (HTTPS) {
-    return https.createServer(HTTPS_OPTIONS, callback);
+    return https.createServer({
+      ca: fs.readFileSync('./free.ca'),
+      key: fs.readFileSync('./key.pem'),
+      cert: fs.readFileSync('./cert.pem')
+    }, callback);
   } else {
     return http.createServer(callback);
   }
