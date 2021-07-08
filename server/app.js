@@ -1,9 +1,11 @@
-const https = require('https');
+const https = require('http');
+const http = require('http');
 const fs = require('fs');
 const url = require('url');
 
+const HTTPS = !!parseInt(process.env.HTTPS);
 const HOSTNAME = '0.0.0.0';
-const PORT = 443;
+const PORT = HTTPS ? 443 : 8082;
 
 const ALLOWED_ORIGINS = [
   'https://www.wholejs.com',
@@ -11,9 +13,9 @@ const ALLOWED_ORIGINS = [
 ];
 
 const OPTIONS = {
-  ca: fs.readFileSync('./free.ca'),
-  key: fs.readFileSync('./key.pem'),
-  cert: fs.readFileSync('./cert.pem')
+  ca: fs.readFileSync('./ssl/free.ca'),
+  key: fs.readFileSync('./ssl/key.pem'),
+  cert: fs.readFileSync('./ssl/cert.pem')
 };
 
 const encodeBase64 = (path) => `data:image/jpg;base64, ${fs.readFileSync(path, { encoding: 'base64' })}`;
@@ -35,13 +37,15 @@ const updateCounter = () => {
   fs.writeFileSync(logPath, JSON.stringify(log));
 }
 
-const server = https.createServer(OPTIONS, (request, response) => {
+const protocol = HTTPS ? https : http;
+
+const server = protocol.createServer(OPTIONS, (request, response) => {
   // const { origin } = request.headers;
   // if (ALLOWED_ORIGINS.includes(origin)) {
   //   response.setHeader('Access-Control-Allow-Origin', origin);
   //   response.setHeader('Vary', 'Origin');
   // }
-
+  
   response.setHeader('Access-Control-Allow-Origin', '*');
 
   const parsedUrl = url.parse(request.url, true);
@@ -60,5 +64,5 @@ const server = https.createServer(OPTIONS, (request, response) => {
 });
 
 server.listen(PORT, HOSTNAME, () => {
-  console.log('server running...')
+  console.log(`Server running on port ${PORT}...`);
 })
