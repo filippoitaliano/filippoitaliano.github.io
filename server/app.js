@@ -12,34 +12,48 @@ const ALLOWED_ORIGINS = [
   'https://filippoitaliano.github.io',
 ];
 
-const OPTIONS = {
+const HTTPS_OPTIONS = {
   ca: fs.readFileSync('./ssl/free.ca'),
   key: fs.readFileSync('./ssl/key.pem'),
   cert: fs.readFileSync('./ssl/cert.pem')
 };
 
-const encodeBase64 = (path) => `data:image/jpg;base64, ${fs.readFileSync(path, { encoding: 'base64' })}`;
-
-const articles = fs.readFileSync('../data/articles.json');
-
-const updateCounter = () => {
-  const logPath = '../data/generic.log';
-  let log;
-  try {
-    log = JSON.parse(fs.readFileSync(logPath));
-  } catch (error) {
-    log = { counter: 0 };
+const createServer = (callback) => {
+  if (HTTPS) {
+    return https.createServer(HTTPS_OPTIONS, callback);
+  } else {
+    return http.createServer(callback);
   }
-
-  log.counter += 1;
-
-  console.log(log);
-  fs.writeFileSync(logPath, JSON.stringify(log));
 }
 
-const protocol = HTTPS ? https : http;
+const updateGenericLog = () => {
+  const logPath = '../data/generic.log';
+  fs.readFile(logPath, (err, data) => {
+    let log;
+    if (err) {
+      log = { counter: 0 };
+    } else {
+      log = JSON.parse(data);
+      log.counter += 1;
+      fs.writeFile(logPath, JSON.stringify(log), () => {
+        console.log(log);
+      })
+    }
+  })
+}
 
-const server = protocol.createServer(OPTIONS, (request, response) => {
+const encodeBase64 = (path) => `data:image/jpg;base64, ${fs.readFileSync(path, { encoding: 'base64' })}`;
+
+const articleCache = (() => {
+  const raw = fs.readFileSync('../data/articles.json');
+  const parsedWithImages = JSON.parse(raw).map((article) => ({
+    ...article,
+    previewPicture: encodeBase64(article.previewPicture),
+  }));
+  return JSON.stringify(parsedWithImages);
+})()
+
+const server = createServer((request, response) => {
   // const { origin } = request.headers;
   // if (ALLOWED_ORIGINS.includes(origin)) {
   //   response.setHeader('Access-Control-Allow-Origin', origin);
@@ -53,14 +67,10 @@ const server = protocol.createServer(OPTIONS, (request, response) => {
   if (parsedUrl.pathname === '/articles' && request.method == 'GET') {
     response.statusCode = 200;
     response.setHeader('Content-type', 'application/json');
-    const parsed = JSON.parse(articles).map((article) => ({
-      ...article,
-      previewPicture: encodeBase64(article.previewPicture),
-    }));
-    response.end(JSON.stringify(parsed));
+    response.end(articleCache);
   }
 
-  updateCounter();
+  updateGenericLog();
 });
 
 server.listen(PORT, HOSTNAME, () => {
