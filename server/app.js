@@ -54,13 +54,11 @@ const articleCache = (() => {
 })()
 
 const server = createServer((request, response) => {
-  // const { origin } = request.headers;
-  // if (ALLOWED_ORIGINS.includes(origin)) {
-  //   response.setHeader('Access-Control-Allow-Origin', origin);
-  //   response.setHeader('Vary', 'Origin');
-  // }
-  
-  response.setHeader('Access-Control-Allow-Origin', '*');
+  const { origin } = request.headers;
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    response.setHeader('Access-Control-Allow-Origin', origin);
+    response.setHeader('Vary', 'Origin');
+  }
 
   const parsedUrl = url.parse(request.url, true);
 
