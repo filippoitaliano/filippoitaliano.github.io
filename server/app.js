@@ -1,4 +1,4 @@
-const https = require('http');
+const https = require('https');
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
