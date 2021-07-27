@@ -4,11 +4,13 @@ class Title {
   }
 
   appendTo(parentNode) {
-    const titleWrapper = createNode('title-wrapper');
-    const titleBodyText = createNode('title-body-text', 'h1');
-    titleBodyText.appendChild(document.createTextNode(this.text));
-
-    parentNode.appendChild(titleWrapper);
-    titleWrapper.appendChild(titleBodyText);
+    const template = `
+      <div class="title-wrapper">
+        <h1 class="title-body-text"/>
+      </div>
+    `;
+    appendInnerHtmlTemplate(parentNode, template);
+    const target = parentNode.getElementsByClassName('title-body-text')[0];
+    target.append(this.text);
   }
 }

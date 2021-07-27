@@ -4,17 +4,25 @@ const createNode = (className, elementType = 'div') => {
   return node;
 };
 
+const appendInnerHtmlTemplate = (parentNode, template) => {
+  parentNode.insertAdjacentHTML('beforeend', template);
+};
+
+const getFirstElementByClassName = (parentNode, className) => (
+  parentNode.getElementsByClassName(className)[0]
+);
+
 const clearNodeContent = (node) => {
   node.innerHTML = null;
 };
 
-const getLocationHashEntityType = () => {
-  return location.hash.split('/')[0];
-};
+const getLocationHashEntityType = () => (
+  location.hash.split('/')[0]
+);
 
-const getLocationHashEntityId = () => {
-  return location.hash.split('/')[1];
-};
+const getLocationHashEntityId = () => (
+  location.hash.split('/')[1]
+);
 
 const get = async (url, callback) => {
   const xhr = new XMLHttpRequest();
