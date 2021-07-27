@@ -10,7 +10,7 @@ class Title {
       </div>
     `;
     appendInnerHtmlTemplate(parentNode, template);
-    const target = parentNode.getElementsByClassName('title-body-text')[0];
+    const target = getFirstElementByClassName(parentNode, 'title-body-text');
     target.append(this.text);
   }
 }
