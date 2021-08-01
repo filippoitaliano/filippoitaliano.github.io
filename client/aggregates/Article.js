@@ -22,31 +22,33 @@ class Article {
   }
 
   appendTo(parentNode) {
-    const articleWrapper = createNode(`${this.articleClassName()} grid-layout-wrapper`);
-    parentNode.appendChild(articleWrapper);
+    const template = appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="${this.articleClassName()} grid-layout-wrapper" id="${this.id}">
+        <div class="title-wrapper"></div>
+        <div class="article-preview-image-wrapper"></div>
+        <div class="abstract-wrapper"></div>
+        <div class="body-wrapper"></div>
+      <div>
+    `);
 
-    const previewImageWrapper = createNode('article-preview-image-wrapper');
-    articleWrapper.appendChild(previewImageWrapper);
     const prevPic = new PreviewImage(this.previewPicture, this.previewImageType());
-    prevPic.appendTo(previewImageWrapper);
-
-    const abstractWrapper = createNode('abstract-wrapper');
-    articleWrapper.appendChild(abstractWrapper);
+    prevPic.appendTo(template.querySelector('.article-preview-image-wrapper'));
 
     const abstPar = new Paragraph(this.abstract);
-    abstPar.appendTo(abstractWrapper);
+    abstPar.appendTo(template.querySelector('.abstract-wrapper'));
 
     // TODO: link at the end of the first paragraph if promoted
     const link = new ArrowLink(`#article/${this.id}`, 'leggi tutto');
-    link.appendTo(abstractWrapper);
+    link.appendTo(template.querySelector('.abstract-wrapper'));
 
     if (this.fullContent || this.promoted) {
-      const title = new Title(this.title);
-      title.appendTo(articleWrapper);
+      const title = new Title({ text: this.title });
+      title.appendTo(template.querySelector('.title-wrapper'));
+
+      setTimeout(() => { title.update({ text: 'Giorgio' }) }, 3000)
 
       if (this.body.length > 0) {
-        const bodyWrapper = createNode('body-wrapper');
-
+        const bodyWrapper = template.querySelector('.body-wrapper')
         if (this.fullContent) {
           this.body.forEach((element) => {
             switch(element.type) {
@@ -68,7 +70,6 @@ class Article {
           const separator = createNode('article-promoted-separator');
           bodyWrapper.appendChild(separator);
         }
-        articleWrapper.appendChild(bodyWrapper);
       }
     }
   }

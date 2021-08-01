@@ -44,7 +44,7 @@ const renderFallback = () => {
   const wrapper = createNode('fallback-wrapper');
   root.appendChild(wrapper);
 
-  const title = new Title('The server is down for a moment 😿');
+  const title = new Title({ text: 'The server is down for a moment 😿' });
   title.appendTo(wrapper);
 };
 
@@ -55,6 +55,6 @@ const renderLoader = () => {
   const wrapper = createNode('fallback-wrapper');
   root.appendChild(wrapper);
 
-  const title = new Title('⏳');
+  const title = new Title({ text: '⏳' });
   title.appendTo(wrapper);
 }
