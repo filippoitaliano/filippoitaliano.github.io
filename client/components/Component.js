@@ -1,7 +1,6 @@
 class Component {
 
   id;
-
   parentNode;
 
   appendTo(parentNode) {

@@ -1,9 +1,13 @@
 class Title extends Component {
 
-  constructor(props) {
+  /**
+   * @param {Object} props
+   * @param {string} props.text
+   */
+  constructor({ text }) {
     super();
     this.id = `title_${getRandomNumber()}`
-    this.props = props;
+    this.props = { text };
   }
 
   appendTo(parentNode) {
