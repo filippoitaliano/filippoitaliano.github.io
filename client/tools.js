@@ -29,6 +29,11 @@ const getRandomNumber = () => (
   Math.floor(Math.random() * 10000000000000000)
 );
 
+const withDefaultValues = (obj, defaultObj) => ({
+  ...defaultObj,
+  ...obj,
+});
+
 const get = async (url, callback) => {
   const xhr = new XMLHttpRequest();
   xhr.timeout = 500;
