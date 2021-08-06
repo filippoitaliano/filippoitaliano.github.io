@@ -6,20 +6,19 @@ class Title extends Component {
    */
   constructor({ text }) {
     super();
-    this.id = `title_${getRandomNumber()}`
-    this.props = { text };
+    this._id = `title_${getRandomNumber()}`
+    this._props = { text };
   }
 
   appendTo(parentNode) {
-    this.parentNode = parentNode;
-    const template = `
-      <div class="title-wrapper" id="${this.id}">
+    this._parentNode = parentNode;
+    appendInnerHtmlTemplate(this._parentNode, this._id, `
+      <div class="title-wrapper" id="${this._id}">
         <h1 class="title-body-text">
-          ${this.props.text}
+          ${this._props.text}
         </h1>
       </div>
-    `;
-    appendInnerHtmlTemplate(parentNode, this.id, template);
+    `);
   }
 
 }

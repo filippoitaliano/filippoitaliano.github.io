@@ -12,23 +12,24 @@ class ArticlePreview extends Component {
    */
   constructor(props) {
     super();
-    this.props = props;
-    this.id = `article_preview_${this.props.id}`;
+    this._props = props;
+    this._id = `article_preview_${this._props.id}`;
   }
 
   _previewImageType() {
-    if (this.props.promoted) return PreviewImage.TYPE.normal;
+    if (this._props.promoted) return PreviewImage.TYPE.normal;
     return PreviewImage.TYPE.small;
   }
 
   _articleClassName() {
-    if (this.props.promoted) return 'six-columns-grid-container article-wrapper';
+    if (this._props.promoted) return 'six-columns-grid-container article-wrapper';
     return 'six-columns-grid-container article-preview-wrapper';
   }
 
   appendTo(parentNode) {
-    const template = appendInnerHtmlTemplate(parentNode, this.id, `
-      <div class="${this._articleClassName()} grid-layout-wrapper" id="${this.id}">
+    this._parentNode = parentNode;
+    const template = appendInnerHtmlTemplate(this._parentNode, this._id, `
+      <div class="${this._articleClassName()} grid-layout-wrapper" id="${this._id}">
         <div class="title-wrapper"></div>
         <div class="article-preview-image-wrapper"></div>
         <div class="abstract-wrapper"></div>
@@ -36,24 +37,24 @@ class ArticlePreview extends Component {
       <div>
     `);
 
-    const prevPic = new PreviewImage(this.props.previewPicture, this._previewImageType());
+    const prevPic = new PreviewImage(this._props.previewPicture, this._previewImageType());
     prevPic.appendTo(template.querySelector('.article-preview-image-wrapper'));
 
-    const abstPar = new Paragraph(this.props.abstract);
+    const abstPar = new Paragraph(this._props.abstract);
     abstPar.appendTo(template.querySelector('.abstract-wrapper'));
 
     const link = new ArrowLink({
-      href: `#article/${this.props.id}`,
+      href: `#article/${this._props.id}`,
       text: 'leggi tutto'
     });
 
-    if (this.props.promoted) {
-      const title = new Title({ text: this.props.title });
+    if (this._props.promoted) {
+      const title = new Title({ text: this._props.title });
       title.appendTo(template.querySelector('.title-wrapper'));
 
-      if (this.props.body.length > 0) {
+      if (this._props.body.length > 0) {
         const bodyWrapper = template.querySelector('.body-wrapper')
-        const firstParagrah = this.props.body.find((element) => element.type === 'p');
+        const firstParagrah = this._props.body.find((element) => element.type === 'p');
         if (firstParagrah) {
           const p = new Paragraph(firstParagrah.content);
           p.appendTo(bodyWrapper);  
