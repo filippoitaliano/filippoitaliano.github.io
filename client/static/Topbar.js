@@ -5,7 +5,11 @@ class Topbar {
     parentNode.appendChild(topbarWrapper);
 
     const backHomeLinkWrapper = createNode('topbar-back-home-link');
-    const link = new ArrowLink('index.html', 'Home', true);
+    const link = new ArrowLink({
+      href: 'index.html',
+      text: 'Home',
+      reverse: true,
+    });
     link.appendTo(backHomeLinkWrapper);
     topbarWrapper.appendChild(backHomeLinkWrapper);
 

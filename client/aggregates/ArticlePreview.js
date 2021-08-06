@@ -10,18 +10,10 @@ class ArticlePreview extends Component {
    * @param {String} props.previewPicture
    * @param {String} props.body
    */
-  constructor({ id, title, relevance, promoted, abstract, previewPicture, body }) {
+  constructor(props) {
     super();
-    this.id = `article_preview_${id}`;
-    this.props = {
-      id: id,
-      title: title,
-      relevance: relevance,
-      promoted: promoted,
-      abstract: abstract,
-      previewPicture: previewPicture,
-      body: body,
-    };
+    this.props = props;
+    this.id = `article_preview_${this.props.id}`;
   }
 
   _previewImageType() {
@@ -50,7 +42,10 @@ class ArticlePreview extends Component {
     const abstPar = new Paragraph(this.props.abstract);
     abstPar.appendTo(template.querySelector('.abstract-wrapper'));
 
-    const link = new ArrowLink(`#article/${this.props.id}`, 'leggi tutto');
+    const link = new ArrowLink({
+      href: `#article/${this.props.id}`,
+      text: 'leggi tutto'
+    });
 
     if (this.props.promoted) {
       const title = new Title({ text: this.props.title });

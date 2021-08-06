@@ -10,18 +10,10 @@ class Article extends Component {
    * @param {String} props.previewPicture
    * @param {String} props.body
    */
-  constructor({ id, title, relevance, promoted, abstract, previewPicture, body }) {
+  constructor(props) {
     super();
-    this.id = `article_${id}`;
-    this.props = {
-      id: id,
-      title: title,
-      relevance: relevance,
-      promoted: promoted,
-      abstract: abstract,
-      previewPicture: previewPicture,
-      body: body,
-    };
+    this.props = props;
+    this.id = `article_${this.props.id}`;
   }
 
   appendTo(parentNode) {
