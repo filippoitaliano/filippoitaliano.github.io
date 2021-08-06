@@ -29,7 +29,7 @@ const renderContent = (articles) => {
 
     default: {
       articles.forEach((articleData) => {
-        const article = new Article(articleData);
+        const article = new ArticlePreview(articleData);
         article.appendTo(root);
       });
     }

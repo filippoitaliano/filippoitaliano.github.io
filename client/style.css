@@ -156,6 +156,7 @@ body {
 
 .code-wrapper {
   width: fit-content;
+  width: -moz-fit-content;
   max-width: 100%;
   background-color: black;
   border-radius: 5px;
