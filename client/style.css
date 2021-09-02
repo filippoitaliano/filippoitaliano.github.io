@@ -9,14 +9,40 @@
 }
 
 @font-face {
+  font-family: 'Raleway-Bold';
+  src: url('media/Raleway-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'KaiseiHarunoUmi-Bold';
+  src: url('media/KaiseiHarunoUmi-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'KaiseiHarunoUmi-Regular';
+  src: url('media/KaiseiHarunoUmi-Regular.ttf');
+}
+
+@font-face {
   font-family: 'FiraCode-Regular';
   src: url('media/FiraCode-Regular.woff');
 }
 
+@font-face {
+  font-family: 'Hind-Light';
+  src: url('media/Hind-Light.ttf');
+}
+
 body {
-  font-family: 'Objectivity-Light', sans-serif;
+  font-family: 'Hind-Light', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5;
   background-color: #f3ece3;
   margin: 0;
+}
+
+a:link {
+  color: brown;
 }
 
 .six-columns-grid-container {
@@ -45,6 +71,7 @@ body {
 .preview-image-wrapper {
   width: 260px;
   height: 260px;
+  box-shadow: .3rem .3rem .6rem #c8d0e7, -.2rem -.2rem .5rem white;
 }
 
 .small-preview-image-wrapper {
@@ -53,7 +80,7 @@ body {
 }
 
 .paragraph-wrapper p {
-  font-size: 20px;
+  /* font-size: 20px; */
 }
 
 .article-preview-wrapper {
@@ -122,8 +149,10 @@ body {
 }
 
 .title-wrapper .title-body-text {
-  font-family: 'Objectivity-Bold', sans-serif;
-  font-size: 72px;
+  font-family: 'KaiseiHarunoUmi-Bold', serif;
+  font-size: 4rem;
+  line-height: 1.2;
+  /* font-size: 72px; */
   margin-top: 80px;
   margin-bottom: 40px;
 }
@@ -140,6 +169,7 @@ body {
 }
 
 .topbar-title {
+  font-family: 'KaiseiHarunoUmi-Regular', serif;
   grid-column-start: 2;
   grid-column-end: 4;
   font-size: 35px;
@@ -184,8 +214,8 @@ body {
 
 
 .article-promoted-separator {
-  background-color: #f71735;
+  background: linear-gradient(to right, #f3ece3, #f71735, #f3ece3);
   /* width: a; */
   height: 1px;
-  margin: 80px 0 40px;
+  margin: 40px 0 40px;
 }
