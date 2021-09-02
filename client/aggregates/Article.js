@@ -11,14 +11,14 @@ class Article extends Component {
    * @param {String} props.body
    */
   constructor(props) {
-    super();
-    this._props = props;
-    this._id = `article_${this._props.id}`;
+    super(props);
+    this._id = `article_${props.id}`;
   }
 
   appendTo(parentNode) {
-    this._parentNode = parentNode;
-    const template = appendInnerHtmlTemplate(this._parentNode, this._id, `
+    super.appendTo(parentNode);
+
+    const template = appendInnerHtmlTemplate(parentNode, this._id, `
       <div class="six-columns-grid-container article-wrapper" id="${this._id}">
         <div class="title-wrapper"></div>
         <div class="article-preview-image-wrapper"></div>
@@ -45,7 +45,10 @@ class Article extends Component {
             p.appendTo(bodyWrapper);
             break;
           case 'code': 
-            const c = new Code(element.content, element.codeType);
+            const c = new Code({
+              source: element.content,
+              type: element.codeType,
+            });
             c.appendTo(bodyWrapper);
         }
       });

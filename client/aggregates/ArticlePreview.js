@@ -11,9 +11,8 @@ class ArticlePreview extends Component {
    * @param {String} props.body
    */
   constructor(props) {
-    super();
-    this._props = props;
-    this._id = `article_preview_${this._props.id}`;
+    super(props);
+    this._id = `article_preview_${props.id}`;
   }
 
   _previewImageType() {
@@ -27,8 +26,11 @@ class ArticlePreview extends Component {
   }
 
   appendTo(parentNode) {
-    this._parentNode = parentNode;
-    const template = appendInnerHtmlTemplate(this._parentNode, this._id, `
+    super.appendTo(parentNode);
+    
+    console.log(this._props);
+
+    const template = appendInnerHtmlTemplate(parentNode, this._id, `
       <div class="${this._articleClassName()} grid-layout-wrapper" id="${this._id}">
         <div class="title-wrapper"></div>
         <div class="article-preview-image-wrapper"></div>

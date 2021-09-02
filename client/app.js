@@ -22,7 +22,7 @@ const renderContent = (articles) => {
 
     case '#article': {
       const articleData = articles.find((a) => a.id === getLocationHashEntityId())
-      const article = new Article({ ...articleData, fullContent: true })
+      const article = new Article(articleData)
       article.appendTo(root);
       break;
     }

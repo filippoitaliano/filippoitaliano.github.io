@@ -1,16 +1,32 @@
+const _withTransformations = (props, transformations) => Object.keys(props).reduce((transformed, key) => {
+  console.log(props[key]);
+  if (!!transformations[key]) return ({ ...transformed, [key]: transformations[key](props[key]) });
+  return ({ ...transformed, [key]: props[key] });
+});
+
+const _createPropsUpdater = (defaults, transformations) => (currentProps, nextProps = {}) => (
+  _withTransformations({ ...(defaults || {}), ...(currentProps || {}), ...(nextProps || {})}, transformations || {})
+);
+
 class Component {
 
   _id;
   _props;
   _parentNode;
 
-  appendTo(parentNode) {
-    throw new Error('Component.appendTo is an abstract method that you have to implement');
+  constructor(props, defaults, transformations) {
+    console.log('transformations', transformations)
+    // TODO: Make transformations work
+    this._props = { ...(defaults || {}), ...props };
   }
 
-  update(props) {
+  appendTo(parentNode) {
+    this._parentNode = parentNode;
+  }
+
+  update(nextProps) {
+    this._props = this._updateProps(this.props, nextProps);
     this._parentNode.querySelector(`#${this._id}`).remove();
-    this._props = { ...this._props, ...props };
     this.appendTo(this._parentNode);
   }
 
