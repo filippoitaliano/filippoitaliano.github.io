@@ -33,6 +33,11 @@
   src: url('media/Hind-Light.ttf');
 }
 
+@font-face {
+  font-family: 'Garamond';
+  src: url('media/EBGaramond-Regular.ttf');
+}
+
 body {
   font-family: 'Hind-Light', sans-serif;
   font-size: 1.5rem;
@@ -42,7 +47,7 @@ body {
 }
 
 a:link {
-  color: brown;
+  color: #f71735;
 }
 
 .six-columns-grid-container {
@@ -55,23 +60,21 @@ a:link {
 }
 
 .preview-image-wrapper, .small-preview-image-wrapper {
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
+  border: 1px solid black;
 }
 
 .preview-image-wrapper img, .small-preview-image-wrapper img {
-  display: block;
-  position: absolute;
   width: 100%;
-  top: 0;
-  left: 0;
+  position: relative;
+  top: 0.8rem;
+  left: 0.8rem;
+  box-shadow: 0.3rem 0.3rem 2rem #7b7b7b;
+  border-radius: 3px;
 }
 
 .preview-image-wrapper {
   width: 260px;
   height: 260px;
-  box-shadow: .3rem .3rem .6rem #c8d0e7, -.2rem -.2rem .5rem white;
 }
 
 .small-preview-image-wrapper {
@@ -146,13 +149,15 @@ a:link {
 
 .dot-link-text {
   font-size: 20px;
+  color: black;
 }
 
 .title-wrapper .title-body-text {
-  font-family: 'KaiseiHarunoUmi-Bold', serif;
-  font-size: 4rem;
-  line-height: 1.2;
-  /* font-size: 72px; */
+  font-family: 'Garamond', serif;
+  font-weight: 100;
+  font-size: 6rem;
+  letter-spacing: -2px;
+  line-height: 1;
   margin-top: 80px;
   margin-bottom: 40px;
 }
@@ -169,7 +174,7 @@ a:link {
 }
 
 .topbar-title {
-  font-family: 'KaiseiHarunoUmi-Regular', serif;
+  font-family: 'Garamond', serif;
   grid-column-start: 2;
   grid-column-end: 4;
   font-size: 35px;
