@@ -1,13 +1,14 @@
 class Topbar {
 
+  static backHomeLinkWrapper;
+
   static appendTo(parentNode) {
     const topbarWrapper = createNode('six-columns-grid-container topbar-wrapper');
     parentNode.appendChild(topbarWrapper);
 
     const backHomeLinkWrapper = createNode('topbar-back-home-link');
-    const link = new ArrowLink('index.html', 'Home', true);
-    link.appendTo(backHomeLinkWrapper);
     topbarWrapper.appendChild(backHomeLinkWrapper);
+    Topbar.backHomeLinkWrapper = backHomeLinkWrapper;
 
     const topbarTitle = createNode('topbar-title');
     topbarTitle.appendChild(document.createTextNode('Filippo Italiano'));
@@ -20,6 +21,10 @@ class Topbar {
     secondLink.appendTo(topbarWrapper);
   }
 
-  static showHomeLink() {}
+
+  static showHomeLink() {
+    const link = new ArrowLink('index.html', 'Home', true);
+    link.appendTo(Topbar.backHomeLinkWrapper);
+  }
 
 }
