@@ -6,12 +6,9 @@ class Topbar {
     const topbarWrapper = createNode('six-columns-grid-container topbar-wrapper');
     parentNode.appendChild(topbarWrapper);
 
-    const backHomeLinkWrapper = createNode('topbar-back-home-link');
-    topbarWrapper.appendChild(backHomeLinkWrapper);
-    Topbar.backHomeLinkWrapper = backHomeLinkWrapper;
-
-    const topbarTitle = createNode('topbar-title');
-    topbarTitle.appendChild(document.createTextNode('Filippo Italiano'));
+    const topbarTitle = createNode('topbar-title', 'a');
+    topbarTitle.innerText = 'Filippo Italiano';
+    topbarTitle.href = "index.html";
     topbarWrapper.appendChild(topbarTitle);
 
     const firsLink = new DotLink('#article/eb72c5b1-298a-4268-a416-c7a2e82babbe', 'My resume');
@@ -19,12 +16,6 @@ class Topbar {
 
     const secondLink = new DotLink('https://github.com/filippoitaliano/filippoitaliano.github.io', 'Source code');
     secondLink.appendTo(topbarWrapper);
-  }
-
-
-  static showHomeLink() {
-    const link = new ArrowLink('index.html', 'Home', true);
-    link.appendTo(Topbar.backHomeLinkWrapper);
   }
 
 }

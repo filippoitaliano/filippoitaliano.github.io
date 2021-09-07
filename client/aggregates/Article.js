@@ -79,7 +79,7 @@ class Article {
             const p = new Paragraph(firstParagrah.content);
             p.appendTo(bodyWrapper);  
           }
-          const separator = createNode('article-promoted-separator');
+          const separator = createNode('', 'hr');
           bodyWrapper.appendChild(separator);
         }
         articleWrapper.appendChild(bodyWrapper);

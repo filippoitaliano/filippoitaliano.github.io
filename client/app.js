@@ -22,7 +22,6 @@ const renderContent = (articles) => {
   switch(getLocationHashEntityType()) {
 
     case '#article': {
-      Topbar.showHomeLink();
       const articleData = articles.find((a) => a.id === getLocationHashEntityId())
       const article = new Article(articleData, true)
       article.appendTo(root);
@@ -39,6 +38,8 @@ const renderContent = (articles) => {
     }
 
   }
+
+  root.appendChild(createNode('end-page-margin', 'hr'))
 };
 
 const renderFallback = () => {
