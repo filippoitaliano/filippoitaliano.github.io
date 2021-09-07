@@ -22,7 +22,7 @@ class Article {
   }
 
   appendTo(parentNode) {
-    const articleWrapper = createNode(`${this.articleClassName()} grid-layout-wrapper`);
+    const articleWrapper = createNode(this.articleClassName());
     parentNode.appendChild(articleWrapper);
 
     const previewImageWrapper = createNode('article-preview-image-wrapper');
@@ -50,13 +50,27 @@ class Article {
         if (this.fullContent) {
           this.body.forEach((element) => {
             switch(element.type) {
-              case 'p':
-                const p = new Paragraph(element.content);
-                p.appendTo(bodyWrapper);
-                break;
               case 'code': 
                 const c = new Code(element.content, element.codeType);
                 c.appendTo(bodyWrapper);
+              case 'hr':
+                bodyWrapper.appendChild(createNode('','hr'));
+                break;
+              case 'h3':
+                const subtitle = createNode('','h3');
+                subtitle.innerHTML = element.content;
+                bodyWrapper.appendChild(subtitle);
+                break;
+              case 'b':
+                const boldParagraph = createNode('','b');
+                boldParagraph.innerHTML = element.content;
+                bodyWrapper.appendChild(boldParagraph);
+                break;
+              case 'p':
+              default:
+                const p = new Paragraph(element.content);
+                p.appendTo(bodyWrapper);
+                break;
             }
           });
         } else {

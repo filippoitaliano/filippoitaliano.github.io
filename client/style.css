@@ -29,8 +29,15 @@
 }
 
 @font-face {
-  font-family: 'Hind-Light';
+  font-family: 'Hind';
   src: url('media/Hind-Light.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Hind';
+  src: url('media/Hind-Regular.ttf');
+  font-weight: bold;
 }
 
 @font-face {
@@ -39,11 +46,18 @@
 }
 
 body {
-  font-family: 'Hind-Light', sans-serif;
+  font-family: 'Hind', sans-serif;
   font-size: 1.5rem;
   line-height: 1.5;
   background-color: #f3ece3;
   margin: 0;
+}
+
+hr {
+  background: linear-gradient(to right, #f3ece3, #f71735, #f3ece3);
+  height: 1px;
+  margin: 40px 0 40px;
+  border: none;
 }
 
 a:link {
@@ -165,8 +179,9 @@ a:link {
 .topbar-wrapper {
   grid-column-start: 1;
   grid-column-end: 7;
-  height: 120px;
-  align-items: center;
+  height: 80px;
+  align-items: baseline;
+  padding-top: 40px;
 }
 
 .topbar-back-home-link {
