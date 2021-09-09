@@ -35,7 +35,7 @@ const updateGenericLog = () => {
       log = JSON.parse(data);
       log.counter += 1;
       fs.writeFile(logPath, JSON.stringify(log), () => {
-        console.log(log);
+        console.info(log);
       })
     }
   })
@@ -77,5 +77,5 @@ const server = createServer((request, response) => {
 });
 
 server.listen(PORT, HOSTNAME, () => {
-  console.log(`Server running on port ${PORT}...`);
+  console.info(`Server running on port ${PORT}...`);
 })
