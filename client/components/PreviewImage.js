@@ -15,11 +15,11 @@ class PreviewImage extends Component {
    */
   constructor(props) {
     super(props, { type: PREVIEW_IMAGE_TYPE.small });
-    this._id = `previewimage_${getRandomNumber()}`;
+    this.id = `previewimage_${getRandomNumber()}`;
   }
 
   wrapperClassByType() {
-    if (this._props.type === PREVIEW_IMAGE_TYPE.small) {
+    if (this.props.type === PREVIEW_IMAGE_TYPE.small) {
       return 'small-preview-image-wrapper';
     }
     return 'preview-image-wrapper';
@@ -28,12 +28,11 @@ class PreviewImage extends Component {
   appendTo(parentNode) {
     super.saveParentNode(parentNode);
 
-    const previewImageWrapper = createNode(`preview-image-wrapper ${this.wrapperClassByType()}`)
-    const previewImageImg = createNode('preview-image-img', 'img');
-    previewImageImg.src = this._props.src;
-
-    parentNode.appendChild(previewImageWrapper);
-    previewImageWrapper.appendChild(previewImageImg);
+    appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="preview-image-wrapper ${this.wrapperClassByType()}" id="${this.id}">
+        <img class="preview-image-img" src="${this.props.src}"/>
+      </div>
+    `);
   }
   
 }

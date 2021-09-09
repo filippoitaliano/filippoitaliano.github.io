@@ -6,16 +6,16 @@ class Title extends Component {
    */
   constructor(props) {
     super(props);
-    this._id = `title_${getRandomNumber()}`
+    this.id = `title_${getRandomNumber()}`
   }
 
   appendTo = (parentNode) => {
     super.saveParentNode(parentNode)
 
-    appendInnerHtmlTemplate(parentNode, this._id, `
-      <div class="title-wrapper" id="${this._id}">
+    appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="title-wrapper" id="${this.id}">
         <h1 class="title-body-text">
-          ${this._props.text}
+          ${this.props.text}
         </h1>
       </div>
     `);

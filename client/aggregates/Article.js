@@ -13,14 +13,14 @@ class Article extends Component {
    */
   constructor(props) {
     super(props);
-    this._id = `article_${props.id}`;
+    this.id = `article_${props.id}`;
   }
 
   appendTo(parentNode) {
     super.saveParentNode(parentNode);
 
-    const template = appendInnerHtmlTemplate(parentNode, this._id, `
-      <div class="six-columns-grid-container article-wrapper" id="${this._id}">
+    const template = appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="six-columns-grid-container article-wrapper" id="${this.id}">
         <div class="article-preview-image-wrapper"></div>
         <div class="abstract-wrapper"></div>
         <div class="title-wrapper"></div>
@@ -28,21 +28,21 @@ class Article extends Component {
       <div>
     `);
 
-    const title = new Title({ text: this._props.title });
+    const title = new Title({ text: this.props.title });
     title.appendTo(template.querySelector('.title-wrapper'));
 
     const prevPic = new PreviewImage({
-      src: this._props.previewPicture,
+      src: this.props.previewPicture,
       type: PREVIEW_IMAGE_TYPE.normal,
     });
     prevPic.appendTo(template.querySelector('.article-preview-image-wrapper'));
 
-    const abstPar = new Paragraph({ text: this._props.abstract });
+    const abstPar = new Paragraph({ text: this.props.abstract });
     abstPar.appendTo(template.querySelector('.abstract-wrapper'));
 
-    if (this._props.body.length > 0) {
+    if (this.props.body.length > 0) {
       const bodyWrapper = template.querySelector('.body-wrapper');
-      this._props.body.forEach((element) => {
+      this.props.body.forEach((element) => {
         switch(element.type) {
           case 'code': 
             const c = new Code({

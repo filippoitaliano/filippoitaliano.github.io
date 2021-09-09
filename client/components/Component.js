@@ -10,23 +10,23 @@ const _createPropsUpdater = (defaults = {}, transformations = {}) => (currentPro
 
 class Component {
 
-  _id;
-  _props;
-  _parentNode;
+  props;
+  parentNode;
+  id;
 
   constructor(props, defaults, transformations) {
     this._updateProps = _createPropsUpdater(defaults, transformations);
-    this._props = this._updateProps(props);
+    this.props = this._updateProps(props);
   }
 
   saveParentNode(parentNode) {
-    this._parentNode = parentNode;
+    this.parentNode = parentNode;
   }
 
   update(changes) {
-    this._props = this._updateProps(this._props, changes);
-    this._parentNode.querySelector(`#${this._id}`).remove();
-    this.appendTo(this._parentNode);
+    this.props = this._updateProps(this.props, changes);
+    this.parentNode.querySelector(`#${this.id}`).remove();
+    this.appendTo(this.parentNode);
   }
 
 }

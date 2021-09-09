@@ -6,18 +6,19 @@ class Paragraph extends Component {
    */
   constructor(props) {
     super(props);
-    this._id = `paragraph_${getRandomNumber()}`;
+    this.id = `paragraph_${getRandomNumber()}`;
   }
 
   appendTo(parentNode) {
     super.saveParentNode(parentNode);
 
-    const paragraphWrapper = createNode('paragraph-wrapper');
-    const bodyText = createNode('paragraph-body-text', 'p');
-
-    parentNode.appendChild(paragraphWrapper);
-    paragraphWrapper.appendChild(bodyText);
-    bodyText.innerHTML = this._props.text;
+    appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="paragraph-wrapper" id="${this.id}">
+        <p class="paragraph-body-text">
+          ${this.props.text}
+        </p>
+      </div>
+    `);
   }
 
 }
