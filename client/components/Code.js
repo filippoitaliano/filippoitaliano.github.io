@@ -12,7 +12,7 @@ class Code extends Component {
   }
 
   appendTo(parentNode) {
-    super.appendTo(parentNode);
+    super.saveParentNode(parentNode);
 
     const codeWrapper = createNode('code-wrapper');
     parentNode.appendChild(codeWrapper);

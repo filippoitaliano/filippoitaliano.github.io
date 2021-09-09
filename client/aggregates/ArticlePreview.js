@@ -26,7 +26,7 @@ class ArticlePreview extends Component {
   }
 
   appendTo(parentNode) {
-    super.appendTo(parentNode);
+    super.saveParentNode(parentNode);
     
     console.log(this._props);
 

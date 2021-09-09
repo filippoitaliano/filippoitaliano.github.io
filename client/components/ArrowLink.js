@@ -18,7 +18,7 @@ class ArrowLink extends Component {
   }
 
   appendTo(parentNode) {
-    super.appendTo(parentNode);
+    super.saveParentNode(parentNode);
 
     appendInnerHtmlTemplate(parentNode, this._id, `
       <a class="arrow-link-a" href="${this._props.href}">

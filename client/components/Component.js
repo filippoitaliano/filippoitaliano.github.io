@@ -19,7 +19,7 @@ class Component {
     this._props = this._updateProps(props);
   }
 
-  appendTo(parentNode) {
+  saveParentNode(parentNode) {
     this._parentNode = parentNode;
   }
 

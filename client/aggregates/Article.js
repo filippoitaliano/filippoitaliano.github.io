@@ -16,7 +16,7 @@ class Article extends Component {
   }
 
   appendTo(parentNode) {
-    super.appendTo(parentNode);
+    super.saveParentNode(parentNode);
 
     const template = appendInnerHtmlTemplate(parentNode, this._id, `
       <div class="six-columns-grid-container article-wrapper" id="${this._id}">
