@@ -1,23 +1,23 @@
 @font-face {
   font-family: 'Garamond';
-  src: url('media/EBGaramond-Regular.ttf');
+  src: url('fonts/EBGaramond-Regular.ttf');
 }
 
 @font-face {
   font-family: 'Hind';
-  src: url('media/Hind-Light.ttf');
+  src: url('fonts/Hind-Light.ttf');
   font-weight: normal;
 }
 
 @font-face {
   font-family: 'Hind';
-  src: url('media/Hind-Regular.ttf');
+  src: url('fonts/Hind-Regular.ttf');
   font-weight: bold;
 }
 
 @font-face {
   font-family: 'FiraCode-Regular';
-  src: url('media/FiraCode-Regular.woff');
+  src: url('fonts/FiraCode-Regular.woff');
 }
 
 body {
