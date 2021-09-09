@@ -6,6 +6,7 @@ class ArticlePreview extends Component {
    * @param {String} props.title
    * @param {String} props.relevance
    * @param {String} props.promoted
+   * @param {String} props.listed
    * @param {String} props.abstract
    * @param {String} props.previewPicture
    * @param {String} props.body
@@ -16,8 +17,8 @@ class ArticlePreview extends Component {
   }
 
   _previewImageType() {
-    if (this._props.promoted) return PreviewImage.TYPE.normal;
-    return PreviewImage.TYPE.small;
+    if (this._props.promoted) return PREVIEW_IMAGE_TYPE.normal;
+    return PREVIEW_IMAGE_TYPE.small;
   }
 
   _articleClassName() {
@@ -28,8 +29,6 @@ class ArticlePreview extends Component {
   appendTo(parentNode) {
     super.saveParentNode(parentNode);
     
-    console.log(this._props);
-
     const template = appendInnerHtmlTemplate(parentNode, this._id, `
       <div class="${this._articleClassName()} grid-layout-wrapper" id="${this._id}">
         <div class="article-preview-image-wrapper"></div>
@@ -39,10 +38,13 @@ class ArticlePreview extends Component {
       <div>
     `);
 
-    const prevPic = new PreviewImage(this._props.previewPicture, this._previewImageType());
+    const prevPic = new PreviewImage({
+      src: this._props.previewPicture,
+      type: this._previewImageType(),
+    });
     prevPic.appendTo(template.querySelector('.article-preview-image-wrapper'));
 
-    const abstPar = new Paragraph(this._props.abstract);
+    const abstPar = new Paragraph({ text: this._props.abstract });
     abstPar.appendTo(template.querySelector('.abstract-wrapper'));
 
     const link = new ArrowLink({
@@ -58,7 +60,7 @@ class ArticlePreview extends Component {
         const bodyWrapper = template.querySelector('.body-wrapper')
         const firstParagrah = this._props.body.find((element) => element.type === 'p');
         if (firstParagrah) {
-          const p = new Paragraph(firstParagrah.content);
+          const p = new Paragraph({ text: firstParagrah.content });
           p.appendTo(bodyWrapper);  
           link.appendTo(template.querySelector('.body-wrapper'));
         }

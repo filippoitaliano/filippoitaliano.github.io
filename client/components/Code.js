@@ -27,4 +27,5 @@ class Code extends Component {
     codeType.innerHTML = this._props.type;
     codeWrapper.appendChild(codeType);
   }
+  
 }

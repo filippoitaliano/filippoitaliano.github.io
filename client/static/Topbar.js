@@ -1,7 +1,5 @@
 class Topbar {
 
-  static backHomeLinkWrapper;
-
   static appendTo(parentNode) {
     const topbarWrapper = createNode('six-columns-grid-container topbar-wrapper');
     parentNode.appendChild(topbarWrapper);
@@ -11,10 +9,16 @@ class Topbar {
     topbarTitle.href = "index.html";
     topbarWrapper.appendChild(topbarTitle);
 
-    const firsLink = new DotLink('#article/eb72c5b1-298a-4268-a416-c7a2e82babbe', 'My resume');
+    const firsLink = new DotLink({
+      href: '#article/eb72c5b1-298a-4268-a416-c7a2e82babbe', 
+      text: 'My resume'
+    });
     firsLink.appendTo(topbarWrapper);
 
-    const secondLink = new DotLink('https://github.com/filippoitaliano/filippoitaliano.github.io', 'Source code');
+    const secondLink = new DotLink({
+      href: 'https://github.com/filippoitaliano/filippoitaliano.github.io', 
+      text: 'Source code'
+    });
     secondLink.appendTo(topbarWrapper);
   }
 

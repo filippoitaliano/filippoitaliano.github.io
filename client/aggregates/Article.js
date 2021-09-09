@@ -6,6 +6,7 @@ class Article extends Component {
    * @param {String} props.title
    * @param {String} props.relevance
    * @param {String} props.promoted
+   * @param {String} props.listed
    * @param {String} props.abstract
    * @param {String} props.previewPicture
    * @param {String} props.body
@@ -30,10 +31,13 @@ class Article extends Component {
     const title = new Title({ text: this._props.title });
     title.appendTo(template.querySelector('.title-wrapper'));
 
-    const prevPic = new PreviewImage(this._props.previewPicture, PreviewImage.TYPE.normal);
+    const prevPic = new PreviewImage({
+      src: this._props.previewPicture,
+      type: PREVIEW_IMAGE_TYPE.normal,
+    });
     prevPic.appendTo(template.querySelector('.article-preview-image-wrapper'));
 
-    const abstPar = new Paragraph(this._props.abstract);
+    const abstPar = new Paragraph({ text: this._props.abstract });
     abstPar.appendTo(template.querySelector('.abstract-wrapper'));
 
     if (this._props.body.length > 0) {
@@ -61,7 +65,7 @@ class Article extends Component {
             break;
           case 'p':
           default:
-            const p = new Paragraph(element.content);
+            const p = new Paragraph({ text: element.content });
             p.appendTo(bodyWrapper);
             break;
         }
