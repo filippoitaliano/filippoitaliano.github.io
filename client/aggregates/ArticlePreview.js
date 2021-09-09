@@ -32,9 +32,9 @@ class ArticlePreview extends Component {
 
     const template = appendInnerHtmlTemplate(parentNode, this._id, `
       <div class="${this._articleClassName()} grid-layout-wrapper" id="${this._id}">
-        <div class="title-wrapper"></div>
         <div class="article-preview-image-wrapper"></div>
         <div class="abstract-wrapper"></div>
+        <div class="title-wrapper"></div>
         <div class="body-wrapper"></div>
       <div>
     `);

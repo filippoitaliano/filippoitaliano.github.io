@@ -31,7 +31,7 @@ const getRandomNumber = () => (
 
 const get = async (url, callback) => {
   const xhr = new XMLHttpRequest();
-  xhr.timeout = 500;
+  xhr.timeout = 5000;
   xhr.open('GET', url);
   xhr.send();
   xhr.onreadystatechange = function() { 

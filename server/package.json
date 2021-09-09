@@ -1,7 +1,9 @@
 {
   "license": "MIT",
   "scripts": {
-    "start-server-dev": "SET HTTPS=0 && node app.js",
-    "start-server-prod": "SET HTTPS=1 && node app.js"
+    "start-dev": "SET HTTPS=0 && node app.js",
+    "start-prod": "SET HTTPS=1 && node app.js",
+    "start-dev-linux": "export HTTPS=0 && node app.js",
+    "start-prod-linux": "export HTTPS=1 && node app.js"
   }
 }

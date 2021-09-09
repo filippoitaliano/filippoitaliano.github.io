@@ -20,9 +20,9 @@ class Article extends Component {
 
     const template = appendInnerHtmlTemplate(parentNode, this._id, `
       <div class="six-columns-grid-container article-wrapper" id="${this._id}">
-        <div class="title-wrapper"></div>
         <div class="article-preview-image-wrapper"></div>
         <div class="abstract-wrapper"></div>
+        <div class="title-wrapper"></div>
         <div class="body-wrapper"></div>
       <div>
     `);
@@ -40,16 +40,30 @@ class Article extends Component {
       const bodyWrapper = template.querySelector('.body-wrapper');
       this._props.body.forEach((element) => {
         switch(element.type) {
-          case 'p':
-            const p = new Paragraph(element.content);
-            p.appendTo(bodyWrapper);
-            break;
           case 'code': 
             const c = new Code({
               source: element.content,
               type: element.codeType,
             });
             c.appendTo(bodyWrapper);
+          case 'hr':
+            bodyWrapper.appendChild(createNode('','hr'));
+            break;
+          case 'h3':
+            const subtitle = createNode('','h3');
+            subtitle.innerHTML = element.content;
+            bodyWrapper.appendChild(subtitle);
+            break;
+          case 'b':
+            const boldParagraph = createNode('','b');
+            boldParagraph.innerHTML = element.content;
+            bodyWrapper.appendChild(boldParagraph);
+            break;
+          case 'p':
+          default:
+            const p = new Paragraph(element.content);
+            p.appendTo(bodyWrapper);
+            break;
         }
       });
     }

@@ -3,9 +3,10 @@
     "id": "b80baaa9-1b0e-490c-8dd1-ab87e66e7a68",
     "relevance": 0,
     "promoted": true,
+    "listed": true,
     "title": "Verificare lo stato di salute di un SSD",
     "abstract": "Se il tuo sistema si basa su dischi a stato solido controllane periodicamente lo stato di salute. Un paio di comandi CMD e pochi secondi sono sufficienti.",
-    "previewPicture": "../data/diskdrive-status.png",
+    "previewPicture": "../data/placeholder.jpg",
     "body": [
       {
         "type": "p",
@@ -35,31 +36,104 @@
     "id": "eb72c5b1-298a-4268-a416-c7a2e82babbe",
     "relevance": 0,
     "promoted": false,
-    "title": "Integer tristique dui dolor",
-    "abstract": "Integer tristique dui dolor. Integer dolor nisl, scelerisque quis blandit in, imperdiet fringilla leo. Fusce eu leo ac ex posuere viverra.",
-    "previewPicture": "../data/placeholder.jpg",
+    "listed": false,
+    "title": "My resume",
+    "abstract": "I'm a front-end developer and designer.",
+    "previewPicture": "https://avatars.githubusercontent.com/u/10224310?v=4",
     "body": [
       {
-        "type": "p",
-        "content": "Morbi posuere rutrum elit. Integer et enim sagittis, molestie neque a, ultricies nunc. Proin a nisi quam. Nam sed aliquam neque, eu gravida mi. Suspendisse potenti. Vivamus et volutpat libero, a aliquam nisi. Vivamus congue mattis purus vitae ultrices. Proin eu aliquet sapien."
+        "type": "h3",
+        "content": "Education"
+      },
+      {
+        "type": "b",
+        "content": "Università degli studi di Milano Bicocca. October 2020 - Present."
       },
       {
         "type": "p",
-        "content": "Pellentesque nunc nulla, sollicitudin vel tortor quis, laoreet volutpat elit. Nunc viverra commodo metus, a semper risus pretium vel. Aenean ultrices, leo in consequat bibendum, velit lacus tristique neque, sed tempor augue tortor rutrum lacus. Quisque malesuada non magna nec efficitur. In mi neque, congue vitae egestas ut, interdum eget odio. Phasellus a aliquam ipsum, quis tincidunt enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec enim tortor, tincidunt at eleifend at, feugiat a nisi. Ut ut tortor viverra, cursus tortor vehicula, viverra mauris. Sed elementum, augue sollicitudin tempus sagittis, mi sem elementum urna, nec laoreet est libero ut ligula. Integer eu est libero. Nam feugiat ut est sit amet imperdiet. Praesent vitae cursus orci, a tristique ante. Donec et placerat tortor, vel iaculis est."
+        "content": "Bachelor of Science, Computer Science."
+      },
+      {
+        "type": "hr"
+      },
+      {
+        "type": "h3",
+        "content": "Work"
+      },
+      {
+        "type": "b",
+        "content": "Frontend and mobile analyst, developer and tester for Info-Bit. October 2017 - Present."
+      },
+      {
+        "type": "p",
+        "content": "I'm working on the frontend and the mobile app of an hr software. I designed both codebases and I'm actively working to keep them tidy with code standards and documentation. The frontend is written in React and the app runs on React Native."
+      },
+      {
+        "type": "p",
+        "content": "I recently set up a Kanban based workflow to address short-term deadlines organically. This process allows us to focus on individual independent features without loosing the long-term vison, constantly fed by new backlog items."
+      },
+      {
+        "type": "hr"
+      },
+      {
+        "type": "h3",
+        "content": "Skills"
+      },
+      {
+        "type": "b",
+        "content": "Programming languages"
+      },
+      {
+        "type": "p",
+        "content": "JavaScript, Java, Python, CSS, PHP."
+      },
+      {
+        "type": "b",
+        "content": "Other"
+      },
+      {
+        "type": "p",
+        "content": "React, Git."
       }
     ]
   },
   {
-    "id": "d4823511-b688-4972-9956-25c0e3ef7130",
+    "id": "b7c710ce-fce7-4cc2-a6c4-3111c5008366",
     "relevance": 0,
     "promoted": false,
-    "title": "Aenean quis dolor dui.",
-    "abstract": "Curabitur at feugiat tellus, fringilla semper neque. Nunc pulvinar purus feugiat eros consectetur imperdiet.",
+    "listed": true,
+    "title": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
+    "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ullamcorper maximus rhoncus. Praesent auctor nisl lacus, fringilla tempor ex vulputate a. Proin euismod fermentum luctus.",
     "previewPicture": "../data/placeholder.jpg",
     "body": [
       {
         "type": "p",
-        "content": "Pellentesque nunc nulla, sollicitudin vel tortor quis, laoreet volutpat elit. Nunc viverra commodo metus, a semper risus pretium vel. Aenean ultrices, leo in consequat bibendum, velit lacus tristique neque, sed tempor augue tortor rutrum lacus. Quisque malesuada non magna nec efficitur. In mi neque, congue vitae egestas ut, interdum eget odio. Phasellus a aliquam ipsum, quis tincidunt enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec enim tortor, tincidunt at eleifend at, feugiat a nisi. Ut ut tortor viverra, cursus tortor vehicula, viverra mauris. Sed elementum, augue sollicitudin tempus sagittis, mi sem elementum urna, nec laoreet est libero ut ligula. Integer eu est libero. Nam feugiat ut est sit amet imperdiet. Praesent vitae cursus orci, a tristique ante. Donec et placerat tortor, vel iaculis est."
+        "content": "Morbi ut ornare tortor, vel posuere velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla pulvinar justo nunc, at faucibus lectus tempus a. Phasellus ipsum felis, viverra sed faucibus semper, porttitor at felis. Fusce suscipit, odio eu tincidunt lacinia, lorem nisi bibendum nunc, vel iaculis dui orci quis tortor. Nullam lobortis elementum elit eu aliquam. Integer pellentesque nisl ac scelerisque condimentum. Duis tempus, quam feugiat scelerisque sagittis, massa massa ullamcorper dui, quis elementum eros nisi at lacus. In hac habitasse platea dictumst."
+      },
+      { "type": "hr" },
+      {
+        "type": "p",
+        "content": "Cras molestie gravida fringilla. Curabitur rhoncus mollis fringilla. Aenean scelerisque eros urna, in eleifend purus tincidunt non. Vivamus commodo felis est, eget pellentesque tortor pharetra eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas elementum nulla nec justo facilisis ornare. Vivamus tincidunt diam quis nisi sodales porttitor. Quisque elementum rutrum lorem, eget aliquet magna scelerisque ut. Maecenas vestibulum pulvinar nunc, a luctus nulla varius quis. Nunc magna ante, tempor id convallis et, dignissim vitae ligula."
+      }
+    ]
+  },
+  {
+    "id": "2067fceb-1790-497a-a921-beb1c44fc13e",
+    "relevance": 0,
+    "promoted": false,
+    "listed": true,
+    "title": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
+    "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ullamcorper maximus rhoncus. Praesent auctor nisl lacus, fringilla tempor ex vulputate a. Proin euismod fermentum luctus.",
+    "previewPicture": "../data/placeholder.jpg",
+    "body": [
+      {
+        "type": "p",
+        "content": "Morbi ut ornare tortor, vel posuere velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla pulvinar justo nunc, at faucibus lectus tempus a. Phasellus ipsum felis, viverra sed faucibus semper, porttitor at felis. Fusce suscipit, odio eu tincidunt lacinia, lorem nisi bibendum nunc, vel iaculis dui orci quis tortor. Nullam lobortis elementum elit eu aliquam. Integer pellentesque nisl ac scelerisque condimentum. Duis tempus, quam feugiat scelerisque sagittis, massa massa ullamcorper dui, quis elementum eros nisi at lacus. In hac habitasse platea dictumst."
+      },
+      { "type": "hr" },
+      {
+        "type": "p",
+        "content": "Cras molestie gravida fringilla. Curabitur rhoncus mollis fringilla. Aenean scelerisque eros urna, in eleifend purus tincidunt non. Vivamus commodo felis est, eget pellentesque tortor pharetra eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas elementum nulla nec justo facilisis ornare. Vivamus tincidunt diam quis nisi sodales porttitor. Quisque elementum rutrum lorem, eget aliquet magna scelerisque ut. Maecenas vestibulum pulvinar nunc, a luctus nulla varius quis. Nunc magna ante, tempor id convallis et, dignissim vitae ligula."
       }
     ]
   }

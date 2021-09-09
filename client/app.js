@@ -1,5 +1,6 @@
 window.onload = function() {
   renderLoader()
+  // get('http://localhost:8082/articles', (articles) => {
   get('https://www.wholejs.com/articles', (articles) => {
     if (articles) {
       setTimeout(() => renderContent(articles), 500);
@@ -29,12 +30,16 @@ const renderContent = (articles) => {
 
     default: {
       articles.forEach((articleData) => {
-        const article = new ArticlePreview(articleData);
-        article.appendTo(root);
+        if (articleData.listed) {
+          const article = new ArticlePreview(articleData);
+          article.appendTo(root);
+        }
       });
     }
 
   }
+
+  root.appendChild(createNode('end-page-margin', 'hr'))
 };
 
 const renderFallback = () => {

@@ -8,6 +8,7 @@ const HOSTNAME = '0.0.0.0';
 const PORT = HTTPS ? 443 : 8082;
 
 const ALLOWED_ORIGINS = [
+  // 'http://localhost:8080',
   'https://www.wholejs.com',
   'https://filippoitaliano.github.io',
 ];
@@ -42,11 +43,17 @@ const updateGenericLog = () => {
 
 const encodeBase64 = (path) => `data:image/jpg;base64, ${fs.readFileSync(path, { encoding: 'base64' })}`;
 
+const previewPictureByType = (src) => {
+  if (!src) return null;
+  if (src.includes('http')) return src;
+  return encodeBase64(src);
+}
+
 const articleCache = (() => {
   const raw = fs.readFileSync('../data/articles.json');
   const parsedWithImages = JSON.parse(raw).map((article) => ({
     ...article,
-    previewPicture: encodeBase64(article.previewPicture),
+    previewPicture: previewPictureByType(article.previewPicture),
   }));
   return JSON.stringify(parsedWithImages);
 })()
