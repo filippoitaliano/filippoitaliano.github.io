@@ -7,7 +7,6 @@ class Code extends Component {
    */
   constructor(props) {
     super(props, null, { source: (source) => {
-      console.log(source);
       return source.split('\n');
     } });
   }
@@ -18,7 +17,7 @@ class Code extends Component {
     const codeWrapper = createNode('code-wrapper');
     parentNode.appendChild(codeWrapper);
     
-    this._props.source.forEach((line, index) => {
+    this._props.source.forEach((line) => {
       const sourceLine = createNode('code-source-line', 'span');
       sourceLine.innerHTML = line;
       codeWrapper.appendChild(sourceLine);

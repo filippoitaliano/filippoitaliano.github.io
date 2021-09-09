@@ -1,12 +1,12 @@
-const _withTransformations = (props, transformations) => Object.keys(props).reduce((transformed, key) => {
-  console.log(props[key]);
-  if (!!transformations[key]) return ({ ...transformed, [key]: transformations[key](props[key]) });
-  return ({ ...transformed, [key]: props[key] });
-});
-
-const _createPropsUpdater = (defaults, transformations) => (currentProps, nextProps = {}) => (
-  _withTransformations({ ...(defaults || {}), ...(currentProps || {}), ...(nextProps || {})}, transformations || {})
-);
+const _createPropsUpdater = (defaults = {}, transformations = {}) => (currentProps, changes = {}) => {
+  const groundedProps = { ...defaults, ...currentProps, ...changes };
+  return Object.keys(groundedProps).reduce((transformed, key) => {
+    if (transformations[key] && groundedProps[key]) {
+      return { ...transformed, [key]: transformations[key](groundedProps[key]) };
+    }
+    return { ...transformed, [key]: groundedProps[key] };
+  }, {});
+}
 
 class Component {
 
@@ -15,17 +15,16 @@ class Component {
   _parentNode;
 
   constructor(props, defaults, transformations) {
-    console.log('transformations', transformations)
-    // TODO: Make transformations work
-    this._props = { ...(defaults || {}), ...props };
+    this._updateProps = _createPropsUpdater(defaults, transformations);
+    this._props = this._updateProps(props);
   }
 
   appendTo(parentNode) {
     this._parentNode = parentNode;
   }
 
-  update(nextProps) {
-    this._props = this._updateProps(this.props, nextProps);
+  update(changes) {
+    this._props = this._updateProps(this._props, changes);
     this._parentNode.querySelector(`#${this._id}`).remove();
     this.appendTo(this._parentNode);
   }
