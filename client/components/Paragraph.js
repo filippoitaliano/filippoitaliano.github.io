@@ -1,15 +1,24 @@
-class Paragraph {
-  constructor(text, href) {
-    this.href = href;
-    this.text = text;
+class Paragraph extends Component {
+
+  /**
+   * @param {Object} props
+   * @param {string} props.text
+   */
+  constructor(props) {
+    super(props);
+    this.id = `paragraph_${getRandomNumber()}`;
   }
 
   appendTo(parentNode) {
-    const paragraphWrapper = createNode('paragraph-wrapper');
-    const bodyText = createNode('paragraph-body-text', 'p');
+    super.saveParentNode(parentNode);
 
-    parentNode.appendChild(paragraphWrapper);
-    paragraphWrapper.appendChild(bodyText);
-    bodyText.innerHTML = this.text;
+    appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="paragraph-wrapper" id="${this.id}">
+        <p class="paragraph-body-text">
+          ${this.props.text}
+        </p>
+      </div>
+    `);
   }
+
 }

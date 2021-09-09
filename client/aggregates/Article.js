@@ -1,89 +1,75 @@
-class Article {
+class Article extends Component {
 
-  constructor(articleData = { id, title, relevance, promoted, abstract, previewPicture, body }, fullContent) {
-    this.id = articleData.id;
-    this.title = articleData.title;
-    this.relevance = articleData.relevance;
-    this.promoted = articleData.promoted;
-    this.abstract = articleData.abstract;
-    this.previewPicture = articleData.previewPicture;
-    this.body = articleData.body;
-    this.fullContent = fullContent;
-  }
-
-  previewImageType() {
-    if (this.fullContent || this.promoted) return PreviewImage.TYPE.normal;
-    return PreviewImage.TYPE.small;
-  }
-
-  articleClassName() {
-    if (this.fullContent || this.promoted) return 'six-columns-grid-container article-wrapper';
-    return 'six-columns-grid-container article-preview-wrapper';
+  /**
+   * @param {Object} props 
+   * @param {String} props.id
+   * @param {String} props.title
+   * @param {String} props.relevance
+   * @param {String} props.promoted
+   * @param {String} props.listed
+   * @param {String} props.abstract
+   * @param {String} props.previewPicture
+   * @param {String} props.body
+   */
+  constructor(props) {
+    super(props);
+    this.id = `article_${props.id}`;
   }
 
   appendTo(parentNode) {
-    const articleWrapper = createNode(this.articleClassName());
-    parentNode.appendChild(articleWrapper);
+    super.saveParentNode(parentNode);
 
-    const previewImageWrapper = createNode('article-preview-image-wrapper');
-    articleWrapper.appendChild(previewImageWrapper);
-    const prevPic = new PreviewImage(this.previewPicture, this.previewImageType());
-    prevPic.appendTo(previewImageWrapper);
+    const template = appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="six-columns-grid-container article-wrapper" id="${this.id}">
+        <div class="article-preview-image-wrapper"></div>
+        <div class="abstract-wrapper"></div>
+        <div class="title-wrapper"></div>
+        <div class="body-wrapper"></div>
+      <div>
+    `);
 
-    const abstractWrapper = createNode('abstract-wrapper');
-    articleWrapper.appendChild(abstractWrapper);
+    const title = new Title({ text: this.props.title });
+    title.appendTo(template.querySelector('.title-wrapper'));
 
-    const abstPar = new Paragraph(this.abstract);
-    abstPar.appendTo(abstractWrapper);
+    const prevPic = new PreviewImage({
+      src: this.props.previewPicture,
+      type: PREVIEW_IMAGE_TYPE.normal,
+    });
+    prevPic.appendTo(template.querySelector('.article-preview-image-wrapper'));
 
-    // TODO: link at the end of the first paragraph if promoted
-    const link = new ArrowLink(`#article/${this.id}`, 'leggi tutto');
-    link.appendTo(abstractWrapper);
+    const abstPar = new Paragraph({ text: this.props.abstract });
+    abstPar.appendTo(template.querySelector('.abstract-wrapper'));
 
-    if (this.fullContent || this.promoted) {
-      const title = new Title(this.title);
-      title.appendTo(articleWrapper);
-
-      if (this.body.length > 0) {
-        const bodyWrapper = createNode('body-wrapper');
-
-        if (this.fullContent) {
-          this.body.forEach((element) => {
-            switch(element.type) {
-              case 'code': 
-                const c = new Code(element.content, element.codeType);
-                c.appendTo(bodyWrapper);
-              case 'hr':
-                bodyWrapper.appendChild(createNode('','hr'));
-                break;
-              case 'h3':
-                const subtitle = createNode('','h3');
-                subtitle.innerHTML = element.content;
-                bodyWrapper.appendChild(subtitle);
-                break;
-              case 'b':
-                const boldParagraph = createNode('','b');
-                boldParagraph.innerHTML = element.content;
-                bodyWrapper.appendChild(boldParagraph);
-                break;
-              case 'p':
-              default:
-                const p = new Paragraph(element.content);
-                p.appendTo(bodyWrapper);
-                break;
-            }
-          });
-        } else {
-          const firstParagrah = this.body.find((element) => element.type === 'p');
-          if (firstParagrah) {
-            const p = new Paragraph(firstParagrah.content);
-            p.appendTo(bodyWrapper);  
-          }
-          const separator = createNode('', 'hr');
-          bodyWrapper.appendChild(separator);
+    if (this.props.body.length > 0) {
+      const bodyWrapper = template.querySelector('.body-wrapper');
+      this.props.body.forEach((element) => {
+        switch(element.type) {
+          case 'code': 
+            const c = new Code({
+              source: element.content,
+              type: element.codeType,
+            });
+            c.appendTo(bodyWrapper);
+          case 'hr':
+            bodyWrapper.appendChild(createNode('','hr'));
+            break;
+          case 'h3':
+            const subtitle = createNode('','h3');
+            subtitle.innerHTML = element.content;
+            bodyWrapper.appendChild(subtitle);
+            break;
+          case 'b':
+            const boldParagraph = createNode('','b');
+            boldParagraph.innerHTML = element.content;
+            bodyWrapper.appendChild(boldParagraph);
+            break;
+          case 'p':
+          default:
+            const p = new Paragraph({ text: element.content });
+            p.appendTo(bodyWrapper);
+            break;
         }
-        articleWrapper.appendChild(bodyWrapper);
-      }
+      });
     }
   }
 

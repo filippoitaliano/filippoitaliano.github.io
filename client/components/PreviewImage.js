@@ -1,27 +1,38 @@
-class PreviewImage {
-  static TYPE = {
-    normal: 'normal',
-    promoted: 'promoted',
-  };
+/**
+ * @enum {PreviewImageType}
+ */
+const PREVIEW_IMAGE_TYPE = {
+  normal: 'normal',
+  promoted: 'promoted',
+};
 
-  constructor(url, type) {
-    this.type = type || PreviewImage.TYPE.small;
-    this.src = url;
+class PreviewImage extends Component {
+
+  /**
+   * @param {Object} props
+   * @param {string} props.src
+   * @param {PreviewImageType} props.type
+   */
+  constructor(props) {
+    super(props, { type: PREVIEW_IMAGE_TYPE.small });
+    this.id = `previewimage_${getRandomNumber()}`;
   }
 
   wrapperClassByType() {
-    if (this.type === PreviewImage.TYPE.small) {
+    if (this.props.type === PREVIEW_IMAGE_TYPE.small) {
       return 'small-preview-image-wrapper';
     }
     return 'preview-image-wrapper';
   }
 
   appendTo(parentNode) {
-    const previewImageWrapper = createNode(`preview-image-wrapper ${this.wrapperClassByType()}`)
-    const previewImageImg = createNode('preview-image-img', 'img');
-    previewImageImg.src = this.src;
+    super.saveParentNode(parentNode);
 
-    parentNode.appendChild(previewImageWrapper);
-    previewImageWrapper.appendChild(previewImageImg);
+    appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="preview-image-wrapper ${this.wrapperClassByType()}" id="${this.id}">
+        <img class="preview-image-img" src="${this.props.src}"/>
+      </div>
+    `);
   }
+  
 }

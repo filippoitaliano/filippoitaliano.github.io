@@ -1,25 +1,30 @@
-class Code {
-  constructor(text, type) {
-    this.setSource(text);
-    this.type = type;
-  }
+class Code extends Component {
 
-  setSource(text) {
-    this.source = text.split('\n');
+  /**
+   * @param {Object} props
+   * @param {string} props.source
+   * @param {string} props.type
+   */
+  constructor(props) {
+    super(props, null, { source: (source) => {
+      return source.split('\n');
+    } });
+    this.id = `code_${getRandomNumber()}`;
   }
 
   appendTo(parentNode) {
-    const codeWrapper = createNode('code-wrapper');
-    parentNode.appendChild(codeWrapper);
-    
-    this.source.forEach((line, index) => {
-      const sourceLine = createNode('code-source-line', 'span');
-      sourceLine.innerHTML = line;
-      codeWrapper.appendChild(sourceLine);
-    }); 
+    super.saveParentNode(parentNode);
 
-    const codeType = createNode('code-type-ribbon');
-    codeType.innerHTML = this.type;
-    codeWrapper.appendChild(codeType);
+    appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="code-wrapper" id="${this.id}">
+        ${this.props.source.map((sourceLine) => (`
+          <span class="code-source-line">
+            ${sourceLine}
+          </span>
+        `))}
+        <div class="code-type-ribbon">${this.props.type}</div>
+      </div>
+    `);
   }
+  
 }

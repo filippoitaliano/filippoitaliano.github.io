@@ -263,6 +263,7 @@ a:link {
   margin-bottom: 60px;
   border-radius: 5px;
   width: fit-content;
+  width: -moz-fit-content;
   overflow: auto;
   position: relative;
 }

@@ -4,8 +4,9 @@ const createNode = (className, elementType = 'div') => {
   return node;
 };
 
-const appendInnerHtmlTemplate = (parentNode, template) => {
+const appendInnerHtmlTemplate = (parentNode, templateId, template) => {
   parentNode.insertAdjacentHTML('beforeend', template);
+  return parentNode.querySelector(`#${templateId}`);
 };
 
 const getFirstElementByClassName = (parentNode, className) => (
@@ -22,6 +23,10 @@ const getLocationHashEntityType = () => (
 
 const getLocationHashEntityId = () => (
   location.hash.split('/')[1]
+);
+
+const getRandomNumber = () => (
+  Math.floor(Math.random() * 10000000000000000)
 );
 
 const get = async (url, callback) => {

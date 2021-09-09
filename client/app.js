@@ -23,7 +23,7 @@ const renderContent = (articles) => {
 
     case '#article': {
       const articleData = articles.find((a) => a.id === getLocationHashEntityId())
-      const article = new Article(articleData, true)
+      const article = new Article(articleData)
       article.appendTo(root);
       break;
     }
@@ -31,7 +31,7 @@ const renderContent = (articles) => {
     default: {
       articles.forEach((articleData) => {
         if (articleData.listed) {
-          const article = new Article(articleData);
+          const article = new ArticlePreview(articleData);
           article.appendTo(root);
         }
       });
@@ -49,7 +49,7 @@ const renderFallback = () => {
   const wrapper = createNode('fallback-wrapper');
   root.appendChild(wrapper);
 
-  const title = new Title('The server is down for a moment 😿');
+  const title = new Title({ text: 'The server is down for a moment 😿' });
   title.appendTo(wrapper);
 };
 
@@ -60,6 +60,6 @@ const renderLoader = () => {
   const wrapper = createNode('fallback-wrapper');
   root.appendChild(wrapper);
 
-  const title = new Title('⏳');
+  const title = new Title({ text: '⏳' });
   title.appendTo(wrapper);
 }
