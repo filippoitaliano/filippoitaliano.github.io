@@ -17,13 +17,20 @@ const clearNodeContent = (node) => {
   node.innerHTML = null;
 };
 
-const getLocationHashEntityType = () => (
-  location.hash.split('/')[0]
+const getLocationAreaPath = () => (
+  location.pathname.split('/')[1]
 );
 
-const getLocationHashEntityId = () => (
-  location.hash.split('/')[1]
+const getLocationEntityId = () => (
+  location.pathname.split('/')[2]
 );
+
+const navigate = (path) => {
+  history.pushState({ path }, document.title, path);
+  const event = new CustomEvent('pathchange');
+  window.dispatchEvent(event);
+  return false;
+}
 
 const getRandomNumber = () => (
   Math.floor(Math.random() * 10000000000000000)

@@ -4,8 +4,7 @@ window.onload = function() {
   get('https://www.wholejs.com/articles', (articles) => {
     if (articles) {
       setTimeout(() => renderContent(articles), 500);
-      // Routing is emulated using location hash, hashchange is the main routing event
-      window.addEventListener("hashchange", () => renderContent(articles));
+      window.addEventListener("pathchange", () => renderContent(articles));
     } else {
       setTimeout(renderFallback, 500);
     }
@@ -18,16 +17,13 @@ const renderContent = (articles) => {
 
   Topbar.appendTo(root);
 
-  // This is the router, casing by entity type
-  switch(getLocationHashEntityType()) {
-
-    case '#article': {
-      const articleData = articles.find((a) => a.id === getLocationHashEntityId())
+  switch(getLocationAreaPath()) {
+    case 'article': {
+      const articleData = articles.find((a) => a.id === getLocationEntityId())
       const article = new Article(articleData)
       article.appendTo(root);
       break;
     }
-
     default: {
       articles.forEach((articleData) => {
         if (articleData.listed) {
@@ -36,7 +32,6 @@ const renderContent = (articles) => {
         }
       });
     }
-
   }
 
   root.appendChild(createNode('end-page-margin', 'hr'))
