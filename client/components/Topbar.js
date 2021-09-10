@@ -9,7 +9,7 @@ class Topbar {
 
     const template = appendInnerHtmlTemplate(parentNode, id, `
       <div class="six-columns-grid-container topbar-wrapper" id="${id}">
-        <a class="topbar-title" href="/">
+        <a id="home-link" class="topbar-title" href="/">
           Filippo Italiano
         </a>
         <div id="topbar-link-1"></div>
@@ -17,10 +17,11 @@ class Topbar {
       </div>
     `);
 
-    template.onclick = Topbar.navigateHome;
+    const homeLink = document.getElementById('home-link');
+    homeLink.onclick = Topbar.navigateHome;
 
     const firstLink = new DotLink({
-      href: '#article/eb72c5b1-298a-4268-a416-c7a2e82babbe', 
+      href: '/article/eb72c5b1-298a-4268-a416-c7a2e82babbe', 
       text: 'My resume'
     });
     firstLink.appendTo(template.querySelector('#topbar-link-1'));

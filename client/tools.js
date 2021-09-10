@@ -17,6 +17,14 @@ const clearNodeContent = (node) => {
   node.innerHTML = null;
 };
 
+const handleBookmarkedPath = () => {
+  if (location.hash.includes('#bookmark')) {
+    const path = location.hash.substr(location.hash.indexOf('#bookmark') + 9);
+    history.pushState({ path }, document.title, path);
+  }
+  location.hash = '';
+}
+
 const getLocationAreaPath = () => (
   location.pathname.split('/')[1]
 );

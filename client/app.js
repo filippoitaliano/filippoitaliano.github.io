@@ -1,20 +1,29 @@
 window.onload = function() {
   renderLoader()
+
   // get('http://localhost:8082/articles', (articles) => {
   get('https://www.wholejs.com/articles', (articles) => {
     if (articles) {
-      setTimeout(() => renderContent(articles), 500);
+      handleBookmarkedPath();
+
+      renderContent(articles);
+
+      // Custom client side rooting event
       window.addEventListener("pathchange", () => renderContent(articles));
+      // Browser back and forward handling
+      window.addEventListener("popstate", () => renderContent(articles));
     } else {
-      setTimeout(renderFallback, 500);
+      renderFallback();
     }
   });
 };
 
 const renderContent = (articles) => {
+  // Hash used only to support bookmarking, better to reset now
+  location.hash = '';
+
   const root = document.getElementById("app");
   clearNodeContent(root);
-
   Topbar.appendTo(root);
 
   switch(getLocationAreaPath()) {
