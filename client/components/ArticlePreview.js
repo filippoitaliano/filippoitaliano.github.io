@@ -48,7 +48,7 @@ class ArticlePreview extends Component {
     abstPar.appendTo(template.querySelector('.abstract-wrapper'));
 
     const link = new ArrowLink({
-      href: `#article/${this.props.id}`,
+      href: `/article/${this.props.id}`,
       text: 'leggi tutto'
     });
 

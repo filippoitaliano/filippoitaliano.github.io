@@ -1,33 +1,38 @@
 window.onload = function() {
   renderLoader()
+
   // get('http://localhost:8082/articles', (articles) => {
   get('https://www.wholejs.com/articles', (articles) => {
     if (articles) {
-      setTimeout(() => renderContent(articles), 500);
-      // Routing is emulated using location hash, hashchange is the main routing event
-      window.addEventListener("hashchange", () => renderContent(articles));
+      handleBookmarkedPath();
+
+      renderContent(articles);
+
+      // Custom client side rooting event
+      window.addEventListener("pathchange", () => renderContent(articles));
+      // Browser back and forward handling
+      window.addEventListener("popstate", () => renderContent(articles));
     } else {
-      setTimeout(renderFallback, 500);
+      renderFallback();
     }
   });
 };
 
 const renderContent = (articles) => {
+  // Hash used only to support bookmarking, better to reset now
+  location.hash = '';
+
   const root = document.getElementById("app");
   clearNodeContent(root);
-
   Topbar.appendTo(root);
 
-  // This is the router, casing by entity type
-  switch(getLocationHashEntityType()) {
-
-    case '#article': {
-      const articleData = articles.find((a) => a.id === getLocationHashEntityId())
+  switch(getLocationAreaPath()) {
+    case 'article': {
+      const articleData = articles.find((a) => a.id === getLocationEntityId())
       const article = new Article(articleData)
       article.appendTo(root);
       break;
     }
-
     default: {
       articles.forEach((articleData) => {
         if (articleData.listed) {
@@ -36,7 +41,6 @@ const renderContent = (articles) => {
         }
       });
     }
-
   }
 
   root.appendChild(createNode('end-page-margin', 'hr'))
