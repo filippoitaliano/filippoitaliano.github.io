@@ -2,3 +2,5 @@
 *.bat
 *.ca
 *.log
+
+.idea
