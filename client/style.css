@@ -4,6 +4,11 @@
 }
 
 @font-face {
+    font-family: 'Garamond';
+    src: url('fonts/EBGaramond-Bold.ttf');
+}
+
+@font-face {
   font-family: 'Hind';
   src: url('fonts/Hind-Light.ttf');
   font-weight: normal;
@@ -22,6 +27,7 @@
 
 body {
   background-color: #f3ece3;
+  color: rgb(53, 53, 52);
   margin: 0;
 }
 
@@ -59,6 +65,8 @@ a:link {
 
 .preview-image-wrapper, .small-preview-image-wrapper {
   border: 1px solid black;
+  position: relative;
+  left: -10px;
 }
 
 .preview-image-wrapper img, .small-preview-image-wrapper img {
@@ -188,8 +196,8 @@ a:link {
 
 .title-wrapper .title-body-text {
   font-family: 'Garamond', serif;
-  font-size: 4rem;
-  font-weight: 100;
+  font-size: 3rem;
+  font-weight: 700;
   letter-spacing: -2px;
   line-height: 1;
   margin-top: 80px;
@@ -198,48 +206,62 @@ a:link {
 
 @media only screen and (max-width: 600px) {
   .title-wrapper .title-body-text {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 }
 
-@media only screen and (min-width: 601px) {
-  .title-wrapper .title-body-text {
-    font-size: 4rem;
-  }
-}
+/*@media only screen and (min-width: 601px) {*/
+/*  .title-wrapper .title-body-text {*/
+/*    font-size: 4rem;*/
+/*  }*/
+/*}*/
 
 .topbar-wrapper {
   grid-column-start: 1;
   grid-column-end: 7;
-  height: 80px;
-  align-items: baseline;
+  align-items: center;
   padding-top: 40px;
+  margin-bottom: 40px;
 }
 
-.topbar-title {
-  font-family: 'Garamond', serif;
-  font-size: 1.8rem;
+/*.topbar-title {*/
+/*  font-family: 'Garamond', serif;*/
+/*  font-size: 1.8rem;*/
+/*  grid-column-start: 2;*/
+/*  grid-column-end: 4;*/
+/*  text-decoration: none;*/
+/*  color: black !important;*/
+/*}*/
+
+.topbar-logo-wrapper {
   grid-column-start: 2;
   grid-column-end: 4;
-  text-decoration: none;
-  color: black !important;
+}
+
+.topbar-logo {
+  cursor: pointer;
+  max-width: 100px;
 }
 
 @media only screen and (max-width: 600px) {
-  .topbar-wrapper {
-    margin-bottom: 100px;
-  }
+  /*.topbar-title {*/
+  /*  grid-column-start: 1;*/
+  /*  grid-column-end: 7;*/
+  /*  display: flex;*/
+  /*  justify-content: center;*/
+  /*  margin-bottom: 20px;*/
+  /*}*/
 
-  .topbar-title {
+  .topbar-logo-wrapper {
     grid-column-start: 1;
     grid-column-end: 7;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
 
-  .topbar-wrapper .dot-link-a {
-    grid-column-start: 3;
+  .topbar-link {
+    grid-column-start: 2;
     grid-column-end: 6;
   }
 }

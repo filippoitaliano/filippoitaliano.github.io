@@ -7,13 +7,24 @@ class Topbar {
   static appendTo(parentNode) {
     const id = `topbar_${getRandomNumber()}`;
 
+    // <a id="home-link" className="topbar-title" href="/">
+    //   Filippo Italiano
+    // </a>
+
+    console.log(JSON.stringify(window.location));
+
     const template = appendInnerHtmlTemplate(parentNode, id, `
       <div class="six-columns-grid-container topbar-wrapper" id="${id}">
-        <a id="home-link" class="topbar-title" href="/">
-          Filippo Italiano
-        </a>
-        <div id="topbar-link-1"></div>
-        <div id="topbar-link-2"></div>
+        <div class="topbar-logo-wrapper">
+          <img 
+            id="home-link" 
+            class="topbar-logo" 
+            src="${window.location.origin}/client/logo.png"
+            alt="four colorfull 45 degrees lines aka the logo" 
+          />
+        </div>
+        <div class="topbar-link" id="topbar-link-1"></div>
+        <div class="topbar-link" id="topbar-link-2"></div>
       </div>
     `);
 
