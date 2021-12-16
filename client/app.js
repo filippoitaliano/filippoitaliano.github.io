@@ -24,26 +24,30 @@ const renderContent = (articles) => {
 
   const root = document.getElementById("app");
   clearNodeContent(root);
+
   Topbar.appendTo(root);
+  ArticlesBar.appendTo(root);
+
+  const layout = root.appendChild(createNode('three-columns-grid-container', 'div'));
 
   switch(getLocationAreaPath()) {
     case 'article': {
       const articleData = articles.find((a) => a.id === getLocationEntityId())
       const article = new Article(articleData)
-      article.appendTo(root);
+      article.appendTo(layout);
       break;
     }
     default: {
       articles.forEach((articleData) => {
-        if (articleData.listed) {
+        if (articleData.listed && articleData.promoted) {
           const article = new ArticlePreview(articleData);
-          article.appendTo(root);
+          article.appendTo(layout);
         }
       });
     }
   }
 
-  root.appendChild(createNode('end-page-margin', 'hr'))
+  root.appendChild(createNode('end-page-margin', 'div'));
 };
 
 const renderFallback = () => {

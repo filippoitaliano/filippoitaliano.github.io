@@ -20,22 +20,15 @@ class Article extends Component {
     super.saveParentNode(parentNode);
 
     const template = appendInnerHtmlTemplate(parentNode, this.id, `
-      <div class="six-columns-grid-container article-wrapper" id="${this.id}">
-        <div class="article-preview-image-wrapper"></div>
-        <div class="abstract-wrapper"></div>
+      <div class="two-columns-grid-container article-wrapper" id="${this.id}">
         <div class="title-wrapper"></div>
+        <div class="abstract-wrapper"></div>
         <div class="body-wrapper"></div>
       <div>
     `);
 
     const title = new Title({ text: this.props.title });
     title.appendTo(template.querySelector('.title-wrapper'));
-
-    const prevPic = new PreviewImage({
-      src: this.props.previewPicture,
-      type: PREVIEW_IMAGE_TYPE.normal,
-    });
-    prevPic.appendTo(template.querySelector('.article-preview-image-wrapper'));
 
     const abstPar = new Paragraph({ text: this.props.abstract });
     abstPar.appendTo(template.querySelector('.abstract-wrapper'));
@@ -50,6 +43,7 @@ class Article extends Component {
               type: element.codeType,
             });
             c.appendTo(bodyWrapper);
+            break;
           case 'hr':
             bodyWrapper.appendChild(createNode('','hr'));
             break;

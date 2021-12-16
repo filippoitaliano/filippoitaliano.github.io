@@ -18,9 +18,9 @@ class Code extends Component {
     appendInnerHtmlTemplate(parentNode, this.id, `
       <div class="code-wrapper" id="${this.id}">
         ${this.props.source.map((sourceLine) => (`
-          <span class="code-source-line">
+          <div class="code-source-line">
             ${sourceLine}
-          </span>
+          </div>
         `))}
         <div class="code-type-ribbon">${this.props.type}</div>
       </div>

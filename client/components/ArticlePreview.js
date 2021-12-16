@@ -16,33 +16,16 @@ class ArticlePreview extends Component {
     this.id = `articlepreview_${props.id}`;
   }
 
-  _previewImageType() {
-    if (this.props.promoted) return PREVIEW_IMAGE_TYPE.normal;
-    return PREVIEW_IMAGE_TYPE.small;
-  }
-
-  _articleClassName() {
-    if (this.props.promoted) return 'six-columns-grid-container article-wrapper';
-    return 'six-columns-grid-container article-preview-wrapper';
-  }
-
   appendTo(parentNode) {
     super.saveParentNode(parentNode);
 
     const template = appendInnerHtmlTemplate(parentNode, this.id, `
-      <div class="${this._articleClassName()} grid-layout-wrapper" id="${this.id}">
-        <div class="article-preview-image-wrapper"></div>
-        <div class="abstract-wrapper"></div>
+      <div class="two-columns-grid-container article-wrapper" id="${this.id}">
         <div class="title-wrapper"></div>
+        <div class="abstract-wrapper"></div>
         <div class="body-wrapper"></div>
       <div>
     `);
-
-    const prevPic = new PreviewImage({
-      src: this.props.previewPicture,
-      type: this._previewImageType(),
-    });
-    prevPic.appendTo(template.querySelector('.article-preview-image-wrapper'));
 
     const abstPar = new Paragraph({ text: this.props.abstract });
     abstPar.appendTo(template.querySelector('.abstract-wrapper'));
