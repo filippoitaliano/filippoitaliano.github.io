@@ -8,7 +8,7 @@ class ArticlesBar {
       <div class="six-columns-grid-container articles-bar" id="${id}">
         <img 
           class="topbar-logo" 
-          src="${window.location.origin}/client/placeholder.png"
+          src="${window.location.origin}/client/raspberry.png"
           alt="a hacky placeholder for an article" 
         />
     
