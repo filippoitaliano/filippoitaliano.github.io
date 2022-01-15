@@ -2,6 +2,10 @@ const https = require('https');
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
+const dotenv = require('dotenv');
+
+dotenv.config();
+console.info(process.env);
 
 const HTTPS = !!parseInt(process.env.HTTPS);
 const HOSTNAME = '0.0.0.0';
@@ -16,9 +20,8 @@ const ALLOWED_ORIGINS = [
 const createServer = (callback) => {
   if (HTTPS) {
     return https.createServer({
-      ca: fs.readFileSync('./free.ca'),
-      key: fs.readFileSync('./key.pem'),
-      cert: fs.readFileSync('./cert.pem')
+      key: fs.readFileSync(process.env.SSL_KEY),
+      cert: fs.readFileSync(process.env.SSL_CERT),
     }, callback);
   } else {
     return http.createServer(callback);
@@ -67,7 +70,7 @@ const server = createServer((request, response) => {
 
   const parsedUrl = url.parse(request.url, true);
 
-  if (parsedUrl.pathname === '/articles' && request.method == 'GET') {
+  if (parsedUrl.pathname === '/articles' && request.method === 'GET') {
     response.statusCode = 200;
     response.setHeader('Content-type', 'application/json');
     response.end(articleCache);

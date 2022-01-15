@@ -5,5 +5,8 @@
     "start-prod": "SET HTTPS=1 && node app.js",
     "start-dev-linux": "export HTTPS=0 && node app.js",
     "start-prod-linux": "export HTTPS=1 && node app.js"
+  },
+  "dependencies": {
+    "dotenv": "^12.0.3"
   }
 }
