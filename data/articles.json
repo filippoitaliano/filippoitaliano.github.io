@@ -2,7 +2,7 @@
   {
     "id": "b80baaa9-1b0e-490c-8dd1-ab87e66e7a68",
     "relevance": 0,
-    "promoted": true,
+    "promoted": false,
     "listed": true,
     "title": "Verificare lo stato di salute di un SSD",
     "abstract": "Se il tuo sistema si basa su dischi a stato solido controllane periodicamente lo stato di salute. Un paio di comandi CMD e pochi secondi sono sufficienti.",
@@ -100,20 +100,86 @@
   {
     "id": "b7c710ce-fce7-4cc2-a6c4-3111c5008366",
     "relevance": 0,
-    "promoted": false,
+    "promoted": true,
     "listed": true,
-    "title": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
-    "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ullamcorper maximus rhoncus. Praesent auctor nisl lacus, fringilla tempor ex vulputate a. Proin euismod fermentum luctus.",
+    "title": "Come pubblicare un sito dinamico senza hosting",
+    "abstract": "Avevo il desiderio di costruirmi un sito personale, semplice per definizione, dinamico e interamente gestito da me.",
     "previewPicture": "../data/placeholder.jpg",
     "body": [
       {
         "type": "p",
-        "content": "Morbi ut ornare tortor, vel posuere velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla pulvinar justo nunc, at faucibus lectus tempus a. Phasellus ipsum felis, viverra sed faucibus semper, porttitor at felis. Fusce suscipit, odio eu tincidunt lacinia, lorem nisi bibendum nunc, vel iaculis dui orci quis tortor. Nullam lobortis elementum elit eu aliquam. Integer pellentesque nisl ac scelerisque condimentum. Duis tempus, quam feugiat scelerisque sagittis, massa massa ullamcorper dui, quis elementum eros nisi at lacus. In hac habitasse platea dictumst."
+        "content": "Ci tengo a dire che non sono un esperto sistemista. Avevo il desiderio di costruirmi un sito personale, semplice per definizione, dinamico — non voglio impormi vincoli su come potrebbe evolvere in futuro — e interamente gestito da me. Un sito che possa evolvere a tutto tondo assieme al mio percorso e alle mie nuove scoperte."
+      },
+      {
+        "type": "p",
+        "content": "Partiamo dal fatto che si tratta di un sito dinamico e “disaccoppiato” — se cercate su Google usate la parola “decoupled”. Le due parti fondamentali che lo compongono sono un back-end che serve i dati e un front-end che li mostra all’utente. Le due parti dialogano tramite una API REST."
+      },
+      {
+        "type": "p",
+        "content": "Il back-end è scritto in Node.js e attualmente non fa altro che rispondere ad una richiesta GET all’endpoint “articles” con un JSON contenente gli articoli e tutto ciò che li riguarda. I dati vengono caricati da un file in memoria all’avvio del server in modo da essere subito disponibili alla richiesta. Tutto estremamente semplicistico e magnificamente migliorabile."
+      },
+      {
+        "type": "p",
+        "content": "Il front-end è scritto in JavaScript, CSS e HTML e utilizza icone SVG e PNG. Sto cucinando tutto in casa perché questo mi da maggiore soddisfazione. Non sto utilizzando un framework front-end, non ho scelto un design system già confezionato sotto forma di CSS e devo ancora capire se riuscirò a gestire la dinamicità dei contenuti senza ridisegnare tutto il body ad ogni cambio di URL."
+      },
+      {
+        "type": "p",
+        "content": "Sto rischiando di andare fuori tema. Quello che volevo lasciare e lasciarmi in questo momento è una breve guida su come sto mantenendo online questo sito senza avere un hosting. Partiamo subito."
       },
       { "type": "hr" },
       {
         "type": "p",
-        "content": "Cras molestie gravida fringilla. Curabitur rhoncus mollis fringilla. Aenean scelerisque eros urna, in eleifend purus tincidunt non. Vivamus commodo felis est, eget pellentesque tortor pharetra eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas elementum nulla nec justo facilisis ornare. Vivamus tincidunt diam quis nisi sodales porttitor. Quisque elementum rutrum lorem, eget aliquet magna scelerisque ut. Maecenas vestibulum pulvinar nunc, a luctus nulla varius quis. Nunc magna ante, tempor id convallis et, dignissim vitae ligula."
+        "content": "Prima di tutto ho creato un repository su Github contenente tutto il codice delle diverse parti del sistema. Nella directory “server” ho messo la logica del back-end Node.js. Nella directory “client” ho collocato la logica e le risorse del front-end. Attualmente non è prevista una fase di compilazione per nessuna componente del progetto. Il repository di sviluppo coincide quindi con il codice che verrà effettivamente “schierato” in produzione — mi diverto a scrivere in italiano ma forse complico le cose."
+      },
+      {
+        "type": "p",
+        "content": "Ora quello che sembra confuso dovrebbe chiarirsi."
+      },
+      {
+        "type": "p",
+        "content": "Per quando riguarda il front-end ho sfruttato il servizio “GitHub pages”. Mi è bastato spostare i file “index.html” e “404.html” dalla cartella client alla root del repository. Ogni volta che effettuo un push o un merge sul ramo master del repository viene aggiornata la GitHub page rendendo disponibile la nuova versione del front-end."
+      },
+      {
+        "type": "p",
+        "content": "Per quando riguarda il front-end ho sfruttato il servizio “GitHub pages”. Mi è bastato spostare i file “index.html” e “404.html” dalla cartella client alla root del repository. Ogni volta che effettuo un push o un merge sul ramo master del repository viene aggiornata la GitHub page rendendo disponibile la nuova versione del front-end."
+      },
+      {
+        "type": "p",
+        "content": "Non è molto pulito, lo ammetto, ma questo mi permette di avere un’unica codebase — un unico codice sorgente — su cui lavorare non appena mi viene un’idea."
+      },
+      { "type": "hr" },
+      {
+        "type": "p",
+        "content": "Ora che abbiamo back-end e front-end pubblicati arriva la parte più sistemistica, quella che ho risolto facendo esperimenti e recuperando nozioni sulle reti che pensavo di aver dimenticato. La prima cosa da verificare è che il server sia sempre raggiungibile dall’esterno della rete locale domestica. La seconda cosa è che il server accetti richieste provenienti dal front-end servito da Github — essendo un’origine diversa da quella che serve il back-end c’è un dettaglio da sistemare. L’ultima cosa, che tutte le trasmissioni avvengano in HTTPS."
+      },
+      {
+        "type": "p",
+        "content": "Ora fingo di scrivere una ricetta culinaria, procedo per passi, cerco di essere chiaro:"
+      },
+      {
+        "type": "p",
+        "content": "1) Il Raspberry deve avere un IP statico nella rete locale. Ho aperto il pannello admin del mio router, ho escluso il Raspberry dal DHCP e ho riservato un preciso indirizzo per lui."
+      },
+      {
+        "type": "p",
+        "content": "2) Le richieste web HTTPS effettuate verso la mia rete devono arrivare al Raspberry e quindi al mio server. Sempre dal pannello admin del router ho impostato il port forwarding TCP della porta 443 verso l’indirizzo IP che ho riservato per il Raspberry."
+      },
+      {
+        "type": "p",
+        "content": "3) La mia rete di casa ha IP pubblico dinamico. Ho utilizzato No-IP con un dominio free d’appoggio in modo che il server risulti sempre disponibile anche al variare del mio IP pubblico. Io ho configurato No-IP direttamente dal pannello admin del mio router. In alternativa avrei potuto installare il programmino sul Raspberry e ottenere lo stesso risultato. Se ho capito bene, No-IP non fa altro che tenere osservato l’IP pubblico della rete e in caso di cambiamento aggiornare il record DNS del dominio d’appoggio configurato. Ogni mese mi arriva una email di No-IP che mi chiede se voglio mantenere attivo il dominio free e in due click lo rinnovo senza problemi."
+      },
+      {
+        "type": "p",
+        "content": "4) La Github page è HTTPS e non può richiedere risorse non sicure. Ho reso HTTPS anche il server. Qui a causa della mia abbondante ignoranza in materia mi sono inventato una soluzione fantasiosa perché non ne conoscevo una a modo. Il dominio No-IP che ho scelto per il momento (che chiameremo A) non è utilizzabile tramite HTTPS. Mi sono ricordato di avere in cantina un altro dominio inutilizzato (che chiameremo B) con HTTPS e gestione DNS. Quindi ho agito di conseguenza. Ho modificato le richieste del front-end per puntare al dominio B; ho configurato il record CNAME di B in modo che punti al dominio A; ho generato i certificati HTTPS per B e li ho usati per far partire il mio server locale in HTTPS."
+      },
+      {
+        "type": "p",
+        "content": "Per generare i certificati HTTPS ho utilizzato Let’s Encrypt tramite “certbot”. In sostanza questa utility davvero molto comoda deve essere installata sulla stessa macchina del server e effettua una verifica che il dominio specificato punti effettivamente a quella macchina. Completata la verifica genera i certificati SSL che sono subito disponibili per l’utilizzo e in teoria si occupa anche del rinnovo periodico automaticamente."
+      },
+      { "type": "hr" },
+      {
+        "type": "p",
+        "content": "Il risultato funziona molto bene (lo state usando ora). Attualmente il sito non ha traffico quindi non so fino a quanti utenti contemporanei possa soddisfare. Sicuramente per avviare subito un progetto con pochissime spese e tante soddisfazioni è una scelta percorribile. L’articolo ora è finito ma ho senza dubbio tralasciato qualche dettaglio importante e potrei chiarire meglio alcuni passaggi e aggiungere delle soluzioni alternative. Se vi interessa il tema contattatemi o ritornate qui tra qualche settimana per vedere se ci sono aggiornamenti!"
       }
     ]
   },
@@ -121,7 +187,7 @@
     "id": "2067fceb-1790-497a-a921-beb1c44fc13e",
     "relevance": 0,
     "promoted": false,
-    "listed": true,
+    "listed": false,
     "title": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.",
     "abstract": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ullamcorper maximus rhoncus. Praesent auctor nisl lacus, fringilla tempor ex vulputate a. Proin euismod fermentum luctus.",
     "previewPicture": "../data/placeholder.jpg",
