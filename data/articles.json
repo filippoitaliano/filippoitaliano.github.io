@@ -141,7 +141,7 @@
       },
       {
         "type": "p",
-        "content": "Per quando riguarda il front-end ho sfruttato il servizio “GitHub pages”. Mi è bastato spostare i file “index.html” e “404.html” dalla cartella client alla root del repository. Ogni volta che effettuo un push o un merge sul ramo master del repository viene aggiornata la GitHub page rendendo disponibile la nuova versione del front-end."
+        "content": "Ed il back-end? Semplicemente ho clonato il repository anche sul Raspberry. Quando aggiorno il codice del server accedo al Raspberry tramite VNC, effettuo un “git pull” e riavvio il server tramite l’apposito comando predisposto nel “package.json” presente nella directory “server”."
       },
       {
         "type": "p",
