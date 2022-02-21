@@ -15,7 +15,7 @@ const ALLOWED_ORIGINS = [
   // 'http://localhost:8080',
   'https://www.wholejs.com',
   'https://filippoitaliano.github.io',
-  'http://garden.filippoitaliano.com'
+  'https://garden.filippoitaliano.com'
 ];
 
 const createServer = (callback) => {
