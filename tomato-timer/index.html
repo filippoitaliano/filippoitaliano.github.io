@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Tomato timer</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script type="text/javascript" src="logic.js"></script>
+  </head>
+
+  <body>
+    <div class="dialog">
+      <div class="settings-badge">
+        Filippo
+      </div>
+      <div id="settings-dialog-content">
+        <p class="settings-description">
+          Welcome to the cutest tomato timer app. Take your time to set up the timings!
+        </p>
+        <div class="settings-form">
+          <div class="settings-form-control">
+            <div class="settings-form-control-label">
+              Duration
+            </div>
+            <div class="settings-form-control-input-wrapper">
+              <input type="number" id="work-duration-input"/>
+            </div>
+          </div>
+          <div class="settings-form-control">
+            <div class="settings-form-control-label">
+              Break
+            </div>
+            <div class="settings-form-control-input-wrapper">
+              <input type="number" id="break-duration-input" />
+            </div>
+          </div>
+          <div class="settings-form-control">
+            <div class="settings-form-control-label">
+              Times
+            </div>
+            <div class="settings-form-control-input-wrapper">
+              <input type="number" id="work-times-input" />
+            </div>
+          </div>
+            <button class="settings-form-save-button" onclick="confirmSettingsForm()">
+              That's ok!
+            </button>
+        </div>
+      </div>
+      <div id="settings-dialog-closed-content">
+        <p class="settings-description">
+          Good luck and have fun!
+        </p>
+        <button class="settings-dialog-change-settings-button" onclick="showSettingsForm()">
+          Change settings
+        </button>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="clock-title">
+        Timer
+      </div>
+      <div class="analog-timer-wrapper">
+        <div class="analog-timer-circle">
+          <div id="analog-timer-needle"></div>
+        </div>
+      </div>
+      <div class="clock-controls">
+        <button class="clock-control-button" onclick="startTomatoSession()">
+          Start
+        </button>
+        <button class="clock-control-button" onclick="abortTomatoSession()">
+          Abort
+        </button>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+:root {
+  --bg-color: #6ECCBC;
+  --bg-dot-color: #7CD4BD;
+  --btn-color: #04AEA6;
+  --dialog-bg-color: #F5F7E2;
+  --soft-grey: #f7f2f2;
+  --dialog-text-color: #855C25;
+}
+
+body {
+  background: var(--bg-color);
+  background-image: radial-gradient(var(--bg-dot-color) 20%, transparent 0), radial-gradient(var(--bg-dot-color) 20%, transparent 0);
+  background-size: 48px 48px;
+  background-position: 0 0, 24px 24px;
+
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800;
+  color: var(--dialog-text-color);
+}
+
+button {
+  border: 0;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800;
+  background-color: var(--btn-color);
+  color: white;
+}
+
+.dialog {
+  background-color: var(--dialog-bg-color);
+  padding: 30px 30px;
+  border-radius: 60px;
+  box-shadow: 1px 1px 1px lightgrey;
+  position: relative;
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.dialog .settings-description {
+  font-size: 0.8rem;
+  letter-spacing: 0.2px;
+  line-height: 1.8rem;
+}
+
+.dialog .settings-badge {
+  background-color: #F49800;
+  width: auto;
+  text-align: center;
+  padding: 5px 8px;
+  position: absolute;
+  left: 10px;
+  top: -10px;
+  border-radius: 30px;
+  color: #F3FBFE;
+}
+
+.dialog .settings-form {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 15px;
+}
+
+.settings-form-control-label {
+  position: relative;
+  left: 8px;
+  margin-bottom: 10px;
+  color: var(--dialog-text-color);
+}
+
+.settings-form-control-input-wrapper input {
+  background-color: #ede8d3;
+  border: 0;
+  padding: 15px;
+  width: 80px;
+  border-radius: 30px;
+  text-align: center;
+}
+
+.settings-form-save-button {
+  border-radius: 30px;
+  width: 85px;
+  height: 30px;
+  align-self: end;
+  justify-self: end;
+}
+
+#settings-dialog-content {
+  display: block;
+}
+
+#settings-dialog-closed-content {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-dialog-change-settings-button {
+  border-radius: 30px;
+  width: 130px;
+  height: 30px;
+}
+
+.main-content {
+  max-width: 800px;
+  background-color: white;
+  margin: 40px auto;
+  height: 600px;
+  border-radius: 30px;
+  box-shadow: 1px 1px 1px lightgrey;
+}
+
+.clock-title {
+  background-color: var(--dialog-bg-color);
+  border-radius: 30px 30px 0 0;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock-wrapper, .analog-timer-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75%;
+  position: relative;
+}
+
+.clock-digital-time {
+  font-size: 100px;
+  color: var(--dialog-text-color);
+}
+
+.clock-controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 15px;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.clock-control-button {
+  justify-self: center;
+  align-items: center;
+  border-radius: 30px;
+  width: 60px;
+  height: 30px;
+}
+
+.analog-timer-circle {
+  height: 300px;
+  width: 300px;
+  border-radius: 100%;
+  border: solid 10px var(--soft-grey);
+  position: relative;
+}
+
+#analog-timer-needle {
+  height: 130px;
+  width: 2px;
+  background-color: var(--btn-color);
+  position: absolute;
+  top: 20px;
+  right: 150px;
+  transform-origin: 50% 100%;
+}
