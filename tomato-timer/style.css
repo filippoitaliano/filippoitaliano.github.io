@@ -167,4 +167,14 @@ button {
   top: 20px;
   right: 150px;
   transform-origin: 50% 100%;
+  z-index: 1;
+}
+
+#analog-timer-completion {
+  height: 260px;
+  width: 260px;
+  border-radius: 100%;
+  position: absolute;
+  background: conic-gradient(var(--soft-grey) 0deg, transparent 0deg 360deg);
+  z-index: 0;
 }
