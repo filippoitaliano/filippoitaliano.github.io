@@ -151,7 +151,7 @@ button {
   height: 30px;
 }
 
-.analog-timer-circle {
+#analog-timer-circle {
   height: 300px;
   width: 300px;
   border-radius: 100%;
@@ -163,6 +163,17 @@ button {
   height: 130px;
   width: 2px;
   background-color: var(--btn-color);
+  position: absolute;
+  top: 20px;
+  right: 150px;
+  transform-origin: 50% 100%;
+  z-index: 1;
+}
+
+.analog-timer-phase-separator {
+  height: 130px;
+  width: 1px;
+  background-color: #C8C8C8;
   position: absolute;
   top: 20px;
   right: 150px;
