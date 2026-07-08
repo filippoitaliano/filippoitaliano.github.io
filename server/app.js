@@ -1,15 +1,12 @@
-const https = require('https');
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
 const dotenv = require('dotenv');
 
 dotenv.config();
-console.info(process.env);
 
-const HTTPS = !!parseInt(process.env.HTTPS);
 const HOSTNAME = '0.0.0.0';
-const PORT = HTTPS ? 443 : 8082;
+const PORT = process.env.PORT || 8082;
 
 const ALLOWED_ORIGINS = [
   // 'http://localhost:8080',
@@ -17,17 +14,6 @@ const ALLOWED_ORIGINS = [
   'https://filippoitaliano.github.io',
   'https://garden.filippoitaliano.com'
 ];
-
-const createServer = (callback) => {
-  if (HTTPS) {
-    return https.createServer({
-      key: fs.readFileSync(process.env.SSL_KEY),
-      cert: fs.readFileSync(process.env.SSL_CERT),
-    }, callback);
-  } else {
-    return http.createServer(callback);
-  }
-}
 
 const updateGenericLog = () => {
   const logPath = '../data/generic.log';
@@ -62,7 +48,7 @@ const articleCache = (() => {
   return JSON.stringify(parsedWithImages);
 })()
 
-const server = createServer((request, response) => {
+const server = http.createServer((request, response) => {
   const { origin } = request.headers;
   if (ALLOWED_ORIGINS.includes(origin)) {
     response.setHeader('Access-Control-Allow-Origin', origin);

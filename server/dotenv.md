@@ -1,3 +1,2 @@
-This env variables are required to start the server with HTTPS:
-- SSL_CERT
-- SSL_KEY
+The server listens on `process.env.PORT` (provided automatically by Render) and falls back to `8082` locally.
+No other env variables are required to start the server.
