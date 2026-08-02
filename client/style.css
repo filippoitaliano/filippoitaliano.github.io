@@ -458,10 +458,7 @@ a.articles-index-link:hover {
   transform: translateY(-50%);
   display: flex;
   align-items: center;
-  /* The arrow floats over whatever the box was cutting off, so it arrives on a
-     short fade of that box's own colour and never has to compete with it. The
-     fade belongs to the arrow: it comes and goes with it. */
-  padding: 8px 6px 8px 46px;
+  padding: 8px 6px;
   pointer-events: none;
   /* The fade holds still and only the arrow breathes: a fade that breathed with
      it would be see-through at every point of the cycle, and the text it is
@@ -472,16 +469,15 @@ a.articles-index-link:hover {
   transition: opacity 220ms ease;
 }
 
-.articles-bar-wrapper .scroll-hint {
-  background: linear-gradient(to right, rgba(243, 236, 227, 0), #f3ece3 75%);
-}
-
+/* Over the bar the arrow has pale line art under it and stands on its own. Over
+   a code block it would land on the glyphs it is pointing past, so there — and
+   only there — it arrives on a short fade of the block's own black, which reads
+   as the code trailing off rather than as anything laid on top of it. */
 .code-block .scroll-hint {
+  padding-left: 46px;
   background: linear-gradient(to right, rgba(0, 0, 0, 0), #000000 75%);
 }
 
-/* Paper over paper and black over black: the fade shows up only where it has
-   something to dissolve. */
 .scroll-hint.is-visible {
   opacity: 1;
   transition: opacity 700ms ease;
