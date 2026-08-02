@@ -467,7 +467,9 @@ a.articles-index-link:hover {
      it would be see-through at every point of the cycle, and the text it is
      meant to be dissolving would read straight through the arrow. */
   opacity: 0;
-  transition: opacity 700ms ease;
+  /* Quick on the way out — it is getting out of the way of a scroll you just
+     started — and unhurried on the way back in. */
+  transition: opacity 220ms ease;
 }
 
 .articles-bar-wrapper .scroll-hint {
@@ -482,6 +484,7 @@ a.articles-index-link:hover {
    something to dissolve. */
 .scroll-hint.is-visible {
   opacity: 1;
+  transition: opacity 700ms ease;
 }
 
 .scroll-hint svg {

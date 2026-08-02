@@ -1,11 +1,15 @@
+// How long the box has to sit still before the arrow comes back.
+const SCROLL_HINT_IDLE_MS = 600;
+
 /**
  * The arrow that says there is more of something off to the right.
  *
  * Anything that scrolls sideways inside its own box gets one: the artifacts bar
  * and the code blocks both cut their content off at the edge with nothing to say
- * so. It breathes in and out slowly rather than sitting there, it only shows up
- * when the box really does scroll, and it goes away for good once you have got
- * to the end — at which point it has nothing left to point at.
+ * so. It breathes in and out slowly rather than sitting there, and it only ever
+ * shows up when it has something to say: not while you are scrolling, because
+ * then you already know, and not once you have reached the end, because then
+ * there is nothing left to point at.
  */
 class ScrollHint {
 
@@ -30,22 +34,34 @@ class ScrollHint {
     `);
 
     const hint = wrapper.querySelector(`#${id}`);
+    let idle = null;
 
-    const update = () => {
+    const moreToTheRight = () => {
       const hidden = scroller.scrollWidth - scroller.clientWidth;
-      const left = hidden - scroller.scrollLeft;
       // a couple of pixels of slack: sub-pixel layout leaves a sliver of scroll
       // room on boxes that visually have none
-      hint.classList.toggle('is-visible', hidden > 2 && left > 2);
+      return hidden > 2 && hidden - scroller.scrollLeft > 2;
     };
 
-    scroller.addEventListener('scroll', update, { passive: true });
+    const settle = () => hint.classList.toggle('is-visible', moreToTheRight());
+
+    // The arrow is there to say the box can be scrolled, so the moment you are
+    // scrolling it has made its point — and the fade it sits on is over the
+    // content you are moving past. It steps aside and comes back once the box
+    // has been still for a moment, if there is still something over there.
+    const onScroll = () => {
+      hint.classList.remove('is-visible');
+      clearTimeout(idle);
+      idle = setTimeout(settle, SCROLL_HINT_IDLE_MS);
+    };
+
+    scroller.addEventListener('scroll', onScroll, { passive: true });
     // The bar is as wide as the window, so it stops and starts overflowing as
     // the window is resized.
     if (window.ResizeObserver) {
-      new ResizeObserver(update).observe(scroller);
+      new ResizeObserver(settle).observe(scroller);
     }
-    update();
+    settle();
   }
 
 }
