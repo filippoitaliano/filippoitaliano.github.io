@@ -172,6 +172,73 @@ a:link {
 .topbar-logo-wrapper {
   grid-column-start: 1;
   grid-column-end: 2;
+  /* The anchor the tooltip hangs from. */
+  position: relative;
+}
+
+.topbar-logo-link {
+  display: block;
+}
+
+.topbar-logo-tooltip {
+  position: absolute;
+  /* Left aligned with the logo, not centred on it: on a wide screen the logo
+     sits in the first of six columns, and a centred tooltip would hang off the
+     left edge of the page. */
+  left: 0;
+  top: calc(100% + 4px);
+  z-index: 10;
+  width: max-content;
+  max-width: min(280px, calc(100vw - 40px));
+  padding: 10px 13px;
+  border-radius: 6px;
+  background-color: #3a3532;
+  color: #f3ece3;
+  font-size: 0.55rem;
+  line-height: 1.5;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(58, 53, 50, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 160ms ease, top 160ms ease, visibility 160ms;
+}
+
+.topbar-logo-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 44px;
+  border: 6px solid transparent;
+  border-bottom-color: #3a3532;
+}
+
+.topbar-logo-tooltip-count {
+  color: #e8b93f;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.topbar-logo-wrapper:hover .topbar-logo-tooltip,
+.topbar-logo-wrapper.is-held .topbar-logo-tooltip,
+.topbar-logo-link:focus-visible + .topbar-logo-tooltip {
+  top: calc(100% + 10px);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* A touch screen has no hover: holding the logo is what opens the tooltip
+   there, and the hover rule would otherwise leave it stuck open after a tap. */
+@media (hover: none) {
+  .topbar-logo-wrapper:hover .topbar-logo-tooltip {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .topbar-logo-wrapper.is-held .topbar-logo-tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 .topbar-logo {
@@ -192,6 +259,18 @@ a:link {
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
+  }
+
+  /* Here the logo is centred on the page, so the tooltip is too. */
+  .topbar-logo-tooltip {
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+  }
+
+  .topbar-logo-tooltip::after {
+    left: 50%;
+    margin-left: -6px;
   }
 
   .topbar-link {
