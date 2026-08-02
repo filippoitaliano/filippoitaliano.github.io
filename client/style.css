@@ -127,6 +127,12 @@ a:link {
   margin-right: 10px;
 }
 
+.topbar-link .arrow-link-a {
+  display: flex;
+  align-items: center;
+  line-height: 20px;
+}
+
 .arrow-link-svg-reverse > svg {
   transform: rotate(180deg);
 }
