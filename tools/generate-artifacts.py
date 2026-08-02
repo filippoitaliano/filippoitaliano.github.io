@@ -221,11 +221,11 @@ def _bt_card(cx, cy, z, w, h, ang, color, oy, thickness=1.6):
     a = math.radians(ang)
     ca, sa = math.cos(a), math.sin(a)
 
-    def corner(dx, dy, zz):
+    def corner(dx, dy, zz=z):
         return iso(cx + dx * ca - dy * sa, cy + dx * sa + dy * ca, zz, oy=oy)
 
     quad = [(-w / 2, -h / 2), (w / 2, -h / 2), (w / 2, h / 2), (-w / 2, h / 2)]
-    top = [corner(dx, dy, z) for dx, dy in quad]
+    top = [corner(dx, dy) for dx, dy in quad]
     under = [corner(dx, dy, z - thickness) for dx, dy in quad]
     # the card's own edge, so the fan reads as a stack and not as flat decals
     edge = [top[1], top[2], top[3], under[3], under[2], under[1]]
@@ -236,37 +236,56 @@ def _bt_card(cx, cy, z, w, h, ang, color, oy, thickness=1.6):
     )
 
 
+def _bt_ink(corner, points, z, color, width, opacity=1.0, closed=False):
+    """Ink a run of card-space points onto a card lying in the scene."""
+    d = "M" + " L".join(f"{x:.2f} {y:.2f}" for x, y in (corner(a, b, z) for a, b in points))
+    return (f'    <path d="{d}{" z" if closed else ""}" fill="none" stroke="{color}" '
+            f'stroke-width="{width}" stroke-linecap="round" stroke-linejoin="round" '
+            f'opacity="{opacity}"/>')
+
+
+def _bt_sparkle(cx, cy, r, color, opacity, squash=1.0):
+    return (f'  <path transform="translate({cx:.2f} {cy:.2f}) scale(1 {squash})" '
+            f'd="M0 {-r} Q0 0 {r} 0 Q0 0 0 {r} Q0 0 {-r} 0 Q0 0 0 {-r} z" '
+            f'fill="{color}" opacity="{opacity}"/>')
+
+
 def blindtales_app():
     back, face, ink = BT_BACK, BT_FACE, BT_INK
     oy = 98.0
+    w, h = 34, 46
     out = [ground_shadow(87.5, 120, 44, 14)]
     out.append("  <g>")
-    # the cards already played, face down and fanned out
-    for cx, cy, z, ang in ((-11, 11, 0, -40), (11, -10, 2.4, 26)):
-        card, _ = _bt_card(cx, cy, z, 34, 46, ang, back, oy)
+    # the cards already played: face down, fanned, each in the deck's white rim
+    for cx, cy, z, ang, emblem in ((-11, 11, 0, -40, False), (11, -10, 2.4, 26, True)):
+        card, corner = _bt_card(cx, cy, z, w, h, ang, back, oy)
         out.append(card)
+        out.append(_bt_ink(corner, [(-w / 2 + 3, -h / 2 + 3), (w / 2 - 3, -h / 2 + 3),
+                                    (w / 2 - 3, h / 2 - 3), (-w / 2 + 3, h / 2 - 3)],
+                           z + 0.2, shade(face, 0.98), 1.1, 0.65, closed=True))
+        if emblem:
+            ex, ey = corner(7, -13, z + 0.2)
+            out.append("  " + _bt_sparkle(ex, ey, 5.2, face, 0.5, 0.62).strip())
     # the card in your hand: face up, the only one anybody can read
-    card, corner = _bt_card(-2, 0, 5.4, 34, 46, -6, face, oy)
+    z = 5.4
+    card, corner = _bt_card(-2, 0, z, w, h, -6, face, oy)
     out.append(card)
-
-    def rule(dx1, dy1, dx2, dy2, color, width, opacity=1.0):
-        p1 = corner(dx1, dy1, 5.6)
-        p2 = corner(dx2, dy2, 5.6)
-        return (f'    <path d="M{p1[0]:.2f} {p1[1]:.2f} L{p2[0]:.2f} {p2[1]:.2f}" '
-                f'stroke="{color}" stroke-width="{width}" stroke-linecap="round" '
-                f'opacity="{opacity}"/>')
-
-    # the prompt printed on it, and the dotted fold the next player writes past
-    out.append(rule(-9, -4, 9, -4, shade(back, 1.35), 2.2))
-    out.append(rule(-9, 2, 4, 2, shade(back, 1.35), 2.2))
-    out.append(rule(-11, 11, 11, 11, ink, 1.4, 0.85))
-    out.append(rule(-13, -17, -7, -17, back, 1.6, 0.7))
+    # its printed rim, the prompt, and the fold the next player writes past
+    out.append(_bt_ink(corner, [(-w / 2 + 3, -h / 2 + 3), (w / 2 - 3, -h / 2 + 3),
+                                (w / 2 - 3, h / 2 - 3), (-w / 2 + 3, h / 2 - 3)],
+                       z + 0.2, shade(back, 1.55), 0.8, 0.55, closed=True))
+    out.append(_bt_ink(corner, [(-9, -4), (9, -4)], z + 0.2, shade(back, 1.3), 2.2))
+    out.append(_bt_ink(corner, [(-9, 1), (4, 1)], z + 0.2, shade(back, 1.3), 2.2))
+    out.append(_bt_ink(corner, [(-11, 10), (11, 10)], z + 0.2, ink, 1.4, 0.85))
+    # the turn number, top left and bottom right as on the real card
+    out.append(_bt_ink(corner, [(-12, -17), (-8, -17)], z + 0.2, back, 1.8, 0.75))
+    out.append(_bt_ink(corner, [(8, 17), (12, 17)], z + 0.2, back, 1.8, 0.75))
+    # the crease: the story so far, folded away out of sight
+    out.append(_bt_ink(corner, [(-13, 5.5), (13, 5.5)], z + 0.2, shade(back, 1.5), 0.9, 0.9))
     out.append("  </g>")
     # a little of the game's own sparkle
-    for sx, sy, r in ((36, 34, 5.0), (139, 52, 3.6), (126, 116, 4.4)):
-        out.append(f'  <path d="M{sx} {sy - r} Q{sx} {sy} {sx + r} {sy} '
-                   f'Q{sx} {sy} {sx} {sy + r} Q{sx} {sy} {sx - r} {sy} '
-                   f'Q{sx} {sy} {sx} {sy - r} z" fill="{ink}" opacity="0.5"/>')
+    for sx, sy, r, o in ((36, 34, 5.0, 0.5), (139, 52, 3.6, 0.45), (126, 116, 4.4, 0.4)):
+        out.append(_bt_sparkle(sx, sy, r, ink, o))
     return wrap("blindtales-app", "\n".join(out))
 
 
