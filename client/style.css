@@ -55,7 +55,7 @@ html {
 hr {
   background: linear-gradient(to right, #f3ece3, #f71735, #f3ece3);
   height: 1px;
-  margin: 40px 0 40px;
+  margin: 32px 0 32px;
   border: none;
 }
 
@@ -92,14 +92,8 @@ a:link {
   }
 }
 
-.six-columns-grid-container {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
 .two-columns-grid-container > *,
-.three-columns-grid-container > *,
-.six-columns-grid-container > * {
+.three-columns-grid-container > * {
   min-width: 0;
 }
 
@@ -172,23 +166,55 @@ img {
 
 .arrow-link-svg {
   margin-right: 10px;
+  /* The arrow leans forward under the pointer: the rest of the site already
+     answers a hover with the accent colour, the links did not answer at all. */
+  transition: transform 160ms ease;
 }
 
+.arrow-link-a:hover .arrow-link-text {
+  color: #f71735;
+}
+
+.arrow-link-a:hover .arrow-link-svg {
+  transform: translateX(4px);
+}
+
+.arrow-link-a:hover .arrow-link-svg-reverse {
+  transform: translateX(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow-link-a:hover .arrow-link-svg,
+  .arrow-link-a:hover .arrow-link-svg-reverse {
+    transform: none;
+  }
+}
+
+/* One row wide enough for every link, or a column: never a row that wraps, which
+   is what left the third link hanging under the other two. */
 .topbar-links {
-  /* Several links now, so they get their own track and lay themselves out in it
-     instead of leaning on the auto placement of the six column grid. */
-  grid-column-start: 2;
-  grid-column-end: 5;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* The row is 460px of links: it only goes back to being a row once the column
+   between the gutters is wide enough to hold it next to the logo, which is the
+   same width at which the article header stops stacking. */
+@media only screen and (min-width: 1281px) {
+  .topbar-links {
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+  }
 }
 
 .topbar-links .arrow-link-a {
   display: flex;
   align-items: center;
   line-height: 20px;
+  white-space: nowrap;
 }
 
 .arrow-link-svg-reverse > svg {
@@ -227,18 +253,22 @@ img {
   }
 }
 
+/* The topbar stands on the same two vertical lines as everything below it: the
+   same gutters as `.three-columns-grid-container`, so the logo starts where the
+   article text starts and the links end where it ends. The bar was a six column
+   grid with its items centred in their own tracks, which lined the logo up with
+   nothing and left the links adrift in the middle of the page. */
 .topbar-wrapper {
-  grid-column-start: 1;
-  grid-column-end: 7;
+  display: flex;
   align-items: center;
-  padding-top: 40px;
-  margin-bottom: 40px;
-  justify-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 40px 25vw 0;
+  margin-bottom: 24px;
 }
 
 .topbar-logo-wrapper {
-  grid-column-start: 1;
-  grid-column-end: 2;
+  flex: 0 0 auto;
   /* The anchor the tooltip hangs from. */
   position: relative;
 }
@@ -327,32 +357,30 @@ img {
   height: 90px;
 }
 
+/* Where the column between the gutters is under 400px the logo steps down a
+   size, so the links keep their room: on the narrowest phones, and again just
+   past 600px, where the 25vw gutters leave a column narrower than a phone's.
+   84x72 is the next size down that stays whole pixels on both sides of the
+   175x150 the logo is drawn at. */
+@media only screen and (max-width: 380px),
+       only screen and (min-width: 601px) and (max-width: 800px) {
+  .topbar-logo {
+    width: 84px;
+    height: 72px;
+  }
+}
+
 @media only screen and (max-width: 600px) {
-  .topbar-logo-wrapper {
-    grid-column-start: 1;
-    grid-column-end: 7;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
+  /* Same 5vw gutters the content takes here. The logo used to be centred with a
+     band of nothing under it and the links below that; side by side they fill
+     the width of the phone between them instead. */
+  .topbar-wrapper {
+    padding: 32px 5vw 0;
+    gap: 16px;
   }
 
-  /* Here the logo is centred on the page, so the tooltip is too. */
   .topbar-logo-tooltip {
-    left: 50%;
-    transform: translateX(-50%);
     font-size: 0.6rem;
-  }
-
-  .topbar-logo-tooltip::after {
-    left: 50%;
-    margin-left: -6px;
-  }
-
-  .topbar-links {
-    grid-column-start: 1;
-    grid-column-end: 7;
-    justify-content: center;
-    gap: 10px 30px;
   }
 
   /* The page title is 2rem here, so the entries have to step down further to
