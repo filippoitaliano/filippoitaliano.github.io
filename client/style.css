@@ -260,15 +260,13 @@ a:link {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
+  /* 175x150 artifacts: a 105px column makes them exactly 90px tall, so the
+     bar stays a whole number of pixels high. */
   width: 105px;
 }
 
-/* Same 175x150 ratio as the logo, sized so the artifacts keep the bar (and
-   the separator under it) on whole pixels. */
 .repo-artifact-img {
-  display: block;
-  width: 105px;
-  height: 90px;
+  width: 100%;
 }
 
 .repo-artifact-name {
