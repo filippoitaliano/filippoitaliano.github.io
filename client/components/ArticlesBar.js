@@ -29,29 +29,19 @@ const ARTICLES_BAR_ARTIFACTS = [
     href: 'https://github.com/filippoitaliano/event-driven-booking-app',
     alt: 'an isometric booking slot emitting events to a phone',
   },
-  {
-    src: '/client/placeholder.png',
-    alt: 'a placeholder for a repository to come',
-  },
 ];
 
 class ArticlesBar {
 
   static _renderArtifact({ name, src, href, alt }) {
-    const image = `
-      <img
-        class="repo-artifact-img"
-        src="${window.location.origin}${src}"
-        alt="${alt}"
-      />
-      <span class="repo-artifact-name">${name || ''}</span>
-    `;
-
-    if (!href) return `<div class="repo-artifact">${image}</div>`;
-
     return `
       <a class="repo-artifact" href="${href}" target="_blank" rel="noopener noreferrer">
-        ${image}
+        <img
+          class="repo-artifact-img"
+          src="${window.location.origin}${src}"
+          alt="${alt}"
+        />
+        <span class="repo-artifact-name">${name}</span>
       </a>
     `;
   }
@@ -61,7 +51,7 @@ class ArticlesBar {
 
     appendInnerHtmlTemplate(parentNode, id, `
       <hr />
-      <div class="six-columns-grid-container articles-bar" id="${id}">
+      <div class="articles-bar" id="${id}">
         ${ARTICLES_BAR_ARTIFACTS.map(ArticlesBar._renderArtifact).join('')}
       </div>
       <hr />
