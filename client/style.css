@@ -175,7 +175,7 @@ img {
 }
 
 .topbar-links {
-  /* Two links now, so they get their own track and lay themselves out in it
+  /* Several links now, so they get their own track and lay themselves out in it
      instead of leaning on the auto placement of the six column grid. */
   grid-column-start: 2;
   grid-column-end: 5;
@@ -410,6 +410,31 @@ a.articles-index-link:hover {
   font-size: 0.75rem;
   color: #707070;
   margin: 8px 0 0;
+}
+
+.articles-index-more {
+  margin-top: 12px;
+}
+
+.articles-index-more .arrow-link-a {
+  display: inline-flex;
+  align-items: center;
+  line-height: 20px;
+}
+
+/* The index is a list, not an article: on the width where the two columns
+   actually hold (see the stacking rule above) the reading starts at the left
+   edge and the page title sits beside it, on the right. */
+@media only screen and (min-width: 1281px) {
+  .articles-index-wrapper .title-wrapper {
+    grid-column-start: 2;
+    grid-column-end: 3;
+  }
+
+  .articles-index-wrapper .abstract-wrapper {
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
 }
 
 .fallback-wrapper .title-wrapper h1 {

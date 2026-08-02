@@ -13,13 +13,14 @@ class ArticlesIndex extends Component {
     this.id = `articlesindex_${getRandomNumber()}`;
   }
 
-  static _renderEntry(article, id) {
+  static _renderEntry(article, id, linkWrapperId) {
     return `
       <li class="articles-index-item">
         <a class="articles-index-link" id="${id}" href="/article/${article.id}">
           ${article.title}
         </a>
         <p class="articles-index-abstract">${article.abstract}</p>
+        <div class="articles-index-more" id="${linkWrapperId}"></div>
       </li>
     `;
   }
@@ -30,14 +31,15 @@ class ArticlesIndex extends Component {
     const entries = this.props.articles.map((article) => ({
       article,
       linkId: `articlesindexlink_${getRandomNumber()}`,
+      moreId: `articlesindexmore_${getRandomNumber()}`,
     }));
 
     const template = appendInnerHtmlTemplate(parentNode, this.id, `
-      <div class="two-columns-grid-container article-wrapper" id="${this.id}">
+      <div class="two-columns-grid-container article-wrapper articles-index-wrapper" id="${this.id}">
         <div class="title-wrapper"></div>
         <div class="abstract-wrapper">
           <ul class="articles-index-list">
-            ${entries.map(({ article, linkId }) => ArticlesIndex._renderEntry(article, linkId)).join('')}
+            ${entries.map(({ article, linkId, moreId }) => ArticlesIndex._renderEntry(article, linkId, moreId)).join('')}
           </ul>
         </div>
       </div>
@@ -52,9 +54,15 @@ class ArticlesIndex extends Component {
       return;
     }
 
-    entries.forEach(({ article, linkId }) => {
+    entries.forEach(({ article, linkId, moreId }) => {
       const link = template.querySelector(`#${linkId}`);
       link.onclick = () => navigate(`/article/${article.id}`);
+
+      const more = new ArrowLink({
+        href: `/article/${article.id}`,
+        text: 'leggi tutto'
+      });
+      more.appendTo(template.querySelector(`#${moreId}`));
     });
   }
 
