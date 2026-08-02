@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 150" width="175" height="150" role="img" aria-label="blindtales-app">
+  <title>blindtales-app</title>
+  <defs>
+    <radialGradient id="sh" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a3532" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#3a3532" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g fill="none" stroke="#e6e2dc" stroke-width="0.6" opacity="0.9">
+    <circle cx="87.5" cy="75" r="61"/>
+    <path d="M87.5 12 V138"/>
+    <path d="M33 43.5 L142 106.5"/>
+    <path d="M33 106.5 L142 43.5"/>
+  </g>
+  <g fill="none" stroke="#d9d5cf" stroke-width="0.9" stroke-linecap="round" opacity="0.75">
+    <path d="M18 47 L52 67"/>
+    <path d="M24 41 L46 54"/>
+    <path d="M124 96 L158 116"/>
+    <path d="M132 106 L152 118"/>
+  </g>
+  <ellipse cx="87.5" cy="120" rx="44" ry="14" fill="url(#sh)"/>
+  <g>
+    <polygon points="91.64,82.85 86.73,115.25 45.25,113.15 45.25,114.75 86.73,116.85 91.64,84.45" fill="#29244e"/>
+    <polygon points="50.16,80.75 91.64,82.85 86.73,115.25 45.25,113.15" fill="#3b3470"/>
+    <path d="M53.50 82.85 L87.66 84.57 L83.39 112.75 L49.23 111.03 z" fill="none" stroke="#f2ecde" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
+    <polygon points="139.10,102.17 85.83,112.76 72.27,90.03 72.27,91.63 85.83,114.36 139.10,103.77" fill="#29244e"/>
+    <polygon points="125.54,79.44 139.10,102.17 85.83,112.76 72.27,90.03" fill="#3b3470"/>
+    <path d="M123.26 81.94 L134.43 100.66 L88.11 109.86 L76.94 91.14 z" fill="none" stroke="#f2ecde" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
+  <path transform="translate(123.53 97.59) scale(1 0.62)" d="M0 -5.2 Q0 0 5.2 0 Q0 0 0 5.2 Q0 0 -5.2 0 Q0 0 0 -5.2 z" fill="#f7f1e3" opacity="0.5"/>
+    <polygon points="119.68,86.53 84.22,111.80 51.86,96.67 51.86,98.27 84.22,113.40 119.68,88.13" fill="#aca89e"/>
+    <polygon points="87.31,71.40 119.68,86.53 84.22,111.80 51.86,96.67" fill="#f7f1e3"/>
+    <path d="M87.86 74.18 L114.51 86.64 L83.68 108.62 L57.03 96.16 z" fill="none" stroke="#a6a3be" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
+    <path d="M80.28 85.20 L97.42 93.21" fill="none" stroke="#75709a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="1.0"/>
+    <path d="M76.43 87.94 L88.80 93.73" fill="none" stroke="#75709a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="1.0"/>
+    <path d="M67.59 92.00 L88.53 101.79" fill="none" stroke="#f71735" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+    <path d="M87.45 76.72 L91.26 78.50" fill="none" stroke="#3b3470" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+    <path d="M80.28 104.30 L84.09 106.08" fill="none" stroke="#3b3470" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+    <path d="M69.16 88.64 L93.90 100.21" fill="none" stroke="#9d99b7" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  </g>
+  <path transform="translate(36.00 34.00) scale(1 1.0)" d="M0 -5.0 Q0 0 5.0 0 Q0 0 0 5.0 Q0 0 -5.0 0 Q0 0 0 -5.0 z" fill="#f71735" opacity="0.5"/>
+  <path transform="translate(139.00 52.00) scale(1 1.0)" d="M0 -3.6 Q0 0 3.6 0 Q0 0 0 3.6 Q0 0 -3.6 0 Q0 0 0 -3.6 z" fill="#f71735" opacity="0.45"/>
+  <path transform="translate(126.00 116.00) scale(1 1.0)" d="M0 -4.4 Q0 0 4.4 0 Q0 0 0 4.4 Q0 0 -4.4 0 Q0 0 0 -4.4 z" fill="#f71735" opacity="0.4"/>
+</svg>

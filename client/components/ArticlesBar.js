@@ -1,5 +1,11 @@
 const ARTICLES_BAR_ARTIFACTS = [
   {
+    name: 'blindtales-app',
+    src: '/client/artifacts/blindtales-app.svg',
+    href: 'https://blindtales.app/',
+    alt: 'an isometric fan of face-down cards with one prompt card face up',
+  },
+  {
     name: 'gpio-pin-select',
     src: '/client/raspberry.png',
     href: 'https://github.com/filippoitaliano/gpio-pin-select',
