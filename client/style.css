@@ -111,6 +111,21 @@ a:link {
   }
 }
 
+/* A display title cannot wrap inside a word, so its half of the article never
+   gets narrower than the longest word in it — around 300px. On a wide screen
+   both halves are wider than that and the two columns hold. In between, the
+   title keeps its 300px and the abstract is left with whatever remains, down to
+   a sliver, until the two run into each other. Below the width where both fit,
+   the header stacks the way it does on a phone and the title scales with the
+   viewport instead of staying at its widest. */
+@media only screen and (min-width: 601px) and (max-width: 1280px) {
+  .article-wrapper .title-wrapper,
+  .article-wrapper .abstract-wrapper {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
+
 .arrow-link-a, .dot-link-a {
   font-size: 0.8rem;
   text-decoration: none;
@@ -168,6 +183,15 @@ a:link {
 @media only screen and (max-width: 600px) {
   .title-wrapper .title-body-text {
     font-size: 2rem;
+  }
+}
+
+/* Between the two the title has the whole article to itself (see the stacking
+   rule above) but not much of it, so it scales with the viewport rather than
+   staying at the size it takes on a wide screen. */
+@media only screen and (min-width: 601px) and (max-width: 1280px) {
+  .title-wrapper .title-body-text {
+    font-size: clamp(1.85rem, 4.25vw + 17px, 3rem);
   }
 }
 
