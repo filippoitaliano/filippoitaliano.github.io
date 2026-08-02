@@ -426,14 +426,32 @@ a.articles-index-link:hover {
    actually hold (see the stacking rule above) the reading starts at the left
    edge and the page title sits beside it, on the right. */
 @media only screen and (min-width: 1281px) {
+  /* Both rows are pinned: the list comes after the title in the source but
+     sits before it on the page, and without a row of its own the auto
+     placement would push it onto a second one. */
   .articles-index-wrapper .title-wrapper {
     grid-column-start: 2;
     grid-column-end: 3;
+    grid-row: 1;
   }
 
   .articles-index-wrapper .abstract-wrapper {
     grid-column-start: 1;
     grid-column-end: 2;
+    grid-row: 1;
+  }
+
+  /* Baseline alignment would sit the title on the same line as the first entry
+     and push the whole list down by the difference between the two type sizes.
+     Here the two columns start together instead: tops aligned, and the h1 gives
+     up its own top margin so its first line starts where the first article
+     does. */
+  .articles-index-wrapper {
+    align-items: start;
+  }
+
+  .articles-index-wrapper .title-wrapper .title-body-text {
+    margin-top: 0;
   }
 }
 
