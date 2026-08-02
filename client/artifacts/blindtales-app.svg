@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 150" width="175" height="150" role="img" aria-label="blindtales-app">
+  <title>blindtales-app</title>
+  <defs>
+    <radialGradient id="sh" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a3532" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#3a3532" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g fill="none" stroke="#e6e2dc" stroke-width="0.6" opacity="0.9">
+    <circle cx="87.5" cy="75" r="61"/>
+    <path d="M87.5 12 V138"/>
+    <path d="M33 43.5 L142 106.5"/>
+    <path d="M33 106.5 L142 43.5"/>
+  </g>
+  <g fill="none" stroke="#d9d5cf" stroke-width="0.9" stroke-linecap="round" opacity="0.75">
+    <path d="M18 47 L52 67"/>
+    <path d="M24 41 L46 54"/>
+    <path d="M124 96 L158 116"/>
+    <path d="M132 106 L152 118"/>
+  </g>
+  <ellipse cx="87.5" cy="124" rx="42" ry="13" fill="url(#sh)"/>
+  <g>
+    <polygon points="51.13,86.00 92.70,110.00 92.70,121.00 51.13,97.00" fill="#aeaaa2"/>
+<polygon points="123.87,92.00 92.70,110.00 92.70,121.00 123.87,103.00" fill="#d0cbc2"/>
+<polygon points="82.30,68.00 123.87,92.00 92.70,110.00 51.13,86.00" fill="#f3ede2"/>
+    <polygon points="82.30,67.80 123.87,91.80 92.70,109.80 51.13,85.80" fill="#2a7061"/>
+    <path d="M103.09 79.60 L71.91 97.60" stroke="#1e5045" stroke-width="2" stroke-linecap="round"/>
+    <path d="M71.91 83.60 L96.16 97.60" stroke="#f71735" stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>
+  </g>
+  <g transform="translate(68.72 64.60)" fill="none"
+    stroke="#f71735" stroke-width="2.2" stroke-linecap="round"><path d="M0 -11 A11 11 0 0 0 0 11" opacity="0.75"/><path d="M0 -19 A19 19 0 0 0 0 19" opacity="0.55"/><path d="M0 -27 A27 27 0 0 0 0 27" opacity="0.35"/></g>
+  <circle cx="68.72" cy="64.60" r="3" fill="#f71735"/>
+</svg>

@@ -1,5 +1,11 @@
 const ARTICLES_BAR_ARTIFACTS = [
   {
+    name: 'blindtales-app',
+    src: '/client/artifacts/blindtales-app.svg',
+    href: 'https://blindtales.app/',
+    alt: 'an isometric book telling its tale as sound waves',
+  },
+  {
     name: 'gpio-pin-select',
     src: '/client/raspberry.png',
     href: 'https://github.com/filippoitaliano/gpio-pin-select',

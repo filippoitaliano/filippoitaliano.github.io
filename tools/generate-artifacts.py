@@ -209,6 +209,40 @@ def event_driven_booking_app():
 
 
 # --------------------------------------------------------------------------
+# blindtales-app: a book that is listened to rather than read — a closed
+# volume on a plinth, telling its tale as sound waves.
+# --------------------------------------------------------------------------
+def blindtales_app():
+    cover, pages, wave = "#2a7061", "#f3ede2", "#f71735"
+    oy = 100.0
+    out = [ground_shadow(87.5, 124, 42, 13)]
+    out.append("  <g>")
+    # the book: a stack of pages under a cloth cover
+    out.append("    " + box(-24, -18, 0, 48, 36, 11, pages, oy=oy))
+    out.append("    " + plate(-24, -18, 11.2, 48, 36, cover, oy=oy))
+    # spine and a ribbon marker running across the cover
+    p1 = iso(0, -18, 11.4, oy=oy)
+    p2 = iso(0, 18, 11.4, oy=oy)
+    out.append(f'    <path d="M{p1[0]:.2f} {p1[1]:.2f} L{p2[0]:.2f} {p2[1]:.2f}" '
+               f'stroke="{shade(cover, 0.72)}" stroke-width="2" stroke-linecap="round"/>')
+    p3 = iso(-14, 4, 11.4, oy=oy)
+    p4 = iso(14, 4, 11.4, oy=oy)
+    out.append(f'    <path d="M{p3[0]:.2f} {p3[1]:.2f} L{p4[0]:.2f} {p4[1]:.2f}" '
+               f'stroke="{wave}" stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>')
+    out.append("  </g>")
+    # the tale coming off the book as sound, told rather than shown
+    src = iso(-24, 0, 11.4, oy=oy)
+    waves = []
+    for i, r in enumerate((11, 19, 27)):
+        waves.append(f'<path d="M0 {-r} A{r} {r} 0 0 0 0 {r}" opacity="{0.75 - i * 0.2:.2f}"/>')
+    wx, wy = src[0] + 2, src[1] - 12
+    out.append(f"""  <g transform="translate({wx:.2f} {wy:.2f})" fill="none"
+    stroke="{wave}" stroke-width="2.2" stroke-linecap="round">{''.join(waves)}</g>""")
+    out.append(f'  <circle cx="{wx:.2f}" cy="{wy:.2f}" r="3" fill="{wave}"/>')
+    return wrap("blindtales-app", "\n".join(out))
+
+
+# --------------------------------------------------------------------------
 # filippoitaliano.github.io: the digital garden — a plot of soil with a sprout.
 # The same scene is reused, as its own standalone file, for the site logo.
 # --------------------------------------------------------------------------
@@ -286,6 +320,7 @@ def site_favicon():
 if __name__ == "__main__":
     # Paths are relative to the client dir: `python3 tools/generate-artifacts.py client`.
     targets = {
+        "artifacts/blindtales-app.svg": blindtales_app(),
         "artifacts/tomato-timer.svg": tomato_timer(),
         "artifacts/react-webpack-seed.svg": react_webpack_seed(),
         "artifacts/event-driven-booking-app.svg": event_driven_booking_app(),
