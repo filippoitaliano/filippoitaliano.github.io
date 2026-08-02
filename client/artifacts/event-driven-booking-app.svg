@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 150" width="175" height="150" role="img" aria-label="event-driven-booking-app">
+  <title>event-driven-booking-app</title>
+  <defs>
+    <radialGradient id="sh" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a3532" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#3a3532" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g fill="none" stroke="#e6e2dc" stroke-width="0.6" opacity="0.9">
+    <circle cx="87.5" cy="75" r="61"/>
+    <path d="M87.5 12 V138"/>
+    <path d="M33 43.5 L142 106.5"/>
+    <path d="M33 106.5 L142 43.5"/>
+  </g>
+  <g fill="none" stroke="#d9d5cf" stroke-width="0.9" stroke-linecap="round" opacity="0.75">
+    <path d="M18 47 L52 67"/>
+    <path d="M24 41 L46 54"/>
+    <path d="M124 96 L158 116"/>
+    <path d="M132 106 L152 118"/>
+  </g>
+  <ellipse cx="87.5" cy="124" rx="46" ry="14" fill="url(#sh)"/>
+  <g>
+    <polygon points="35.54,96.00 87.50,126.00 87.50,130.00 35.54,100.00" fill="#a5a29e"/>
+<polygon points="139.46,96.00 87.50,126.00 87.50,130.00 139.46,100.00" fill="#c5c2bd"/>
+<polygon points="87.50,66.00 139.46,96.00 87.50,126.00 35.54,96.00" fill="#e6e2dc"/>
+    <path d="M100.49 73.50 L48.53 103.50" stroke="#c5c2bd" stroke-width="0.8"/>
+    <path d="M74.51 73.50 L126.47 103.50" stroke="#c5c2bd" stroke-width="0.8"/>
+    <path d="M113.48 81.00 L61.52 111.00" stroke="#c5c2bd" stroke-width="0.8"/>
+    <path d="M61.52 81.00 L113.48 111.00" stroke="#c5c2bd" stroke-width="0.8"/>
+    <path d="M126.47 88.50 L74.51 118.50" stroke="#c5c2bd" stroke-width="0.8"/>
+    <path d="M48.53 88.50 L100.49 118.50" stroke="#c5c2bd" stroke-width="0.8"/>
+    <polygon points="61.52,87.00 74.51,94.50 74.51,103.50 61.52,96.00" fill="#b11026"/>
+<polygon points="87.50,87.00 74.51,94.50 74.51,103.50 87.50,96.00" fill="#d4132d"/>
+<polygon points="74.51,79.50 87.50,87.00 74.51,94.50 61.52,87.00" fill="#f71735"/>
+    <polygon points="87.50,91.00 100.49,98.50 100.49,103.50 87.50,96.00" fill="#1e5045"/>
+<polygon points="113.48,91.00 100.49,98.50 100.49,103.50 113.48,96.00" fill="#246053"/>
+<polygon points="100.49,83.50 113.48,91.00 100.49,98.50 87.50,91.00" fill="#2a7061"/>
+  </g>
+  <path d="M74.51 83.00 C82.51 61.00 96 22 116 30" fill="none" stroke="#f71735" stroke-width="1.2"
+    stroke-linecap="round" stroke-dasharray="1 4" opacity="0.55"/>
+  <g fill="#f71735">
+    <circle cx="77.51" cy="73.00" r="2.6"/>
+    <circle cx="90.51" cy="63.00" r="2" opacity="0.6"/>
+    <circle cx="104.51" cy="61.00" r="1.4" opacity="0.35"/>
+  </g>
+  <g transform="translate(116 14)">
+    <rect x="1" y="3" width="26" height="44" rx="4.5" fill="#3a3532" opacity="0.12"/>
+    <rect x="0" y="0" width="26" height="44" rx="4.5" fill="#73716e"/>
+    <rect x="1.8" y="1.8" width="22.4" height="40.4" rx="3.2" fill="#fbf9f6"/>
+    <rect x="5" y="7" width="16" height="4" rx="2" fill="#c3c0bb"/>
+    <rect x="5" y="15" width="16" height="4" rx="2" fill="#c3c0bb"/>
+    <rect x="5" y="23" width="16" height="4" rx="2" fill="#f71735"/>
+    <rect x="5" y="31" width="10" height="4" rx="2" fill="#c3c0bb"/>
+  </g>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 150" width="175" height="150" role="img" aria-label="tomato-timer">
+  <title>tomato-timer</title>
+  <defs>
+    <radialGradient id="sh" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a3532" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#3a3532" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g fill="none" stroke="#e6e2dc" stroke-width="0.6" opacity="0.9">
+    <circle cx="87.5" cy="75" r="61"/>
+    <path d="M87.5 12 V138"/>
+    <path d="M33 43.5 L142 106.5"/>
+    <path d="M33 106.5 L142 43.5"/>
+  </g>
+  <g fill="none" stroke="#d9d5cf" stroke-width="0.9" stroke-linecap="round" opacity="0.75">
+    <path d="M18 47 L52 67"/>
+    <path d="M24 41 L46 54"/>
+    <path d="M124 96 L158 116"/>
+    <path d="M132 106 L152 118"/>
+  </g>
+  <ellipse cx="87.5" cy="118" rx="42" ry="14" fill="url(#sh)"/>
+  <g>
+    <ellipse cx="87.5" cy="93" rx="44" ry="26" fill="#ac1025"/>
+    <path d="M43.5 93 A44 26 0 0 0 131.5 93 L131.5 88 A44 26 0 0 1 43.5 88 z" fill="#ac1025"/>
+    <ellipse cx="87.5" cy="88" rx="44" ry="26" fill="#f71735"/>
+    <ellipse cx="87.5" cy="80.0" rx="35" ry="20.5" fill="#f7324d"/>
+    <ellipse cx="87.5" cy="80.0" rx="30" ry="17.5" fill="#fbf6f4"/>
+  </g>
+  <g transform="translate(87.5 80.0) scale(1 0.585)">
+    <path d="M0 0 L0 -27 A27 27 0 0 1 19 19 z" fill="#f71735" opacity="0.55"/>
+    <g fill="none" stroke="#b91127" stroke-width="1.6" stroke-linecap="round" opacity="0.8"><path d="M0.00 -24.00 L0.00 -20.00"/><path d="M12.00 -20.78 L10.00 -17.32"/><path d="M20.78 -12.00 L17.32 -10.00"/><path d="M24.00 -0.00 L20.00 -0.00"/><path d="M20.78 12.00 L17.32 10.00"/><path d="M12.00 20.78 L10.00 17.32"/><path d="M0.00 24.00 L0.00 20.00"/><path d="M-12.00 20.78 L-10.00 17.32"/><path d="M-20.78 12.00 L-17.32 10.00"/><path d="M-24.00 0.00 L-20.00 0.00"/><path d="M-20.78 -12.00 L-17.32 -10.00"/><path d="M-12.00 -20.78 L-10.00 -17.32"/></g>
+    <g fill="none" stroke="#3a3532" stroke-width="2.6" stroke-linecap="round">
+      <path d="M0 0 L0 -17"/><path d="M0 0 L13 9"/>
+    </g>
+    <circle r="3" fill="#3a3532"/>
+  </g>
+  <g transform="translate(63 62)">
+    <path d="M0 4 q-15 -1 -21 -8 q12 -3 21 3 q7 -8 20 -8 q-5 9 -20 13 z" fill="#2a7061"/>
+    <path d="M1 3 q-4 -9 -2 -15 q6 4 6 14 z" fill="#65988d"/>
+    <path d="M-1 4 q1 -8 3 -13" fill="none" stroke="#1f5448" stroke-width="3.4" stroke-linecap="round"/>
+  </g>
+</svg>
