@@ -2,7 +2,7 @@ window.onload = function() {
   renderLoader()
 
   // get('http://localhost:8082/articles', (articles) => {
-  get('https://www.wholejs.com/articles', (articles) => {
+  get('https://filippoitaliano-github-io.onrender.com/articles', (articles) => {
     if (articles) {
       handleBookmarkedPath();
 

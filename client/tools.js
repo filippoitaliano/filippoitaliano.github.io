@@ -46,7 +46,9 @@ const getRandomNumber = () => (
 
 const get = async (url, callback) => {
   const xhr = new XMLHttpRequest();
-  xhr.timeout = 5000;
+  // Render's free plan spins the service down when idle: the first request
+  // after a pause has to wait for the cold start.
+  xhr.timeout = 90000;
   xhr.open('GET', url);
   xhr.send();
   xhr.onreadystatechange = function() { 
