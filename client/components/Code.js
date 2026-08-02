@@ -15,16 +15,20 @@ class Code extends Component {
   appendTo(parentNode) {
     super.saveParentNode(parentNode);
 
-    appendInnerHtmlTemplate(parentNode, this.id, `
-      <div class="code-wrapper" id="${this.id}">
-        ${this.props.source.map((sourceLine) => (`
-          <div class="code-source-line">
-            ${sourceLine}
-          </div>
-        `))}
-        <div class="code-type-ribbon">${this.props.type}</div>
+    const template = appendInnerHtmlTemplate(parentNode, this.id, `
+      <div class="code-block" id="${this.id}">
+        <div class="code-wrapper">
+          ${this.props.source.map((sourceLine) => (`
+            <div class="code-source-line">
+              ${sourceLine}
+            </div>
+          `))}
+          <div class="code-type-ribbon">${this.props.type}</div>
+        </div>
       </div>
     `);
+
+    ScrollHint.appendTo(template, template.querySelector('.code-wrapper'));
   }
   
 }

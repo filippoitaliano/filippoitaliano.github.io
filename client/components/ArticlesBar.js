@@ -61,13 +61,17 @@ class ArticlesBar {
   static appendTo(parentNode) {
     const id = `articlesbar_${getRandomNumber()}`;
 
-    appendInnerHtmlTemplate(parentNode, id, `
+    const template = appendInnerHtmlTemplate(parentNode, id, `
       <hr />
-      <div class="articles-bar" id="${id}">
-        ${ARTICLES_BAR_ARTIFACTS.map(ArticlesBar._renderArtifact).join('')}
+      <div class="articles-bar-wrapper" id="${id}">
+        <div class="articles-bar">
+          ${ARTICLES_BAR_ARTIFACTS.map(ArticlesBar._renderArtifact).join('')}
+        </div>
       </div>
       <hr />
     `);
+
+    ScrollHint.appendTo(template, template.querySelector('.articles-bar'));
   }
 
 }

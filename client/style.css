@@ -416,6 +416,15 @@ a.articles-index-link:hover {
   font-size: 1.5rem;
 }
 
+/* Shrink wraps the code block so the arrow has an edge to sit on: pinned inside
+   the scroller it would scroll away with the content it points at. */
+.code-block {
+  position: relative;
+  width: fit-content;
+  width: -moz-fit-content;
+  max-width: 100%;
+}
+
 .code-wrapper {
   font-family: 'FireCode-Regular', sans-serif;
   font-size: 0.8rem;
@@ -436,6 +445,70 @@ a.articles-index-link:hover {
   white-space: nowrap;
 }
 
+/* Content that runs past its box gets cut off at the edge with nothing to say
+   so. This is the arrow that says it: it breathes in and out slowly instead of
+   sitting there staring, and the component only turns it on while there is
+   something left to scroll to. */
+.scroll-hint {
+  position: absolute;
+  /* Flush with the edge: a gap would leave a sliver of content uncovered right
+     where the arrow is. */
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  /* The arrow floats over whatever the box was cutting off, so it arrives on a
+     short fade of that box's own colour and never has to compete with it. The
+     fade belongs to the arrow: it comes and goes with it. */
+  padding: 8px 6px 8px 46px;
+  pointer-events: none;
+  /* The fade holds still and only the arrow breathes: a fade that breathed with
+     it would be see-through at every point of the cycle, and the text it is
+     meant to be dissolving would read straight through the arrow. */
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.articles-bar-wrapper .scroll-hint {
+  background: linear-gradient(to right, rgba(243, 236, 227, 0), #f3ece3 75%);
+}
+
+.code-block .scroll-hint {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), #000000 75%);
+}
+
+/* Paper over paper and black over black: the fade shows up only where it has
+   something to dissolve. */
+.scroll-hint.is-visible {
+  opacity: 1;
+}
+
+.scroll-hint svg {
+  opacity: 0;
+}
+
+.scroll-hint.is-visible svg {
+  animation: scroll-hint-breathe 3.4s ease-in-out infinite;
+}
+
+@keyframes scroll-hint-breathe {
+  0%, 100% {
+    opacity: 0;
+  }
+
+  45%, 55% {
+    opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint.is-visible svg {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
 .code-type-ribbon {
   font-size: 0.5rem;
   color: #f71735;
@@ -449,6 +522,13 @@ a.articles-index-link:hover {
   margin: 80px;
 }
 
+/* Holds the arrow, and takes back the room the bar below reserves for its
+   scrollbar, so the bar keeps the place and the margins it already had. */
+.articles-bar-wrapper {
+  position: relative;
+  margin-bottom: -12px;
+}
+
 .articles-bar {
   display: flex;
   align-items: flex-start;
@@ -456,9 +536,17 @@ a.articles-index-link:hover {
   justify-content: center;
   justify-content: safe center;
   gap: clamp(24px, 8vw, 100px);
-  padding: 0 20px;
+  /* The scrollbar is drawn over the bottom of the box — across the names, on
+     the platforms that overlay it — so the box keeps 12px clear for it. */
+  padding: 0 20px 12px;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+/* Which also means the middle of the bar is 6px above the middle of the box,
+   and the arrow belongs next to the artifacts. */
+.articles-bar-wrapper .scroll-hint {
+  top: calc(50% - 6px);
 }
 
 .repo-artifact {
