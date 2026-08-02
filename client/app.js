@@ -25,7 +25,7 @@ const renderContent = (articles) => {
   const root = document.getElementById("app");
   clearNodeContent(root);
 
-  Topbar.appendTo(root);
+  Topbar.appendTo(root, articles);
   ArticlesBar.appendTo(root);
 
   const layout = root.appendChild(createNode('three-columns-grid-container', 'div'));

@@ -1,5 +1,12 @@
-"""Generates the isometric SVG artifacts for the repo bar."""
+"""Generates the isometric SVG artifacts for the repo bar.
+
+The garden — the site logo, the favicon and this repo's own artifact — is not a
+fixed drawing: it grows with the site. See `garden_growth` for the rule.
+"""
+import json
 import math
+import os
+import re
 
 W, H = 175, 150
 CX, CY = 87.5, 75.0
@@ -324,71 +331,261 @@ def blindtales_app():
 
 
 # --------------------------------------------------------------------------
-# filippoitaliano.github.io: the digital garden — a plot of soil with a sprout.
-# The same scene is reused, as its own standalone file, for the site logo.
+# filippoitaliano.github.io: the digital garden — the plot of soil that is also
+# the site logo and the favicon.
+#
+# The garden is not a fixed drawing: it is generated from how much has been
+# planted on the site. Articles become plants, projects widen the bed, and the
+# flower in the middle opens up as the two grow. Re-run this script after
+# publishing anything and the logo moves on by itself.
 # --------------------------------------------------------------------------
-SOIL, LEAF, POT = "#9a634e", "#2a7061", "#c6aa4a"
+SOIL, LEAF, POT, BLOOM, POLLEN = "#9a634e", "#2a7061", "#c6aa4a", "#f71735", "#e8b93f"
+
+GRID_MAX = 3           # at most a 3x3 bed: past that the tiles turn to mush
+PETALS_MIN = 5
+PETALS_MAX = 8
+# How wide the whole bed is drawn for each grid side. It grows, but far more
+# slowly than the number of tiles, so the garden keeps sitting inside the
+# guide circle instead of bursting out of it.
+FOOTPRINT = {1: 56.0, 2: 68.0, 3: 78.0}
+# Planting order inside the bed, per grid side: the flower goes down first, in
+# the spot that reads best, then the plants spread out from it.
+PLANTING_ORDER = {
+    1: [(0, 0)],
+    2: [(1, 1), (0, 0), (1, 0), (0, 1)],
+    3: [(1, 1), (0, 0), (2, 0), (0, 2), (2, 2), (1, 0), (0, 1), (2, 1), (1, 2)],
+}
 
 
-def garden_scene():
-    soil, leaf, pot = SOIL, LEAF, POT
-    oy = 100.0
-    out = [ground_shadow(87.5, 124, 44, 14)]
+def garden_growth(articles, projects):
+    """The growth rule, in one place.
+
+    `articles` is how many articles are published on the site, `projects` how
+    many artifacts sit in the articles bar. From those:
+
+    - the bed is the smallest square grid of tiles that holds every project;
+    - every article puts one plant in it, filling the tiles from the middle out;
+    - the flower opens a petal further as the site fills up.
+    """
+    articles, projects = max(0, articles), max(0, projects)
+    side = min(GRID_MAX, max(1, math.ceil(math.sqrt(max(1, projects)))))
+    tiles = side * side
+    plants = max(1, min(tiles, articles))
+    petals = min(PETALS_MAX, PETALS_MIN + (articles + projects) // 4)
+    return {"side": side, "tiles": tiles, "plants": plants, "petals": petals}
+
+
+def read_growth(root):
+    """Counts what has been planted, straight from the site's own sources, so
+    the logo cannot drift out of sync with the content."""
+    articles = 0
+    try:
+        with open(os.path.join(root, "data", "articles.json")) as fh:
+            articles = sum(1 for a in json.load(fh) if a.get("listed"))
+    except (OSError, ValueError):
+        pass
+    projects = 0
+    try:
+        with open(os.path.join(root, "client", "components", "ArticlesBar.js")) as fh:
+            bar = fh.read()
+        block = bar.split("];", 1)[0]
+        projects = len(re.findall(r"^\s*name:\s*'", block, re.MULTILINE))
+    except OSError:
+        pass
+    return garden_growth(articles, projects)
+
+
+# --- the plants ------------------------------------------------------------
+
+def _leaves(leaf, low=-14, high=-24):
+    """The pair of leaves the whole garden is drawn with."""
+    return (
+        f'    <path d="M0 {low} C-12 {low - 2} -19 {low - 10} -20 {low - 19} '
+        f'C-9 {low - 18} -2 {low - 11} 0 {low} z" fill="{leaf}"/>\n'
+        f'    <path d="M0 {high} C11 {high - 2} 18 {high - 10} 19 {high - 19} '
+        f'C8 {high - 18} 2 {high - 10} 0 {high} z" fill="{shade(leaf, 1.22)}"/>'
+    )
+
+
+def plant_flower(petals, leaf=LEAF):
+    """The one at the centre of the bed: a real flower head, not a red dot.
+    It gains a petal as the garden fills up."""
+    head = []
+    for i in range(petals):
+        a = 360.0 / petals * i
+        fill = BLOOM if i % 2 == 0 else shade(BLOOM, 1.22)
+        head.append(f'      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="{fill}" '
+                    f'transform="rotate({a:.1f})"/>')
+    return (
+        f'    <path d="M0 0 C-2 -12 2 -22 0 -34" fill="none" stroke="{shade(leaf, 0.85)}" '
+        f'stroke-width="3" stroke-linecap="round"/>\n'
+        + _leaves(leaf, -12, -22) + "\n"
+        f'    <g transform="translate(0 -36)">\n' + "\n".join(head) + "\n"
+        f'      <circle r="4" fill="{POLLEN}"/>\n'
+        f'      <circle r="1.7" fill="{shade(POLLEN, 0.72)}"/>\n'
+        f'    </g>'
+    )
+
+
+def plant_sprout(leaf=LEAF):
+    """The original sprout, kept as it was: the garden's first plant."""
+    return (
+        f'    <path d="M0 0 C-1 -14 1 -24 0 -40" fill="none" stroke="{shade(leaf, 0.85)}" '
+        f'stroke-width="3" stroke-linecap="round"/>\n'
+        + _leaves(leaf) + "\n"
+        f'    <circle cx="0" cy="-42" r="3.4" fill="{BLOOM}"/>'
+    )
+
+
+def plant_bush(leaf=LEAF):
+    """A short, bushy one with a berry on it: an article that has settled."""
+    return (
+        f'    <path d="M0 0 C-1 -7 1 -12 0 -18" fill="none" stroke="{shade(leaf, 0.85)}" '
+        f'stroke-width="2.6" stroke-linecap="round"/>\n'
+        f'    <path d="M0 -6 C-9 -7 -14 -12 -15 -19 C-7 -18 -2 -12 0 -6 z" fill="{leaf}"/>\n'
+        f'    <path d="M0 -11 C9 -12 14 -17 15 -24 C7 -23 2 -17 0 -11 z" '
+        f'fill="{shade(leaf, 1.22)}"/>\n'
+        f'    <path d="M0 -15 C-7 -17 -10 -23 -10 -29 C-4 -27 -1 -21 0 -15 z" fill="{leaf}"/>\n'
+        f'    <circle cx="5" cy="-24" r="2.4" fill="{BLOOM}"/>'
+    )
+
+
+def plant_bud(leaf=LEAF):
+    """A stalk with a closed bud: something planted, not out yet."""
+    return (
+        f'    <path d="M0 0 C2 -12 -2 -20 0 -30" fill="none" stroke="{shade(leaf, 0.85)}" '
+        f'stroke-width="2.6" stroke-linecap="round"/>\n'
+        f'    <path d="M0 -13 C-10 -15 -15 -21 -16 -28 C-7 -27 -2 -20 0 -13 z" fill="{leaf}"/>\n'
+        f'    <path d="M0 -30 C-5 -33 -5 -41 0 -45 C5 -41 5 -33 0 -30 z" fill="{BLOOM}"/>\n'
+        f'    <path d="M0 -30 C-3 -33 -3 -41 0 -45 z" fill="{shade(BLOOM, 1.3)}"/>'
+    )
+
+
+def plant_grass(leaf=LEAF):
+    """Three blades: the smallest thing that still counts as planted."""
+    return (
+        f'    <g fill="none" stroke="{leaf}" stroke-width="2.4" stroke-linecap="round">\n'
+        f'      <path d="M0 0 C-2 -8 -6 -13 -10 -17"/>\n'
+        f'      <path d="M0 0 C1 -10 1 -16 0 -22" stroke="{shade(leaf, 1.2)}"/>\n'
+        f'      <path d="M0 0 C3 -7 7 -11 11 -14"/>\n'
+        f'    </g>'
+    )
+
+
+def plant_body(index, petals):
+    """Which plant grows in the n-th spot. Deterministic, so the garden only
+    ever changes when the content does."""
+    if index == 0:
+        return plant_flower(petals)
+    return (plant_sprout, plant_bush, plant_bud, plant_grass)[(index - 1) % 4]()
+
+
+# --- the bed ---------------------------------------------------------------
+
+def garden_scene(growth, ox=CX, oy_base=100.0, guides=True):
+    side, footprint = growth["side"], FOOTPRINT[growth["side"]]
+    gap_ratio = 0.12
+    tile = footprint / (side + gap_ratio * (side - 1))
+    gap = tile * gap_ratio
+    height = min(12.0, max(5.0, tile * 0.21))
+    inset = max(1.6, tile * 0.071)
+    # A wider bed is pushed up the canvas so its front corner keeps clear of
+    # the bottom edge, and the plants shrink with the tiles they stand in.
+    oy = oy_base - (footprint - 56.0) * 0.35
+    scale = 0.55 + 0.45 * (tile / 56.0)
+    half = footprint / 2.0
+
+    def cell(col, row):
+        return -half + col * (tile + gap), -half + row * (tile + gap)
+
+    order = PLANTING_ORDER[side][:growth["plants"]]
+    out = [ground_shadow(ox, oy + footprint * 0.43, footprint * 0.7 + 5,
+                         (footprint * 0.7 + 5) * 0.32)]
+
+    # the tiles, drawn back to front so their raised sides overlap correctly
     out.append("  <g>")
-    out.append("    " + box(-28, -28, 0, 56, 56, 12, pot, oy=oy))
-    out.append("    " + plate(-24, -24, 12.4, 48, 48, soil, oy=oy))
-    out.append("    " + plate(-24, -24, 12.6, 48, 48, "#000000", oy=oy, opacity=0.12))
-    # furrows in the soil
-    for i in range(1, 4):
-        a = -24 + i * 12
-        p1 = iso(a, -24, 12.8, oy=oy)
-        p2 = iso(a, 24, 12.8, oy=oy)
-        out.append(f'    <path d="M{p1[0]:.2f} {p1[1]:.2f} L{p2[0]:.2f} {p2[1]:.2f}" '
-                   f'stroke="{shade(soil, 0.78)}" stroke-width="1.2" stroke-linecap="round"/>')
+    for col, row in sorted(((c, r) for r in range(side) for c in range(side)),
+                           key=lambda cr: (cr[0] + cr[1], cr[1])):
+        x, y = cell(col, row)
+        out.append("    " + box(x, y, 0, tile, tile, height, POT, ox=ox, oy=oy))
+        out.append("    " + plate(x + inset, y + inset, height + 0.4,
+                                  tile - 2 * inset, tile - 2 * inset, SOIL, ox=ox, oy=oy))
+        out.append("    " + plate(x + inset, y + inset, height + 0.6,
+                                  tile - 2 * inset, tile - 2 * inset, "#000000",
+                                  ox=ox, oy=oy, opacity=0.12))
+        # furrows: fewer of them as the tiles get smaller, none once they would
+        # just be noise
+        furrows = {1: 3, 2: 2, 3: 1}[side]
+        step = (tile - 2 * inset) / (furrows + 1)
+        for i in range(1, furrows + 1):
+            a = x + inset + i * step
+            p1 = iso(a, y + inset, height + 0.8, ox, oy)
+            p2 = iso(a, y + tile - inset, height + 0.8, ox, oy)
+            out.append(f'    <path d="M{p1[0]:.2f} {p1[1]:.2f} L{p2[0]:.2f} {p2[1]:.2f}" '
+                       f'stroke="{shade(SOIL, 0.78)}" stroke-width="{max(0.7, 1.2 * scale):.1f}" '
+                       f'stroke-linecap="round"/>')
     out.append("  </g>")
-    # the sprout
-    top = iso(0, 0, 12.8, oy=oy)
-    out.append(f"""  <g transform="translate({top[0]:.2f} {top[1]:.2f})">
-    <path d="M0 0 C-1 -14 1 -24 0 -40" fill="none" stroke="{shade(leaf, 0.85)}" stroke-width="3" stroke-linecap="round"/>
-    <path d="M0 -14 C-12 -16 -19 -24 -20 -33 C-9 -32 -2 -25 0 -14 z" fill="{leaf}"/>
-    <path d="M0 -24 C11 -26 18 -34 19 -43 C8 -42 2 -34 0 -24 z" fill="{shade(leaf, 1.22)}"/>
-    <circle cx="0" cy="-42" r="3.4" fill="#f71735"/>
-  </g>""")
-    # a couple of small seeds around the plot
-    for sx, sy in ((-16, 16), (17, -14)):
-        p = iso(sx, sy, 13, oy=oy)
-        out.append(f'  <ellipse cx="{p[0]:.2f}" cy="{p[1]:.2f}" rx="2.6" ry="1.4" fill="{shade(soil, 1.3)}"/>')
+
+    # the plants, also back to front so the near ones stand in front
+    for col, row in sorted(order, key=lambda cr: (cr[0] + cr[1], cr[1])):
+        x, y = cell(col, row)
+        top = iso(x + tile / 2, y + tile / 2, height + 0.8, ox, oy)
+        body = plant_body(order.index((col, row)), growth["petals"])
+        out.append(f'  <g transform="translate({top[0]:.2f} {top[1]:.2f}) '
+                   f'scale({scale:.3f})">\n{body}\n  </g>')
+
+    # seeds waiting on the tiles nobody has planted yet
+    for col, row in PLANTING_ORDER[side][growth["plants"]:][:3]:
+        x, y = cell(col, row)
+        for dx, dy in ((0.34, 0.62), (0.66, 0.36)):
+            p = iso(x + tile * dx, y + tile * dy, height + 1, ox, oy)
+            out.append(f'  <ellipse cx="{p[0]:.2f}" cy="{p[1]:.2f}" '
+                       f'rx="{2.6 * scale:.2f}" ry="{1.4 * scale:.2f}" '
+                       f'fill="{shade(SOIL, 1.3)}"/>')
     return "\n".join(out)
 
 
-def garden_site():
+def garden_site(growth):
     """The repo artifact shown in the articles bar."""
-    return wrap("filippoitaliano.github.io", garden_scene())
+    return wrap("filippoitaliano.github.io", garden_scene(growth))
 
 
-def site_logo():
+def site_logo(growth):
     """The site logo in the topbar: same scene, kept as its own asset so the
     logo can drift from the repo artifact without touching the articles bar."""
-    return wrap("Filippo Italiano", garden_scene())
+    return wrap("Filippo Italiano", garden_scene(growth))
 
 
 # --------------------------------------------------------------------------
 # favicon: the same garden, cropped square and stripped of the guides and the
-# fine detail that turn to mush at 16px.
+# fine detail that turn to mush at 16px. The bed still grows, but never past
+# 2x2, and only the flower is planted in it.
 # --------------------------------------------------------------------------
-def site_favicon():
-    soil, pot, leaf = SOIL, POT, LEAF
-    ox, oy, s = 32.0, 43.5, 0.56
-    out = [box(-28, -28, 0, 56, 56, 12, pot, ox=ox, oy=oy, s=s),
-           plate(-24, -24, 12.4, 48, 48, soil, ox=ox, oy=oy, s=s),
-           plate(-24, -24, 12.6, 48, 48, "#000000", ox=ox, oy=oy, s=s, opacity=0.12)]
-    top = iso(0, 0, 12.8, ox, oy, s)
-    out.append(f"""<g transform="translate({top[0]:.2f} {top[1]:.2f}) scale(0.68)">
-    <path d="M0 0 C-1 -14 1 -24 0 -40" fill="none" stroke="{shade(leaf, 0.85)}" stroke-width="5" stroke-linecap="round"/>
-    <path d="M0 -14 C-12 -16 -19 -24 -20 -33 C-9 -32 -2 -25 0 -14 z" fill="{leaf}"/>
-    <path d="M0 -24 C11 -26 18 -34 19 -43 C8 -42 2 -34 0 -24 z" fill="{shade(leaf, 1.22)}"/>
-    <circle cx="0" cy="-42" r="4.4" fill="#f71735"/>
-  </g>""")
+def site_favicon(growth):
+    side = min(2, growth["side"])
+    footprint = FOOTPRINT[side]
+    gap_ratio = 0.12
+    tile = footprint / (side + gap_ratio * (side - 1))
+    gap = tile * gap_ratio
+    height = min(12.0, max(5.0, tile * 0.21))
+    inset = max(1.6, tile * 0.071)
+    ox, oy, s = 32.0, 43.5, 0.56 * (56.0 / footprint)
+    half = footprint / 2.0
+    out = []
+    for col, row in sorted(((c, r) for r in range(side) for c in range(side)),
+                           key=lambda cr: (cr[0] + cr[1], cr[1])):
+        x, y = -half + col * (tile + gap), -half + row * (tile + gap)
+        out.append(box(x, y, 0, tile, tile, height, POT, ox=ox, oy=oy, s=s))
+        out.append(plate(x + inset, y + inset, height + 0.4, tile - 2 * inset,
+                         tile - 2 * inset, SOIL, ox=ox, oy=oy, s=s))
+        out.append(plate(x + inset, y + inset, height + 0.6, tile - 2 * inset,
+                         tile - 2 * inset, "#000000", ox=ox, oy=oy, s=s, opacity=0.12))
+    col, row = PLANTING_ORDER[side][0]
+    x, y = -half + col * (tile + gap), -half + row * (tile + gap)
+    top = iso(x + tile / 2, y + tile / 2, height + 0.8, ox, oy, s)
+    flower = plant_flower(growth["petals"]).replace('stroke-width="3"', 'stroke-width="4"')
+    out.append(f'<g transform="translate({top[0]:.2f} {top[1]:.2f}) scale(0.72)">\n'
+               f'{flower}\n  </g>')
     body = "\n  ".join(out)
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" '
@@ -399,6 +596,10 @@ def site_favicon():
 
 
 if __name__ == "__main__":
+    import os, sys
+    # The garden reads the site's own content, from the repo root: the tools
+    # dir lives one level below it.
+    growth = read_growth(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     # Paths are relative to the client dir: `python3 tools/generate-artifacts.py client`.
     targets = {
         "artifacts/blindtales-app.svg": blindtales_app(),
@@ -406,11 +607,10 @@ if __name__ == "__main__":
         "artifacts/react-webpack-seed.svg": react_webpack_seed(),
         "artifacts/event-driven-booking-app.svg": event_driven_booking_app(),
         "artifacts/atmosfere.svg": atmosfere(),
-        "artifacts/garden.svg": garden_site(),
-        "logo.svg": site_logo(),
-        "favicon.svg": site_favicon(),
+        "artifacts/garden.svg": garden_site(growth),
+        "logo.svg": site_logo(growth),
+        "favicon.svg": site_favicon(growth),
     }
-    import os, sys
     outdir = sys.argv[1]
     for name, content in targets.items():
         path = os.path.join(outdir, name)
@@ -418,3 +618,4 @@ if __name__ == "__main__":
         with open(path, "w") as fh:
             fh.write(content)
         print("wrote", path)
+    print("garden: {tiles} tiles, {plants} plants, {petals} petals".format(**growth))

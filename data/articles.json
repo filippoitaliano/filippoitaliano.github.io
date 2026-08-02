@@ -1,5 +1,54 @@
 [
   {
+    "id": "0eab022f-dc50-42db-b405-479c57dfffa4",
+    "relevance": 0,
+    "promoted": true,
+    "listed": true,
+    "title": "Il logo cresce da solo",
+    "abstract": "Il logo di questo sito è un orto isometrico. Fino a ieri era una mattonella sola con un germoglio sopra. Ho deciso che deve crescere assieme a quello che ci pianto dentro.",
+    "previewPicture": "../data/placeholder.jpg",
+    "body": [
+      {
+        "type": "p",
+        "content": "Il logo di questo sito è un orto visto in isometrica. Mi piaceva l'idea — un “digital garden”, il posto dove pianto le cose che imparo — ma l'ho disegnato una volta sola e poi l'ho lasciato lì: una mattonella di terra, un germoglio storto e un puntino rosso in cima che avrei anche voluto chiamare fiore. Nel frattempo il sito è cresciuto, il logo no."
+      },
+      {
+        "type": "p",
+        "content": "Mi sembrava sbagliato. Se il sito è un orto allora il logo dovrebbe essere la foto dell'orto, non il ricordo di com'era il primo giorno."
+      },
+      { "type": "hr" },
+      {
+        "type": "p",
+        "content": "Quindi ho smesso di considerarlo un disegno e ho iniziato a considerarlo un risultato. Il logo, la favicon e l'artefatto di questo repository non sono più tre file che ho fatto a mano: sono tre file che uno script Python genera contando quello che c'è sul sito. La regola sta tutta in tre righe:"
+      },
+      {
+        "type": "p",
+        "content": "1) L'aiuola è la griglia quadrata più piccola che riesce a contenere tutti i progetti nella barra in alto. Sette progetti, nove mattonelle. Non è precisissimo, ma un orto non è un foglio Excel."
+      },
+      {
+        "type": "p",
+        "content": "2) Ogni articolo pubblicato pianta una pianta, a partire dal centro e poi verso fuori. Questo articolo che state leggendo è una di quelle piante, il che mi diverte parecchio."
+      },
+      {
+        "type": "p",
+        "content": "3) Il fiore al centro apre un petalo in più ogni tanto, man mano che articoli e progetti si sommano. È il mio contatore, e finalmente è un fiore vero e non un puntino rosso."
+      },
+      { "type": "hr" },
+      {
+        "type": "p",
+        "content": "La parte che mi convince di più è che non devo ricordarmi di aggiornare niente a mano. Lo script legge il file degli articoli e la lista dei progetti, fa i suoi conti e ridisegna i tre SVG. Se pubblico qualcosa e non lo lancio, il logo resta indietro — e a quel punto è colpa mia, non del disegno."
+      },
+      {
+        "type": "p",
+        "content": "Ah: se passate il mouse sopra il logo — o se lo tenete premuto un attimo da telefono — vi dice a che punto è l'orto adesso. Sembra una sciocchezza ma è il motivo per cui ho fatto tutto quanto: mi piaceva l'idea che una persona capitata qui per caso potesse accorgersi che quel disegno non è fermo."
+      },
+      {
+        "type": "p",
+        "content": "Ora torno a piantare cose."
+      }
+    ]
+  },
+  {
     "id": "b80baaa9-1b0e-490c-8dd1-ab87e66e7a68",
     "relevance": 0,
     "promoted": false,
