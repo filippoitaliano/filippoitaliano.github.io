@@ -32,7 +32,7 @@ class Topbar {
     homeLink.onclick = Topbar.navigateHome;
 
     const firstLink = new DotLink({
-      href: '/article/eb72c5b1-298a-4268-a416-c7a2e82babbe', 
+      href: 'https://www.linkedin.com/in/filippoitaliano/',
       text: 'My resume'
     });
     firstLink.appendTo(template.querySelector('#topbar-link-1'));
