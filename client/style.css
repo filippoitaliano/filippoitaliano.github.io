@@ -232,5 +232,39 @@ a:link {
 
 .articles-bar {
   justify-items: center;
+  align-items: start;
   overflow: auto;
+}
+
+.repo-artifact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 4px;
+  max-width: 100px;
+}
+
+.repo-artifact-img {
+  width: 100%;
+  max-width: 100px;
+}
+
+.repo-artifact-name {
+  font-family: 'FiraCode-Regular', monospace;
+  font-size: 0.45rem;
+  line-height: 1.2;
+  color: #707070;
+  text-align: center;
+  overflow-wrap: anywhere;
+  min-height: 1.2em;
+}
+
+a.repo-artifact:link,
+a.repo-artifact:visited {
+  color: #707070;
+}
+
+a.repo-artifact:hover .repo-artifact-name {
+  color: #f71735;
 }

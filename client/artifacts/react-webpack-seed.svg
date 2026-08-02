@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 150" width="175" height="150" role="img" aria-label="react-webpack-seed">
+  <title>react-webpack-seed</title>
+  <defs>
+    <radialGradient id="sh" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a3532" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#3a3532" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g fill="none" stroke="#e6e2dc" stroke-width="0.6" opacity="0.9">
+    <circle cx="87.5" cy="75" r="61"/>
+    <path d="M87.5 12 V138"/>
+    <path d="M33 43.5 L142 106.5"/>
+    <path d="M33 106.5 L142 43.5"/>
+  </g>
+  <g fill="none" stroke="#d9d5cf" stroke-width="0.9" stroke-linecap="round" opacity="0.75">
+    <path d="M18 47 L52 67"/>
+    <path d="M24 41 L46 54"/>
+    <path d="M124 96 L158 116"/>
+    <path d="M132 106 L152 118"/>
+  </g>
+  <ellipse cx="87.5" cy="122" rx="44" ry="14" fill="url(#sh)"/>
+  <g>
+    <polygon points="87.50,70.00 125.61,92.00 87.50,114.00 49.39,92.00" fill="#7a692d"/>
+    <polygon points="85.77,49.00 127.34,73.00 127.34,93.00 85.77,69.00" fill="#806e2f"/>
+<polygon points="129.07,72.00 127.34,73.00 127.34,93.00 129.07,92.00" fill="#998338"/>
+<polygon points="87.50,48.00 129.07,72.00 127.34,73.00 85.77,49.00" fill="#b29942"/>
+    <polygon points="45.93,72.00 47.66,73.00 47.66,93.00 45.93,92.00" fill="#806e2f"/>
+<polygon points="89.23,49.00 47.66,73.00 47.66,93.00 89.23,69.00" fill="#998338"/>
+<polygon points="87.50,48.00 89.23,49.00 47.66,73.00 45.93,72.00" fill="#b29942"/>
+    <polygon points="73.64,69.00 87.50,77.00 87.50,90.00 73.64,82.00" fill="#b11026"/>
+<polygon points="101.36,69.00 87.50,77.00 87.50,90.00 101.36,82.00" fill="#d4132d"/>
+<polygon points="87.50,61.00 101.36,69.00 87.50,77.00 73.64,69.00" fill="#f71735"/>
+    <polygon points="88.37,82.50 101.36,90.00 101.36,99.00 88.37,91.50" fill="#a5a29e"/>
+<polygon points="114.35,82.50 101.36,90.00 101.36,99.00 114.35,91.50" fill="#c5c2bd"/>
+<polygon points="101.36,75.00 114.35,82.50 101.36,90.00 88.37,82.50" fill="#e6e2dc"/>
+    <polygon points="58.92,75.50 71.91,83.00 71.91,100.00 58.92,92.50" fill="#1e5045"/>
+<polygon points="84.90,75.50 71.91,83.00 71.91,100.00 84.90,92.50" fill="#246053"/>
+<polygon points="71.91,68.00 84.90,75.50 71.91,83.00 58.92,75.50" fill="#2a7061"/>
+    <polygon points="73.64,91.00 87.50,99.00 87.50,110.00 73.64,102.00" fill="#6e4738"/>
+<polygon points="101.36,91.00 87.50,99.00 87.50,110.00 101.36,102.00" fill="#845543"/>
+<polygon points="87.50,83.00 101.36,91.00 87.50,99.00 73.64,91.00" fill="#9a634e"/>
+    <polygon points="45.93,72.00 87.50,96.00 87.50,116.00 45.93,92.00" fill="#8e7a35"/>
+<polygon points="89.23,95.00 87.50,96.00 87.50,116.00 89.23,115.00" fill="#aa923f"/>
+<polygon points="47.66,71.00 89.23,95.00 87.50,96.00 45.93,72.00" fill="#c6aa4a"/>
+    <polygon points="85.77,95.00 87.50,96.00 87.50,116.00 85.77,115.00" fill="#8e7a35"/>
+<polygon points="129.07,72.00 87.50,96.00 87.50,116.00 129.07,92.00" fill="#aa923f"/>
+<polygon points="127.34,71.00 129.07,72.00 87.50,96.00 85.77,95.00" fill="#c6aa4a"/>
+  </g>
+  <g transform="translate(87.5 36)" fill="none" stroke="#2a7061" stroke-width="2">
+    <ellipse rx="24" ry="9"/>
+    <ellipse rx="24" ry="9" transform="rotate(60)"/>
+    <ellipse rx="24" ry="9" transform="rotate(-60)"/>
+    <circle r="4" fill="#2a7061" stroke="none"/>
+  </g>
+</svg>
