@@ -139,6 +139,14 @@ class Topbar {
 
     const links = template.querySelector('#topbar-links');
 
+    // The logo already goes home, but only if you guess that it does: the first
+    // link says it out loud.
+    const homeLink = new ArrowLink({
+      href: '/',
+      text: 'Home'
+    });
+    homeLink.appendTo(links);
+
     const indexLink = new ArrowLink({
       href: '/articles',
       text: 'Tutti gli articoli'
