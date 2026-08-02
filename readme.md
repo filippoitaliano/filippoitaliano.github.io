@@ -4,7 +4,12 @@ My dynamic website from scratch.
 
 ## Run in development mode
 
-1. Edit the third line in client/app.js to use this address: http://localhost:8082/articles.
+1. Edit the API address in client/app.js to use this address: http://localhost:8082/articles.
 2. Edit the ALLOWED_ORIGINS constant in server/app.js to include http://localhost:8080.
 3. Run `npx http-server` in the root to host the frontend on `localhost:8080`.
-4. Change directory to server dir and run `npm run start-dev`. If you are on linux look run `npm run start-dev-linux`.
+4. Change directory to server dir and run `npm start`.
+
+## Production
+
+- Frontend: GitHub Pages on `garden.filippoitaliano.com` (see the CNAME file).
+- Backend: Render, `https://filippoitaliano-github-io.onrender.com` — root directory `server`, start command `npm start`.
