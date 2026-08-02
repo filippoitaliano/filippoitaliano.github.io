@@ -24,24 +24,17 @@ class Topbar {
           />
         </div>
         <div class="topbar-link" id="topbar-link-1"></div>
-        <div class="topbar-link" id="topbar-link-2"></div>
       </div>
     `);
 
     const homeLink = document.getElementById('home-link');
     homeLink.onclick = Topbar.navigateHome;
 
-    const firstLink = new DotLink({
+    const firstLink = new ArrowLink({
       href: 'https://www.linkedin.com/in/filippoitaliano/',
       text: 'My resume'
     });
     firstLink.appendTo(template.querySelector('#topbar-link-1'));
-
-    const secondLink = new DotLink({
-      href: 'https://github.com/filippoitaliano/filippoitaliano.github.io', 
-      text: 'Source code'
-    });
-    secondLink.appendTo(template.querySelector('#topbar-link-2'));
   }
 
 }
