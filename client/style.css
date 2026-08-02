@@ -176,7 +176,13 @@ a:link {
 
 .topbar-logo {
   cursor: pointer;
-  max-width: 100px;
+  /* The logo is 175x150, so 105x90 keeps its ratio with whole pixels: a
+     fractional logo height pushes the separator below onto a half pixel,
+     where the 1px gradient line fades out. `display: block` drops the
+     inline baseline gap, which is fractional too. */
+  display: block;
+  width: 105px;
+  height: 90px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -254,21 +260,27 @@ a:link {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  width: 100px;
+  width: 105px;
 }
 
+/* Same 175x150 ratio as the logo, sized so the artifacts keep the bar (and
+   the separator under it) on whole pixels. */
 .repo-artifact-img {
-  width: 100%;
+  display: block;
+  width: 105px;
+  height: 90px;
 }
 
 .repo-artifact-name {
   font-family: 'FiraCode-Regular', monospace;
   font-size: 0.45rem;
-  line-height: 1.2;
+  /* A whole pixel line height, so one or two lines of name both leave the
+     bar an integer tall. */
+  line-height: 12px;
   color: #707070;
   text-align: center;
   overflow-wrap: anywhere;
-  min-height: 1.2em;
+  min-height: 12px;
 }
 
 a.repo-artifact:link,
