@@ -40,6 +40,45 @@ body {
   margin: 0;
 }
 
+/* Selected text is highlighted in the accent, thinned out enough to read
+   through: the browser default drops a blue on the page that belongs to no
+   other part of it. Only the background is set, so every piece of text keeps
+   its own colour while it is selected. */
+::selection {
+  background-color: rgba(247, 23, 53, 0.22);
+}
+
+/* The same red over the black of a code block, where a thin wash would not
+   show at all. */
+.code-wrapper ::selection {
+  background-color: rgba(247, 23, 53, 0.5);
+}
+
+/* The pointer is drawn on the same isometric grid as the logo and the
+   artifacts: every edge of it runs vertically or on a 2:1 slope, the way every
+   edge in the garden does. It is the size a pointer is — 20px — because a
+   cursor you have to look at is a cursor in the way.
+
+   Outlined by default, in the same red line the arrows on the page are drawn
+   in, and filled in over anything that can be clicked: full or empty is the one
+   difference that still reads at 20px. Each carries the other colour as its
+   outline, so both stay visible over the black of a code block.
+
+   Only where there is a real pointer to replace — a touch screen has none, and
+   a coarse one is not being aimed a pixel at a time. */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M1.5 1.5 L15.5 8.5 L8.8 11.85 L11.4 17.05 L8.7 18.4 L6.1 13.2 L1.5 15.5 Z' fill='%23f3ece3' stroke='%23f71735' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, auto;
+  }
+
+  a,
+  button,
+  summary,
+  [role="button"] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M1.5 1.5 L15.5 8.5 L8.8 11.85 L11.4 17.05 L8.7 18.4 L6.1 13.2 L1.5 15.5 Z' fill='%23f71735' stroke='%23f3ece3' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, pointer;
+  }
+}
+
 html {
   font-family: 'Hind', sans-serif;
   font-size: 24px;
@@ -164,30 +203,41 @@ img {
   line-height: 20px;
 }
 
-.arrow-link-svg {
-  margin-right: 10px;
-  /* The arrow leans forward under the pointer: the rest of the site already
-     answers a hover with the accent colour, the links did not answer at all. */
+/* Every arrow on the site comes out of `arrowIcon`, and this is what one does:
+   it leans the way it is pointing under any link that happens to be holding it,
+   and the words next to it take the accent colour. Hung off `.arrow-icon` and
+   a plain `a:hover` rather than off the link component, so an arrow put
+   somewhere new behaves like the ones already there without being told to. */
+.arrow-icon {
+  display: inline-flex;
   transition: transform 160ms ease;
 }
 
-.arrow-link-a:hover .arrow-link-text {
-  color: #f71735;
+.arrow-icon-reverse > svg {
+  transform: rotate(180deg);
 }
 
-.arrow-link-a:hover .arrow-link-svg {
+a:hover .arrow-icon {
   transform: translateX(4px);
 }
 
-.arrow-link-a:hover .arrow-link-svg-reverse {
+a:hover .arrow-icon-reverse {
   transform: translateX(-4px);
 }
 
+a:hover .arrow-link-text {
+  color: #f71735;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .arrow-link-a:hover .arrow-link-svg,
-  .arrow-link-a:hover .arrow-link-svg-reverse {
+  a:hover .arrow-icon,
+  a:hover .arrow-icon-reverse {
     transform: none;
   }
+}
+
+.arrow-link-svg {
+  margin-right: 10px;
 }
 
 /* One row wide enough for every link, or a column: never a row that wraps, which
@@ -196,13 +246,15 @@ img {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  /* Three lines of 20px, which comes to the height of the logo beside them: the
+     stacked links cost the bar nothing. */
+  gap: 6px;
 }
 
-/* The row is 460px of links: it only goes back to being a row once the column
-   between the gutters is wide enough to hold it next to the logo, which is the
-   same width at which the article header stops stacking. */
-@media only screen and (min-width: 1281px) {
+/* The row is around 540px with the logo: it goes back to being a row as soon as
+   the window is wide enough to hold it, which the full width bar reaches much
+   earlier than the article column did. */
+@media only screen and (min-width: 640px) {
   .topbar-links {
     flex-direction: row;
     align-items: center;
@@ -215,10 +267,6 @@ img {
   align-items: center;
   line-height: 20px;
   white-space: nowrap;
-}
-
-.arrow-link-svg-reverse > svg {
-  transform: rotate(180deg);
 }
 
 .dot-link-svg {
@@ -253,18 +301,43 @@ img {
   }
 }
 
-/* The topbar stands on the same two vertical lines as everything below it: the
-   same gutters as `.three-columns-grid-container`, so the logo starts where the
-   article text starts and the links end where it ends. The bar was a six column
-   grid with its items centred in their own tracks, which lined the logo up with
-   nothing and left the links adrift in the middle of the page. */
+/* The bar is the width of the window, not the width of the article: the logo
+   goes to one edge and the links to the other, and it stays out of the way of
+   how wide the page has decided its reading is. */
 .topbar-wrapper {
+  position: sticky;
+  top: 0;
+  /* Over the page it is scrolling past, and over the logo tooltip's own layer. */
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 40px 25vw 0;
-  margin-bottom: 24px;
+  padding: 16px clamp(20px, 4vw, 48px);
+  /* Opaque, or the page would read through the bar once it starts scrolling
+     under it. */
+  background-color: #f3ece3;
+}
+
+/* A short fade of the page's own paper under the bar, so what scrolls past
+   dissolves into it instead of being cut off against a hard edge — the same
+   thing the scroll hint does at the edge of a box that has more to show.
+
+   The bar deliberately grows no line of its own. The separators on this page
+   are red `hr`s, and a red line stuck to the bar would sooner or later come to
+   rest a few pixels above one of them: on a short page it would stay there.
+   One line, the page's, which fades out under the bar rather than being hidden
+   by it. `pointer-events: none` or this would swallow clicks on the first
+   pixels of the page. */
+.topbar-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 14px;
+  background: linear-gradient(to bottom, #f3ece3, rgba(243, 236, 227, 0));
+  pointer-events: none;
 }
 
 .topbar-logo-wrapper {
@@ -345,25 +418,23 @@ img {
 }
 
 .topbar-logo {
-  cursor: pointer;
   -webkit-user-drag: none;
   pointer-events: none;
-  /* The logo is 175x150, so 105x90 keeps its ratio with whole pixels: a
+  /* The logo is 175x150, so 70x60 keeps its ratio with whole pixels: a
      fractional logo height pushes the separator below onto a half pixel,
      where the 1px gradient line fades out. `display: block` drops the
-     inline baseline gap, which is fractional too. */
+     inline baseline gap, which is fractional too. It is the size it is because
+     the bar it sits in stays on screen now, and a bar that stays has to be
+     worth the room it takes. */
   display: block;
-  width: 105px;
-  height: 90px;
+  width: 70px;
+  height: 60px;
 }
 
-/* Where the column between the gutters is under 400px the logo steps down a
-   size, so the links keep their room: on the narrowest phones, and again just
-   past 600px, where the 25vw gutters leave a column narrower than a phone's.
-   84x72 is the next size down that stays whole pixels on both sides of the
-   175x150 the logo is drawn at. */
-@media only screen and (max-width: 380px),
-       only screen and (min-width: 601px) and (max-width: 800px) {
+/* Where the links are stacked they are the tallest thing in the bar — three
+   lines come to 72px — so the logo can have that whole height back without the
+   bar growing by a pixel. */
+@media only screen and (max-width: 639px) {
   .topbar-logo {
     width: 84px;
     height: 72px;
@@ -371,11 +442,8 @@ img {
 }
 
 @media only screen and (max-width: 600px) {
-  /* Same 5vw gutters the content takes here. The logo used to be centred with a
-     band of nothing under it and the links below that; side by side they fill
-     the width of the phone between them instead. */
   .topbar-wrapper {
-    padding: 32px 5vw 0;
+    padding: 14px 5vw;
     gap: 16px;
   }
 
@@ -399,11 +467,54 @@ img {
   justify-content: center;
 }
 
+.loader {
+  margin-top: 20vh;
+  text-align: center;
+}
+
 .loader-logo {
   display: block;
   width: 175px;
   height: 150px;
-  margin-top: 20vh;
+}
+
+.loader-text {
+  font-size: 0.7rem;
+  color: #707070;
+  margin: 8px 0 0;
+}
+
+/* The dots come and go one after the other, so the wait has something moving in
+   it besides the garden. They keep their room whether they are showing or not:
+   dots that appear one by one would shift the words left and right. */
+.loader-dots > span {
+  animation: loader-dot 1.4s ease-in-out infinite;
+  opacity: 0;
+}
+
+.loader-dots > span:nth-child(2) {
+  animation-delay: 200ms;
+}
+
+.loader-dots > span:nth-child(3) {
+  animation-delay: 400ms;
+}
+
+@keyframes loader-dot {
+  0%, 70%, 100% {
+    opacity: 0;
+  }
+
+  25%, 55% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-dots > span {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 .articles-index-list {

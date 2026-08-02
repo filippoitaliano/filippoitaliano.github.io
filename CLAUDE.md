@@ -68,6 +68,12 @@ first topbar link. Promoting a new article means demoting the previous one.
 - Whatever scrolls sideways inside its own box says so: give it a positioned
   wrapper and `ScrollHint.appendTo(wrapper, scroller)`, plus a rule tinting the
   arrow's fade with that box's own background colour.
+- One arrow, one place: every arrow on the site comes out of `arrowIcon` in
+  `client/icons.js`, and how it answers a hover is written once, against
+  `.arrow-icon`. Draw a new one there rather than inlining another `<svg>`.
+- The topbar stays on screen. Nothing else may grow a red line of its own: the
+  `hr`s are the page's separators and they scroll under the bar, fading into the
+  paper. Two red lines a few pixels apart read as a mistake.
 - Articles are written in Italian, first person.
 - Comments explain why, not what, and only where the reason is not obvious from
   the code.

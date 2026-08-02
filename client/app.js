@@ -82,12 +82,16 @@ const renderLoader = () => {
   const wrapper = createNode('fallback-wrapper');
   root.appendChild(wrapper);
 
-  appendInnerHtmlTemplate(wrapper, 'loader-logo', `
-    <img
-      id="loader-logo"
-      class="loader-logo"
-      src="${window.location.origin}/client/logo-loading.svg"
-      alt="un orto isometrico che cresce, in attesa"
-    />
+  appendInnerHtmlTemplate(wrapper, 'loader', `
+    <div id="loader" class="loader">
+      <img
+        class="loader-logo"
+        src="${window.location.origin}/client/logo-loading.svg"
+        alt="un orto isometrico che cresce, in attesa"
+      />
+      <p class="loader-text" role="status">
+        Caricamento in corso<span class="loader-dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span>
+      </p>
+    </div>
   `);
 }
