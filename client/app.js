@@ -18,6 +18,10 @@ window.onload = function() {
   });
 };
 
+// The logo plays its growth once, when the site opens. Every render after that
+// is a navigation, and the garden is already where it should be.
+let logoHasGrown = false;
+
 const renderContent = (articles) => {
   // Hash used only to support bookmarking, better to reset now
   location.hash = '';
@@ -25,12 +29,20 @@ const renderContent = (articles) => {
   const root = document.getElementById("app");
   clearNodeContent(root);
 
-  Topbar.appendTo(root, articles);
+  Topbar.appendTo(root, articles, !logoHasGrown);
+  logoHasGrown = true;
   ArticlesBar.appendTo(root);
 
   const layout = root.appendChild(createNode('three-columns-grid-container', 'div'));
 
   switch(getLocationAreaPath()) {
+    case 'articles': {
+      const index = new ArticlesIndex({
+        articles: articles.filter((a) => a.listed),
+      });
+      index.appendTo(layout);
+      break;
+    }
     case 'article': {
       const articleData = articles.find((a) => a.id === getLocationEntityId())
       const article = new Article(articleData)
@@ -61,6 +73,8 @@ const renderFallback = () => {
   title.appendTo(wrapper);
 };
 
+// Render's free plan can take a while to wake up: the garden grows on a loop
+// for as long as the wait lasts.
 const renderLoader = () => {
   const root = document.getElementById("app");
   clearNodeContent(root);
@@ -68,6 +82,12 @@ const renderLoader = () => {
   const wrapper = createNode('fallback-wrapper');
   root.appendChild(wrapper);
 
-  const title = new Title({ text: '⏳' });
-  title.appendTo(wrapper);
+  appendInnerHtmlTemplate(wrapper, 'loader-logo', `
+    <img
+      id="loader-logo"
+      class="loader-logo"
+      src="${window.location.origin}/client/logo-loading.svg"
+      alt="un orto isometrico che cresce, in attesa"
+    />
+  `);
 }

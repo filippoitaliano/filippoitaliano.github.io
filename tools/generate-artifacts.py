@@ -545,6 +545,83 @@ def garden_scene(growth, ox=CX, oy_base=100.0, guides=True):
     return "\n".join(out)
 
 
+# --------------------------------------------------------------------------
+# the garden growing: the same scene at every stage of the rule, played as
+# frames. Used for the flash of growth the logo does when the site opens, and
+# for the loader, where it keeps going round while the server wakes up.
+# --------------------------------------------------------------------------
+# (grid side, plants) from the barest plot to a full bed.
+GROWTH_FRAMES = ((1, 0), (1, 1), (2, 2), (2, 4), (3, 6), (3, 9))
+
+
+def growth_frames(final=None):
+    frames = []
+    for side, plants in GROWTH_FRAMES:
+        tiles = side * side
+        frames.append({
+            "side": side,
+            "tiles": tiles,
+            "plants": plants,
+            "petals": min(PETALS_MAX, PETALS_MIN + (plants + tiles) // 4),
+        })
+    if final:
+        frames.append(final)
+    return frames
+
+
+def _frame_keyframes(index, count):
+    """One frame's slice of the timeline. The frames are stacked on top of each
+    other and only one is opaque at a time, so the garden reads as stop motion
+    rather than as a cross-fade."""
+    step = 100.0 / count
+    start, end, eps = index * step, (index + 1) * step, 0.001
+    stops = []
+    if index > 0:
+        stops.append(f"0%,{start - eps:.3f}%{{opacity:0}}")
+    stops.append(f"{start:.3f}%{{opacity:1}}")
+    if index == count - 1:
+        # the last frame is the one that stays up when the animation stops
+        stops.append("100%{opacity:1}")
+    else:
+        stops.append(f"{end - eps:.3f}%{{opacity:1}}")
+        stops.append(f"{end:.3f}%,100%{{opacity:0}}")
+    return f"@keyframes gf{index}{{{''.join(stops)}}}"
+
+
+def animated_garden(title, frames, duration, loop):
+    count = len(frames)
+    repeat = "infinite" if loop else "1"
+    rules = [".gf{opacity:0}"]
+    for i in range(count):
+        rules.append(f".gf{i}{{animation:gf{i} {duration}s linear {repeat} both}}")
+    rules.extend(_frame_keyframes(i, count) for i in range(count))
+    # Someone who asked for less motion gets the garden as it ends up, at once.
+    rules.append("@media (prefers-reduced-motion:reduce){.gf{animation:none}"
+                 f".gf{count - 1}{{opacity:1}}}}")
+    style = "  <style>\n    " + "\n    ".join(rules) + "\n  </style>"
+    bodies = "\n".join(
+        f'  <g class="gf gf{i}">\n{garden_scene(frame)}\n  </g>'
+        for i, frame in enumerate(frames)
+    )
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
+        f'role="img" aria-label="{title}">\n'
+        f'  <title>{title}</title>\n'
+        f'{SHADOW_DEF}\n{style}\n{GUIDES}\n{bodies}\n</svg>\n'
+    )
+
+
+def logo_growing(growth):
+    """The logo running through every stage of the rule and settling on the one
+    the site is actually at."""
+    return animated_garden("Filippo Italiano", growth_frames(growth), 1.4, loop=False)
+
+
+def logo_loading():
+    """The same growth, going round and round: the loader."""
+    return animated_garden("L'orto che cresce", growth_frames(), 2.4, loop=True)
+
+
 def garden_site(growth):
     """The repo artifact shown in the articles bar."""
     return wrap("filippoitaliano.github.io", garden_scene(growth))
@@ -609,6 +686,8 @@ if __name__ == "__main__":
         "artifacts/atmosfere.svg": atmosfere(),
         "artifacts/garden.svg": garden_site(growth),
         "logo.svg": site_logo(growth),
+        "logo-growing.svg": logo_growing(growth),
+        "logo-loading.svg": logo_loading(),
         "favicon.svg": site_favicon(growth),
     }
     outdir = sys.argv[1]

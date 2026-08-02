@@ -40,6 +40,10 @@ const navigate = (path) => {
   return false;
 }
 
+const prefersReducedMotion = () => (
+  !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+);
+
 const getRandomNumber = () => (
   Math.floor(Math.random() * 10000000000000000)
 );

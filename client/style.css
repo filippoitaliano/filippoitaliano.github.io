@@ -127,7 +127,18 @@ a:link {
   margin-right: 10px;
 }
 
-.topbar-link .arrow-link-a {
+.topbar-links {
+  /* Two links now, so they get their own track and lay themselves out in it
+     instead of leaning on the auto placement of the six column grid. */
+  grid-column-start: 2;
+  grid-column-end: 5;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 40px;
+}
+
+.topbar-links .arrow-link-a {
   display: flex;
   align-items: center;
   line-height: 20px;
@@ -178,6 +189,12 @@ a:link {
 
 .topbar-logo-link {
   display: block;
+  /* Holding the logo has to read the tooltip, not select the image or offer to
+     save it. */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .topbar-logo-tooltip {
@@ -243,6 +260,8 @@ a:link {
 
 .topbar-logo {
   cursor: pointer;
+  -webkit-user-drag: none;
+  pointer-events: none;
   /* The logo is 175x150, so 105x90 keeps its ratio with whole pixels: a
      fractional logo height pushes the separator below onto a half pixel,
      where the 1px gradient line fades out. `display: block` drops the
@@ -273,15 +292,68 @@ a:link {
     margin-left: -6px;
   }
 
-  .topbar-link {
-    grid-column-start: 2;
-    grid-column-end: 6;
+  .topbar-links {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    justify-content: center;
+    gap: 10px 30px;
+  }
+
+  /* The page title is 2rem here, so the entries have to step down further to
+     stay below it. */
+  .articles-index-link {
+    font-size: 1.3rem;
+  }
+
+  .articles-index-abstract {
+    font-size: 0.7rem;
   }
 }
 
 .fallback-wrapper {
   display: grid;
   justify-content: center;
+}
+
+.loader-logo {
+  display: block;
+  width: 175px;
+  height: 150px;
+  margin-top: 20vh;
+}
+
+.articles-index-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.articles-index-item {
+  margin-bottom: 40px;
+}
+
+.articles-index-link {
+  font-family: 'Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 200;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+a.articles-index-link:link,
+a.articles-index-link:visited {
+  color: initial;
+}
+
+a.articles-index-link:hover {
+  color: #f71735;
+}
+
+.articles-index-abstract {
+  font-size: 0.75rem;
+  color: #707070;
+  margin: 8px 0 0;
 }
 
 .fallback-wrapper .title-wrapper h1 {
