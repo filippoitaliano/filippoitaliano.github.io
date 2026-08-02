@@ -3,7 +3,7 @@ const ARTICLES_BAR_ARTIFACTS = [
     name: 'blindtales-app',
     src: '/client/artifacts/blindtales-app.svg',
     href: 'https://blindtales.app/',
-    alt: 'an isometric book telling its tale as sound waves',
+    alt: 'an isometric fan of face-down cards with one prompt card face up',
   },
   {
     name: 'gpio-pin-select',

@@ -209,36 +209,64 @@ def event_driven_booking_app():
 
 
 # --------------------------------------------------------------------------
-# blindtales-app: a book that is listened to rather than read — a closed
-# volume on a plinth, telling its tale as sound waves.
+# blindtales-app: an exquisite-corpse card game — a fan of face-down cards
+# with the one card you are given, face up, on top of the pile.
 # --------------------------------------------------------------------------
+BT_BACK, BT_FACE, BT_INK = "#3b3470", "#f7f1e3", "#f71735"
+
+
+def _bt_card(cx, cy, z, w, h, ang, color, oy, thickness=1.6):
+    """A rectangular card lying on the ground plane, rotated by `ang` degrees
+    around its own centre before the isometric projection."""
+    a = math.radians(ang)
+    ca, sa = math.cos(a), math.sin(a)
+
+    def corner(dx, dy, zz):
+        return iso(cx + dx * ca - dy * sa, cy + dx * sa + dy * ca, zz, oy=oy)
+
+    quad = [(-w / 2, -h / 2), (w / 2, -h / 2), (w / 2, h / 2), (-w / 2, h / 2)]
+    top = [corner(dx, dy, z) for dx, dy in quad]
+    under = [corner(dx, dy, z - thickness) for dx, dy in quad]
+    # the card's own edge, so the fan reads as a stack and not as flat decals
+    edge = [top[1], top[2], top[3], under[3], under[2], under[1]]
+    return (
+        f'    <polygon points="{pts(edge)}" fill="{shade(color, 0.7)}"/>\n'
+        f'    <polygon points="{pts(top)}" fill="{color}"/>',
+        corner,
+    )
+
+
 def blindtales_app():
-    cover, pages, wave = "#2a7061", "#f3ede2", "#f71735"
-    oy = 100.0
-    out = [ground_shadow(87.5, 124, 42, 13)]
+    back, face, ink = BT_BACK, BT_FACE, BT_INK
+    oy = 98.0
+    out = [ground_shadow(87.5, 120, 44, 14)]
     out.append("  <g>")
-    # the book: a stack of pages under a cloth cover
-    out.append("    " + box(-24, -18, 0, 48, 36, 11, pages, oy=oy))
-    out.append("    " + plate(-24, -18, 11.2, 48, 36, cover, oy=oy))
-    # spine and a ribbon marker running across the cover
-    p1 = iso(0, -18, 11.4, oy=oy)
-    p2 = iso(0, 18, 11.4, oy=oy)
-    out.append(f'    <path d="M{p1[0]:.2f} {p1[1]:.2f} L{p2[0]:.2f} {p2[1]:.2f}" '
-               f'stroke="{shade(cover, 0.72)}" stroke-width="2" stroke-linecap="round"/>')
-    p3 = iso(-14, 4, 11.4, oy=oy)
-    p4 = iso(14, 4, 11.4, oy=oy)
-    out.append(f'    <path d="M{p3[0]:.2f} {p3[1]:.2f} L{p4[0]:.2f} {p4[1]:.2f}" '
-               f'stroke="{wave}" stroke-width="2.4" stroke-linecap="round" opacity="0.85"/>')
+    # the cards already played, face down and fanned out
+    for cx, cy, z, ang in ((-11, 11, 0, -40), (11, -10, 2.4, 26)):
+        card, _ = _bt_card(cx, cy, z, 34, 46, ang, back, oy)
+        out.append(card)
+    # the card in your hand: face up, the only one anybody can read
+    card, corner = _bt_card(-2, 0, 5.4, 34, 46, -6, face, oy)
+    out.append(card)
+
+    def rule(dx1, dy1, dx2, dy2, color, width, opacity=1.0):
+        p1 = corner(dx1, dy1, 5.6)
+        p2 = corner(dx2, dy2, 5.6)
+        return (f'    <path d="M{p1[0]:.2f} {p1[1]:.2f} L{p2[0]:.2f} {p2[1]:.2f}" '
+                f'stroke="{color}" stroke-width="{width}" stroke-linecap="round" '
+                f'opacity="{opacity}"/>')
+
+    # the prompt printed on it, and the dotted fold the next player writes past
+    out.append(rule(-9, -4, 9, -4, shade(back, 1.35), 2.2))
+    out.append(rule(-9, 2, 4, 2, shade(back, 1.35), 2.2))
+    out.append(rule(-11, 11, 11, 11, ink, 1.4, 0.85))
+    out.append(rule(-13, -17, -7, -17, back, 1.6, 0.7))
     out.append("  </g>")
-    # the tale coming off the book as sound, told rather than shown
-    src = iso(-24, 0, 11.4, oy=oy)
-    waves = []
-    for i, r in enumerate((11, 19, 27)):
-        waves.append(f'<path d="M0 {-r} A{r} {r} 0 0 0 0 {r}" opacity="{0.75 - i * 0.2:.2f}"/>')
-    wx, wy = src[0] + 2, src[1] - 12
-    out.append(f"""  <g transform="translate({wx:.2f} {wy:.2f})" fill="none"
-    stroke="{wave}" stroke-width="2.2" stroke-linecap="round">{''.join(waves)}</g>""")
-    out.append(f'  <circle cx="{wx:.2f}" cy="{wy:.2f}" r="3" fill="{wave}"/>')
+    # a little of the game's own sparkle
+    for sx, sy, r in ((36, 34, 5.0), (139, 52, 3.6), (126, 116, 4.4)):
+        out.append(f'  <path d="M{sx} {sy - r} Q{sx} {sy} {sx + r} {sy} '
+                   f'Q{sx} {sy} {sx} {sy + r} Q{sx} {sy} {sx - r} {sy} '
+                   f'Q{sx} {sy} {sx} {sy - r} z" fill="{ink}" opacity="0.5"/>')
     return wrap("blindtales-app", "\n".join(out))
 
 
