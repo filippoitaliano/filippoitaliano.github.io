@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Filippo Italiano">
+  <title>Filippo Italiano</title>
+  <polygon points="4.84,36.78 32.00,52.46 32.00,59.18 4.84,43.50" fill="#8e7a35"/>
+<polygon points="59.16,36.78 32.00,52.46 32.00,59.18 59.16,43.50" fill="#aa923f"/>
+<polygon points="32.00,21.10 59.16,36.78 32.00,52.46 4.84,36.78" fill="#c6aa4a"/>
+  <polygon points="32.00,23.12 55.28,36.56 32.00,50.00 8.72,36.56" fill="#9a634e"/>
+  <polygon points="32.00,23.00 55.28,36.44 32.00,49.88 8.72,36.44" fill="#000000" opacity="0.12"/>
+  <g transform="translate(32.00 36.33) scale(0.68)">
+    <path d="M0 0 C-1 -14 1 -24 0 -40" fill="none" stroke="#235f52" stroke-width="5" stroke-linecap="round"/>
+    <path d="M0 -14 C-12 -16 -19 -24 -20 -33 C-9 -32 -2 -25 0 -14 z" fill="#2a7061"/>
+    <path d="M0 -24 C11 -26 18 -34 19 -43 C8 -42 2 -34 0 -24 z" fill="#588f83"/>
+    <circle cx="0" cy="-42" r="4.4" fill="#f71735"/>
+  </g>
+</svg>

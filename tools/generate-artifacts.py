@@ -210,9 +210,13 @@ def event_driven_booking_app():
 
 # --------------------------------------------------------------------------
 # filippoitaliano.github.io: the digital garden — a plot of soil with a sprout.
+# The same scene is reused, as its own standalone file, for the site logo.
 # --------------------------------------------------------------------------
-def garden_site():
-    soil, leaf, pot = "#9a634e", "#2a7061", "#c6aa4a"
+SOIL, LEAF, POT = "#9a634e", "#2a7061", "#c6aa4a"
+
+
+def garden_scene():
+    soil, leaf, pot = SOIL, LEAF, POT
     oy = 100.0
     out = [ground_shadow(87.5, 124, 44, 14)]
     out.append("  <g>")
@@ -239,19 +243,61 @@ def garden_site():
     for sx, sy in ((-16, 16), (17, -14)):
         p = iso(sx, sy, 13, oy=oy)
         out.append(f'  <ellipse cx="{p[0]:.2f}" cy="{p[1]:.2f}" rx="2.6" ry="1.4" fill="{shade(soil, 1.3)}"/>')
-    return wrap("filippoitaliano.github.io", "\n".join(out))
+    return "\n".join(out)
+
+
+def garden_site():
+    """The repo artifact shown in the articles bar."""
+    return wrap("filippoitaliano.github.io", garden_scene())
+
+
+def site_logo():
+    """The site logo in the topbar: same scene, kept as its own asset so the
+    logo can drift from the repo artifact without touching the articles bar."""
+    return wrap("Filippo Italiano", garden_scene())
+
+
+# --------------------------------------------------------------------------
+# favicon: the same garden, cropped square and stripped of the guides and the
+# fine detail that turn to mush at 16px.
+# --------------------------------------------------------------------------
+def site_favicon():
+    soil, pot, leaf = SOIL, POT, LEAF
+    ox, oy, s = 32.0, 43.5, 0.56
+    out = [box(-28, -28, 0, 56, 56, 12, pot, ox=ox, oy=oy, s=s),
+           plate(-24, -24, 12.4, 48, 48, soil, ox=ox, oy=oy, s=s),
+           plate(-24, -24, 12.6, 48, 48, "#000000", ox=ox, oy=oy, s=s, opacity=0.12)]
+    top = iso(0, 0, 12.8, ox, oy, s)
+    out.append(f"""<g transform="translate({top[0]:.2f} {top[1]:.2f}) scale(0.68)">
+    <path d="M0 0 C-1 -14 1 -24 0 -40" fill="none" stroke="{shade(leaf, 0.85)}" stroke-width="5" stroke-linecap="round"/>
+    <path d="M0 -14 C-12 -16 -19 -24 -20 -33 C-9 -32 -2 -25 0 -14 z" fill="{leaf}"/>
+    <path d="M0 -24 C11 -26 18 -34 19 -43 C8 -42 2 -34 0 -24 z" fill="{shade(leaf, 1.22)}"/>
+    <circle cx="0" cy="-42" r="4.4" fill="#f71735"/>
+  </g>""")
+    body = "\n  ".join(out)
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" '
+        'role="img" aria-label="Filippo Italiano">\n'
+        '  <title>Filippo Italiano</title>\n'
+        f'  {body}\n</svg>\n'
+    )
 
 
 if __name__ == "__main__":
+    # Paths are relative to the client dir: `python3 tools/generate-artifacts.py client`.
     targets = {
-        "tomato-timer.svg": tomato_timer(),
-        "react-webpack-seed.svg": react_webpack_seed(),
-        "event-driven-booking-app.svg": event_driven_booking_app(),
-        "garden.svg": garden_site(),
+        "artifacts/tomato-timer.svg": tomato_timer(),
+        "artifacts/react-webpack-seed.svg": react_webpack_seed(),
+        "artifacts/event-driven-booking-app.svg": event_driven_booking_app(),
+        "artifacts/garden.svg": garden_site(),
+        "logo.svg": site_logo(),
+        "favicon.svg": site_favicon(),
     }
     import os, sys
     outdir = sys.argv[1]
     for name, content in targets.items():
-        with open(os.path.join(outdir, name), "w") as fh:
+        path = os.path.join(outdir, name)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w") as fh:
             fh.write(content)
-        print("wrote", name)
+        print("wrote", path)
