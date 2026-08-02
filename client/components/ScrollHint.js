@@ -24,12 +24,7 @@ class ScrollHint {
 
     appendInnerHtmlTemplate(wrapper, id, `
       <span class="scroll-hint" id="${id}" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="16" viewBox="0 0 11 16">
-          <g fill="none" stroke="#f71735" stroke-width="1.6" stroke-linecap="round">
-            <path d="M2.6 2.2 L8.4 8"/>
-            <path d="M2.6 13.8 L8.4 8"/>
-          </g>
-        </svg>
+        ${chevronIcon()}
       </span>
     `);
 
