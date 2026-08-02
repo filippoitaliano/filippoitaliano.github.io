@@ -61,6 +61,10 @@ first topbar link. Promoting a new article means demoting the previous one.
   in `client/components`, appended through `appendInnerHtmlTemplate`.
 - The palette is fixed: `#f3ece3` paper, `#f71735` accent, `#2a7061` leaf,
   `#9a634e` soil, `#c6aa4a` wood, `#3a3532` ink.
+- The page decides how wide its content is: grid tracks are `minmax(0, ...)`,
+  their items may shrink, boxes are `border-box`. Anything that does not fit —
+  a line of code, an image, the artifacts bar — scrolls or wraps inside its own
+  box rather than widening the document. Nothing should ever scroll sideways.
 - Articles are written in Italian, first person.
 - Comments explain why, not what, and only where the reason is not obvious from
   the code.

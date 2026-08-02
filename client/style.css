@@ -25,6 +25,15 @@
   src: url('fonts/FiraCode-Regular.woff');
 }
 
+/* A width means the width of the box, padding included. Without this a padded
+   box is quietly wider than the width it was given — the code block was 40px
+   past its column — and no layout rule further down can be trusted. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #f3ece3;
   color: rgb(53, 53, 52);
@@ -54,9 +63,17 @@ a:link {
   color: #707070;
 }
 
+/* The page decides how wide its content is, and nothing inside it gets to
+   argue. `1fr` on its own does not hold that line: a grid track never shrinks
+   below the minimum size of what is in it, so one unbreakable line — a command
+   in a code block, a long word, an image with its own width — widens the track,
+   the article and the document with it, and the whole page ends up scrolling
+   sideways. `minmax(0, ...)` tracks and items that may shrink hand the decision
+   back to the grid; what does not fit then deals with it inside its own box,
+   the way the artifacts bar already scrolls inside itself. */
 .two-columns-grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 40px;
   align-items: baseline;
 }
@@ -64,20 +81,35 @@ a:link {
 @media screen and (max-width: 600px) {
   .three-columns-grid-container {
     display: grid;
-    grid-template-columns: 5vw 1fr 5vw;
+    grid-template-columns: 5vw minmax(0, 1fr) 5vw;
   }
 }
 
 @media screen and (min-width: 601px) {
   .three-columns-grid-container {
     display: grid;
-    grid-template-columns: 25vw 1fr 25vw;
+    grid-template-columns: 25vw minmax(0, 1fr) 25vw;
   }
 }
 
 .six-columns-grid-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.two-columns-grid-container > *,
+.three-columns-grid-container > *,
+.six-columns-grid-container > * {
+  min-width: 0;
+}
+
+/* The same line, for the two things that carry their own width around. */
+img {
+  max-width: 100%;
+}
+
+.paragraph-body-text {
+  overflow-wrap: break-word;
 }
 
 .article-wrapper {
