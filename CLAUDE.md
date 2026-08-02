@@ -65,6 +65,9 @@ first topbar link. Promoting a new article means demoting the previous one.
   their items may shrink, boxes are `border-box`. Anything that does not fit —
   a line of code, an image, the artifacts bar — scrolls or wraps inside its own
   box rather than widening the document. Nothing should ever scroll sideways.
+- Whatever scrolls sideways inside its own box says so: give it a positioned
+  wrapper and `ScrollHint.appendTo(wrapper, scroller)`, plus a rule tinting the
+  arrow's fade with that box's own background colour.
 - Articles are written in Italian, first person.
 - Comments explain why, not what, and only where the reason is not obvious from
   the code.
