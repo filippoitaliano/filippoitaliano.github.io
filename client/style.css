@@ -319,25 +319,40 @@ a:hover .arrow-link-text {
   background-color: #f3ece3;
 }
 
-/* A short fade of the page's own paper under the bar, so what scrolls past
-   dissolves into it instead of being cut off against a hard edge — the same
-   thing the scroll hint does at the edge of a box that has more to show.
+/* The red line under the bar is the bar's own, drawn with the same gradient the
+   `hr`s are. It has to be: the bar stays on screen, and the `hr` that used to
+   sit here scrolled out of sight under it, leaving the artifacts below with no
+   line above them. The articles bar no longer draws that first `hr` — this is
+   it, and there is still only one of it.
 
-   The bar deliberately grows no line of its own. The separators on this page
-   are red `hr`s, and a red line stuck to the bar would sooner or later come to
-   rest a few pixels above one of them: on a short page it would stay there.
-   One line, the page's, which fades out under the bar rather than being hidden
-   by it. `pointer-events: none` or this would swallow clicks on the first
-   pixels of the page. */
+   Under the line, a short fade of the page's own paper, so what scrolls past
+   dissolves into it instead of being cut off against a hard edge — the same
+   thing the scroll hint does at the edge of a box that has more to show. It
+   also softens the one case this arrangement cannot avoid: a page that ends
+   just under the bar, leaving its last `hr` a few pixels below this one.
+
+   Both are `position: absolute`, which keeps them out of the flex row they
+   would otherwise be laid out in, and out of the bar's own box, so they
+   separate rather than crop. `pointer-events: none` or the fade would swallow
+   clicks on the first pixels of the page. */
+.topbar-wrapper::before,
 .topbar-wrapper::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
   top: 100%;
-  height: 14px;
-  background: linear-gradient(to bottom, #f3ece3, rgba(243, 236, 227, 0));
   pointer-events: none;
+}
+
+.topbar-wrapper::before {
+  height: 20px;
+  background: linear-gradient(to bottom, #f3ece3, rgba(243, 236, 227, 0));
+}
+
+.topbar-wrapper::after {
+  height: 1px;
+  background: linear-gradient(to right, #f3ece3, #f71735, #f3ece3);
 }
 
 .topbar-logo-wrapper {
@@ -704,9 +719,11 @@ a.articles-index-link:hover {
 }
 
 /* Holds the arrow, and takes back the room the bar below reserves for its
-   scrollbar, so the bar keeps the place and the margins it already had. */
+   scrollbar, so the bar keeps the place and the margins it already had. The top
+   margin is the one the `hr` above it used to bring. */
 .articles-bar-wrapper {
   position: relative;
+  margin-top: 32px;
   margin-bottom: -12px;
 }
 
@@ -736,13 +753,18 @@ a.articles-index-link:hover {
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  /* 175x150 artifacts: a 105px column makes them exactly 90px tall, so the
-     bar stays a whole number of pixels high. */
+  /* The column stays 105px wide because the names are set in it: narrower and
+     `filippoitaliano.github.io` breaks over three lines, which costs the bar
+     more height than the smaller artifact saves. */
   width: 105px;
 }
 
+/* 175x150 artifacts, so 84x72 keeps the ratio on whole pixels and takes 18px
+   off the height of the whole section. Given as a size rather than as a share
+   of the column, since the column is set by the names underneath. */
 .repo-artifact-img {
-  width: 100%;
+  width: 84px;
+  height: 72px;
 }
 
 .repo-artifact-name {
