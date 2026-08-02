@@ -109,7 +109,7 @@ class Topbar {
     const logo = animate && !prefersReducedMotion() ? 'logo-growing.svg' : 'logo.svg';
 
     const template = appendInnerHtmlTemplate(parentNode, id, `
-      <div class="six-columns-grid-container topbar-wrapper" id="${id}">
+      <div class="topbar-wrapper" id="${id}">
         <div class="topbar-logo-wrapper">
           <a
             id="home-link"
