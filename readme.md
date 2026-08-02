@@ -19,7 +19,15 @@ as the two add up — see `garden_growth` in `tools/generate-artifacts.py`. Add 
 to `data/articles.json` or a repo to `ARTICLES_BAR_ARTIFACTS`, re-run the generator (and
 `generate-og-image.py`, which bakes the logo into the social card) and the garden moves
 on by itself. Hovering the logo — or holding it down on a phone — says where it is at.
-The rule and what has to be regenerated with it are written down in `CLAUDE.md`.
+Opening the site plays the growth once (`client/logo-growing.svg`), and the same frames
+loop as the loader while Render wakes up (`client/logo-loading.svg`). The rule and what
+has to be regenerated with it are written down in `CLAUDE.md`.
+
+## Routes
+
+`/` shows the promoted articles, `/articles` is the index of everything listed, and
+`/article/<id>` is a single one. They are all client side: GitHub Pages serves `404.html`
+for the deep links, which bounces them back through the `#bookmark` redirect.
 
 ## Social preview
 

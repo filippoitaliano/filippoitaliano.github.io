@@ -25,6 +25,15 @@
   src: url('fonts/FiraCode-Regular.woff');
 }
 
+/* A width means the width of the box, padding included. Without this a padded
+   box is quietly wider than the width it was given — the code block was 40px
+   past its column — and no layout rule further down can be trusted. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #f3ece3;
   color: rgb(53, 53, 52);
@@ -54,9 +63,17 @@ a:link {
   color: #707070;
 }
 
+/* The page decides how wide its content is, and nothing inside it gets to
+   argue. `1fr` on its own does not hold that line: a grid track never shrinks
+   below the minimum size of what is in it, so one unbreakable line — a command
+   in a code block, a long word, an image with its own width — widens the track,
+   the article and the document with it, and the whole page ends up scrolling
+   sideways. `minmax(0, ...)` tracks and items that may shrink hand the decision
+   back to the grid; what does not fit then deals with it inside its own box,
+   the way the artifacts bar already scrolls inside itself. */
 .two-columns-grid-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 40px;
   align-items: baseline;
 }
@@ -64,20 +81,35 @@ a:link {
 @media screen and (max-width: 600px) {
   .three-columns-grid-container {
     display: grid;
-    grid-template-columns: 5vw 1fr 5vw;
+    grid-template-columns: 5vw minmax(0, 1fr) 5vw;
   }
 }
 
 @media screen and (min-width: 601px) {
   .three-columns-grid-container {
     display: grid;
-    grid-template-columns: 25vw 1fr 25vw;
+    grid-template-columns: 25vw minmax(0, 1fr) 25vw;
   }
 }
 
 .six-columns-grid-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.two-columns-grid-container > *,
+.three-columns-grid-container > *,
+.six-columns-grid-container > * {
+  min-width: 0;
+}
+
+/* The same line, for the two things that carry their own width around. */
+img {
+  max-width: 100%;
+}
+
+.paragraph-body-text {
+  overflow-wrap: break-word;
 }
 
 .article-wrapper {
@@ -111,6 +143,21 @@ a:link {
   }
 }
 
+/* A display title cannot wrap inside a word, so its half of the article never
+   gets narrower than the longest word in it — around 300px. On a wide screen
+   both halves are wider than that and the two columns hold. In between, the
+   title keeps its 300px and the abstract is left with whatever remains, down to
+   a sliver, until the two run into each other. Below the width where both fit,
+   the header stacks the way it does on a phone and the title scales with the
+   viewport instead of staying at its widest. */
+@media only screen and (min-width: 601px) and (max-width: 1280px) {
+  .article-wrapper .title-wrapper,
+  .article-wrapper .abstract-wrapper {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
+
 .arrow-link-a, .dot-link-a {
   font-size: 0.8rem;
   text-decoration: none;
@@ -127,7 +174,18 @@ a:link {
   margin-right: 10px;
 }
 
-.topbar-link .arrow-link-a {
+.topbar-links {
+  /* Two links now, so they get their own track and lay themselves out in it
+     instead of leaning on the auto placement of the six column grid. */
+  grid-column-start: 2;
+  grid-column-end: 5;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 40px;
+}
+
+.topbar-links .arrow-link-a {
   display: flex;
   align-items: center;
   line-height: 20px;
@@ -160,6 +218,15 @@ a:link {
   }
 }
 
+/* Between the two the title has the whole article to itself (see the stacking
+   rule above) but not much of it, so it scales with the viewport rather than
+   staying at the size it takes on a wide screen. */
+@media only screen and (min-width: 601px) and (max-width: 1280px) {
+  .title-wrapper .title-body-text {
+    font-size: clamp(1.85rem, 4.25vw + 17px, 3rem);
+  }
+}
+
 .topbar-wrapper {
   grid-column-start: 1;
   grid-column-end: 7;
@@ -178,6 +245,12 @@ a:link {
 
 .topbar-logo-link {
   display: block;
+  /* Holding the logo has to read the tooltip, not select the image or offer to
+     save it. */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .topbar-logo-tooltip {
@@ -243,6 +316,8 @@ a:link {
 
 .topbar-logo {
   cursor: pointer;
+  -webkit-user-drag: none;
+  pointer-events: none;
   /* The logo is 175x150, so 105x90 keeps its ratio with whole pixels: a
      fractional logo height pushes the separator below onto a half pixel,
      where the 1px gradient line fades out. `display: block` drops the
@@ -273,15 +348,68 @@ a:link {
     margin-left: -6px;
   }
 
-  .topbar-link {
-    grid-column-start: 2;
-    grid-column-end: 6;
+  .topbar-links {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    justify-content: center;
+    gap: 10px 30px;
+  }
+
+  /* The page title is 2rem here, so the entries have to step down further to
+     stay below it. */
+  .articles-index-link {
+    font-size: 1.3rem;
+  }
+
+  .articles-index-abstract {
+    font-size: 0.7rem;
   }
 }
 
 .fallback-wrapper {
   display: grid;
   justify-content: center;
+}
+
+.loader-logo {
+  display: block;
+  width: 175px;
+  height: 150px;
+  margin-top: 20vh;
+}
+
+.articles-index-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.articles-index-item {
+  margin-bottom: 40px;
+}
+
+.articles-index-link {
+  font-family: 'Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 200;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  text-decoration: none;
+}
+
+a.articles-index-link:link,
+a.articles-index-link:visited {
+  color: initial;
+}
+
+a.articles-index-link:hover {
+  color: #f71735;
+}
+
+.articles-index-abstract {
+  font-size: 0.75rem;
+  color: #707070;
+  margin: 8px 0 0;
 }
 
 .fallback-wrapper .title-wrapper h1 {

@@ -46,7 +46,9 @@ class Topbar {
   /**
    * Hover on a pointer, press and hold on a touch screen. The hold has to stop
    * the tap from navigating home, otherwise reading the tooltip would leave
-   * the page you were on.
+   * the page you were on — and it has to stop the browser from treating the
+   * hold as "you want to save this image", which is what a long press on an
+   * <img> means by default.
    */
   static _bindHold(wrapper, link) {
     let timer = null;
@@ -76,6 +78,10 @@ class Topbar {
       link.addEventListener(event, () => clearTimeout(timer), { passive: true });
     });
 
+    // Android fires this at the end of a long press, and it is what opens the
+    // "save image" sheet over the tooltip.
+    link.addEventListener('contextmenu', (event) => event.preventDefault());
+
     link.onclick = (event) => {
       event.preventDefault();
       if (held) {
@@ -93,10 +99,14 @@ class Topbar {
    * @param {Node} parentNode
    * @param {Array} articles the published articles, used to tell how far along
    *   the garden in the logo is
+   * @param {boolean} animate run the growth once, from the barest plot to a
+   *   full bed and back down to where the garden actually is. Only on the
+   *   first render: replaying it at every navigation would be a tic.
    */
-  static appendTo(parentNode, articles) {
+  static appendTo(parentNode, articles, animate = false) {
     const id = `topbar_${getRandomNumber()}`;
     const tooltipId = `${id}_tooltip`;
+    const logo = animate && !prefersReducedMotion() ? 'logo-growing.svg' : 'logo.svg';
 
     const template = appendInnerHtmlTemplate(parentNode, id, `
       <div class="six-columns-grid-container topbar-wrapper" id="${id}">
@@ -109,15 +119,16 @@ class Topbar {
           >
             <img
               class="topbar-logo"
-              src="${window.location.origin}/client/logo.svg"
+              src="${window.location.origin}/client/${logo}"
               alt="an isometric garden plot with a flower aka the logo"
+              draggable="false"
             />
           </a>
           <span class="topbar-logo-tooltip" id="${tooltipId}" role="tooltip">
             ${Topbar._tooltipText(articles)}
           </span>
         </div>
-        <div class="topbar-link" id="topbar-link-1"></div>
+        <div class="topbar-links" id="topbar-links"></div>
       </div>
     `);
 
@@ -126,11 +137,19 @@ class Topbar {
       template.querySelector('#home-link')
     );
 
-    const firstLink = new ArrowLink({
+    const links = template.querySelector('#topbar-links');
+
+    const indexLink = new ArrowLink({
+      href: '/articles',
+      text: 'Tutti gli articoli'
+    });
+    indexLink.appendTo(links);
+
+    const resumeLink = new ArrowLink({
       href: 'https://www.linkedin.com/in/filippoitaliano/',
       text: 'My resume'
     });
-    firstLink.appendTo(template.querySelector('#topbar-link-1'));
+    resumeLink.appendTo(links);
   }
 
 }

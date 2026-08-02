@@ -40,6 +40,10 @@
       },
       {
         "type": "p",
+        "content": "Quando aprite il sito il logo fa una cosa sola: parte dalla mattonella spoglia, cresce fino all'orto pieno e poi torna al punto in cui è davvero. È un secondo e mezzo di vanità, ma serve a dire in fretta che quel disegno ha un prima e un dopo. La stessa animazione, in loop, è quella che vedete mentre il server si sveglia."
+      },
+      {
+        "type": "p",
         "content": "Ah: se passate il mouse sopra il logo — o se lo tenete premuto un attimo da telefono — vi dice a che punto è l'orto adesso. Sembra una sciocchezza ma è il motivo per cui ho fatto tutto quanto: mi piaceva l'idea che una persona capitata qui per caso potesse accorgersi che quel disegno non è fermo."
       },
       {
@@ -84,7 +88,7 @@
   {
     "id": "b7c710ce-fce7-4cc2-a6c4-3111c5008366",
     "relevance": 0,
-    "promoted": true,
+    "promoted": false,
     "listed": true,
     "title": "Come pubblicare un sito dinamico senza hosting",
     "abstract": "Sto cucinando tutto in casa perché questo mi da maggiore soddisfazione oltre ad essere un ottimo modo per avviare subito un progetto con pochissime spese e tanta voglia di imparare.",

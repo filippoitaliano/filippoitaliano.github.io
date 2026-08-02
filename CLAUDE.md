@@ -22,15 +22,21 @@ better every time something is added. The rule lives in `garden_growth` in
 garden and commit the result:**
 
 ```
-python3 tools/generate-artifacts.py client   # logo.svg, favicon.svg, artifacts/garden.svg
+python3 tools/generate-artifacts.py client   # logo, favicon, artifacts/garden, the animated pair
 python3 tools/generate-og-image.py client    # og-image.png, which embeds the logo
 ```
 
 The generator counts the articles and the projects itself, straight from those
 two files (`read_growth`), so there is nothing to pass in and nothing to keep in
-sync by hand. Never hand-edit `client/logo.svg`, `client/favicon.svg` or
-`client/artifacts/garden.svg` — they are output. Change the drawing in the
-generator instead.
+sync by hand. Never hand-edit any of `client/logo.svg`, `client/logo-growing.svg`,
+`client/logo-loading.svg`, `client/favicon.svg` or `client/artifacts/garden.svg`
+— they are output. Change the drawing in the generator instead.
+
+The last two are the garden in motion, built out of the same scene at the stages
+in `GROWTH_FRAMES`: `logo-growing.svg` runs through them once and settles on the
+garden as it is today (the topbar plays it on the first render only),
+`logo-loading.svg` loops while the server wakes up. Both hold their last frame
+under `prefers-reduced-motion`.
 
 Two things read the same rule from the other side and have to keep up with it:
 
@@ -43,12 +49,22 @@ When the garden outgrows what the current rule can express — the 3x3 cap, the
 five plant shapes, the petal count — grow the rule rather than freezing the
 picture. The point of the logo is that it is never finished.
 
+## Articles
+
+Only the newest article is `promoted`: the home page shows the promoted ones in
+full, and everything `listed` is reachable from `/articles`, the index behind the
+first topbar link. Promoting a new article means demoting the previous one.
+
 ## Conventions
 
 - No build step, no framework, no dependencies on the front-end: plain classes
   in `client/components`, appended through `appendInnerHtmlTemplate`.
 - The palette is fixed: `#f3ece3` paper, `#f71735` accent, `#2a7061` leaf,
   `#9a634e` soil, `#c6aa4a` wood, `#3a3532` ink.
+- The page decides how wide its content is: grid tracks are `minmax(0, ...)`,
+  their items may shrink, boxes are `border-box`. Anything that does not fit —
+  a line of code, an image, the artifacts bar — scrolls or wraps inside its own
+  box rather than widening the document. Nothing should ever scroll sideways.
 - Articles are written in Italian, first person.
 - Comments explain why, not what, and only where the reason is not obvious from
   the code.
