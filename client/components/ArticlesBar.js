@@ -6,6 +6,30 @@ const ARTICLES_BAR_ARTIFACTS = [
     alt: 'an isometric fan of face-down cards with one prompt card face up',
   },
   {
+    name: 'event-driven-booking-app',
+    src: '/client/artifacts/event-driven-booking-app.svg',
+    href: 'https://github.com/filippoitaliano/event-driven-booking-app',
+    alt: 'an isometric booking slot emitting events to a phone',
+  },
+  {
+    name: 'tomato-timer',
+    src: '/client/artifacts/tomato-timer.svg',
+    href: 'https://garden.filippoitaliano.com/tomato-timer/',
+    alt: 'an isometric tomato with a clock dial',
+  },
+  {
+    name: 'react-webpack-seed',
+    src: '/client/artifacts/react-webpack-seed.svg',
+    href: 'https://github.com/filippoitaliano/react-webpack-seed',
+    alt: 'an isometric crate of bundled modules under a react atom',
+  },
+  {
+    name: 'atmosfere',
+    src: '/client/artifacts/atmosfere.svg',
+    href: 'https://garden.filippoitaliano.com/atmosfere/',
+    alt: 'an isometric board of mood pads with rings of sound rising from the pressed one',
+  },
+  {
     name: 'gpio-pin-select',
     src: '/client/raspberry.png',
     href: 'https://github.com/filippoitaliano/gpio-pin-select',
@@ -16,24 +40,6 @@ const ARTICLES_BAR_ARTIFACTS = [
     src: '/client/artifacts/garden.svg',
     href: 'https://github.com/filippoitaliano/filippoitaliano.github.io',
     alt: 'an isometric garden plot with a sprout',
-  },
-  {
-    name: 'tomato-timer',
-    src: '/client/artifacts/tomato-timer.svg',
-    href: 'https://github.com/filippoitaliano/tomato-timer',
-    alt: 'an isometric tomato with a clock dial',
-  },
-  {
-    name: 'react-webpack-seed',
-    src: '/client/artifacts/react-webpack-seed.svg',
-    href: 'https://github.com/filippoitaliano/react-webpack-seed',
-    alt: 'an isometric crate of bundled modules under a react atom',
-  },
-  {
-    name: 'event-driven-booking-app',
-    src: '/client/artifacts/event-driven-booking-app.svg',
-    href: 'https://github.com/filippoitaliano/event-driven-booking-app',
-    alt: 'an isometric booking slot emitting events to a phone',
   },
 ];
 

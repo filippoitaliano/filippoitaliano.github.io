@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 150" width="175" height="150" role="img" aria-label="atmosfere">
+  <title>atmosfere</title>
+  <defs>
+    <radialGradient id="sh" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a3532" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#3a3532" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g fill="none" stroke="#e6e2dc" stroke-width="0.6" opacity="0.9">
+    <circle cx="87.5" cy="75" r="61"/>
+    <path d="M87.5 12 V138"/>
+    <path d="M33 43.5 L142 106.5"/>
+    <path d="M33 106.5 L142 43.5"/>
+  </g>
+  <g fill="none" stroke="#d9d5cf" stroke-width="0.9" stroke-linecap="round" opacity="0.75">
+    <path d="M18 47 L52 67"/>
+    <path d="M24 41 L46 54"/>
+    <path d="M124 96 L158 116"/>
+    <path d="M132 106 L152 118"/>
+  </g>
+  <ellipse cx="87.5" cy="126" rx="46" ry="14" fill="url(#sh)"/>
+  <g>
+    <polygon points="35.54,100.00 87.50,130.00 87.50,134.00 35.54,104.00" fill="#a5a29e"/>
+<polygon points="139.46,100.00 87.50,130.00 87.50,134.00 139.46,104.00" fill="#c5c2bd"/>
+<polygon points="87.50,70.00 139.46,100.00 87.50,130.00 35.54,100.00" fill="#e6e2dc"/>
+    <polygon points="74.51,77.50 87.50,85.00 87.50,88.00 74.51,80.50" fill="#777588"/>
+<polygon points="100.49,77.50 87.50,85.00 87.50,88.00 100.49,80.50" fill="#8e8ca3"/>
+<polygon points="87.50,70.00 100.49,77.50 87.50,85.00 74.51,77.50" fill="#a6a3be"/>
+    <polygon points="90.10,86.50 103.09,94.00 103.09,97.00 90.10,89.50" fill="#777588"/>
+<polygon points="116.08,86.50 103.09,94.00 103.09,97.00 116.08,89.50" fill="#8e8ca3"/>
+<polygon points="103.09,79.00 116.08,86.50 103.09,94.00 90.10,86.50" fill="#a6a3be"/>
+    <polygon points="105.69,95.50 118.68,103.00 118.68,106.00 105.69,98.50" fill="#777588"/>
+<polygon points="131.67,95.50 118.68,103.00 118.68,106.00 131.67,98.50" fill="#8e8ca3"/>
+<polygon points="118.68,88.00 131.67,95.50 118.68,103.00 105.69,95.50" fill="#a6a3be"/>
+    <polygon points="58.92,86.50 71.91,94.00 71.91,97.00 58.92,89.50" fill="#777588"/>
+<polygon points="84.90,86.50 71.91,94.00 71.91,97.00 84.90,89.50" fill="#8e8ca3"/>
+<polygon points="71.91,79.00 84.90,86.50 71.91,94.00 58.92,86.50" fill="#a6a3be"/>
+    <polygon points="90.10,104.50 103.09,112.00 103.09,115.00 90.10,107.50" fill="#777588"/>
+<polygon points="116.08,104.50 103.09,112.00 103.09,115.00 116.08,107.50" fill="#8e8ca3"/>
+<polygon points="103.09,97.00 116.08,104.50 103.09,112.00 90.10,104.50" fill="#a6a3be"/>
+    <polygon points="43.33,95.50 56.32,103.00 56.32,106.00 43.33,98.50" fill="#777588"/>
+<polygon points="69.31,95.50 56.32,103.00 56.32,106.00 69.31,98.50" fill="#8e8ca3"/>
+<polygon points="56.32,88.00 69.31,95.50 56.32,103.00 43.33,95.50" fill="#a6a3be"/>
+    <polygon points="58.92,104.50 71.91,112.00 71.91,115.00 58.92,107.50" fill="#777588"/>
+<polygon points="84.90,104.50 71.91,112.00 71.91,115.00 84.90,107.50" fill="#8e8ca3"/>
+<polygon points="71.91,97.00 84.90,104.50 71.91,112.00 58.92,104.50" fill="#a6a3be"/>
+    <polygon points="74.51,113.50 87.50,121.00 87.50,124.00 74.51,116.50" fill="#777588"/>
+<polygon points="100.49,113.50 87.50,121.00 87.50,124.00 100.49,116.50" fill="#8e8ca3"/>
+<polygon points="87.50,106.00 100.49,113.50 87.50,121.00 74.51,113.50" fill="#a6a3be"/>
+    <polygon points="74.51,90.50 87.50,98.00 87.50,106.00 74.51,98.50" fill="#b11026"/>
+<polygon points="100.49,90.50 87.50,98.00 87.50,106.00 100.49,98.50" fill="#d4132d"/>
+<polygon points="87.50,83.00 100.49,90.50 87.50,98.00 74.51,90.50" fill="#f71735"/>
+  </g>
+  <ellipse cx="87.50" cy="84.50" rx="13" ry="5.46" fill="none" stroke="#2a7061" stroke-width="2.2" opacity="0.8"/>
+  <ellipse cx="87.50" cy="75.50" rx="22" ry="9.24" fill="none" stroke="#2a7061" stroke-width="1.8" opacity="0.55"/>
+  <ellipse cx="87.50" cy="66.50" rx="31" ry="13.02" fill="none" stroke="#2a7061" stroke-width="1.4" opacity="0.34"/>
+  <circle cx="44" cy="44" r="4.6" fill="#f71735" opacity="0.5"/>
+  <circle cx="133" cy="60" r="3.4" fill="#f71735" opacity="0.4"/>
+  <circle cx="126" cy="30" r="2.4" fill="#f71735" opacity="0.3"/>
+</svg>

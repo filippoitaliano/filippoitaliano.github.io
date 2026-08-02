@@ -209,6 +209,40 @@ def event_driven_booking_app():
 
 
 # --------------------------------------------------------------------------
+# atmosfere: a fantasy soundscape generator — a board of mood pads, the one
+# you pressed lit up and pushing rings of sound out into the room.
+# --------------------------------------------------------------------------
+def atmosfere():
+    board, pad, lit, wave = "#e6e2dc", "#3b3470", "#f71735", "#2a7061"
+    oy = 104.0
+    out = [ground_shadow(87.5, 126, 46, 14)]
+    out.append("  <g>")
+    out.append("    " + box(-30, -30, 0, 60, 60, 4, board, oy=oy))
+    # the mood pads, laid out as they are in the app: a grid you tap through
+    lit_col, lit_row = 1, 1
+    for row in range(3):
+        for col in range(3):
+            x, y = -27 + col * 18, -27 + row * 18
+            if (col, row) == (lit_col, lit_row):
+                continue
+            out.append("    " + box(x, y, 4, 15, 15, 3, shade(pad, 1.55), oy=oy))
+    # the pressed one: taller, in the accent, still ringing
+    lx, ly = -27 + lit_col * 18, -27 + lit_row * 18
+    out.append("    " + box(lx, ly, 4, 15, 15, 8, lit, oy=oy))
+    out.append("  </g>")
+    # the soundscape it is playing, rising off the pad
+    top = iso(lx + 7.5, ly + 7.5, 12, oy=oy)
+    for i, (r, o, w) in enumerate(((13, 0.8, 2.2), (22, 0.55, 1.8), (31, 0.34, 1.4))):
+        cy = top[1] - 6 - i * 9
+        out.append(f'  <ellipse cx="{top[0]:.2f}" cy="{cy:.2f}" rx="{r}" ry="{r * 0.42:.2f}" '
+                   f'fill="none" stroke="{wave}" stroke-width="{w}" opacity="{o}"/>')
+    # and a few notes drifting off with it
+    for nx, ny, r, o in ((44, 44, 4.6, 0.5), (133, 60, 3.4, 0.4), (126, 30, 2.4, 0.3)):
+        out.append(f'  <circle cx="{nx}" cy="{ny}" r="{r}" fill="{lit}" opacity="{o}"/>')
+    return wrap("atmosfere", "\n".join(out))
+
+
+# --------------------------------------------------------------------------
 # blindtales-app: an exquisite-corpse card game — a fan of face-down cards
 # with the one card you are given, face up, on top of the pile.
 # --------------------------------------------------------------------------
@@ -371,6 +405,7 @@ if __name__ == "__main__":
         "artifacts/tomato-timer.svg": tomato_timer(),
         "artifacts/react-webpack-seed.svg": react_webpack_seed(),
         "artifacts/event-driven-booking-app.svg": event_driven_booking_app(),
+        "artifacts/atmosfere.svg": atmosfere(),
         "artifacts/garden.svg": garden_site(),
         "logo.svg": site_logo(),
         "favicon.svg": site_favicon(),
