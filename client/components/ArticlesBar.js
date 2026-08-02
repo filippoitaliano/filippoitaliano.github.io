@@ -61,8 +61,9 @@ class ArticlesBar {
   static appendTo(parentNode) {
     const id = `articlesbar_${getRandomNumber()}`;
 
+    // No `hr` above the bar: the topbar is sticky and draws that line itself, so
+    // that the artifacts keep a line over them all the way down the page.
     const template = appendInnerHtmlTemplate(parentNode, id, `
-      <hr />
       <div class="articles-bar-wrapper" id="${id}">
         <div class="articles-bar">
           ${ARTICLES_BAR_ARTIFACTS.map(ArticlesBar._renderArtifact).join('')}

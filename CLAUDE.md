@@ -71,9 +71,11 @@ first topbar link. Promoting a new article means demoting the previous one.
 - One arrow, one place: every arrow on the site comes out of `arrowIcon` in
   `client/icons.js`, and how it answers a hover is written once, against
   `.arrow-icon`. Draw a new one there rather than inlining another `<svg>`.
-- The topbar stays on screen. Nothing else may grow a red line of its own: the
-  `hr`s are the page's separators and they scroll under the bar, fading into the
-  paper. Two red lines a few pixels apart read as a mistake.
+- The topbar stays on screen and draws the red line under itself, because an
+  `hr` there would scroll out of sight and leave the artifacts with nothing over
+  them. That is the only line that is not an `hr`: everything else separates
+  with one, and nothing puts a second line within a few pixels of another — two
+  red lines that close together read as a mistake.
 - Articles are written in Italian, first person.
 - Comments explain why, not what, and only where the reason is not obvious from
   the code.
