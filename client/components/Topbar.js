@@ -19,8 +19,8 @@ class Topbar {
           <img 
             id="home-link" 
             class="topbar-logo" 
-            src="${window.location.origin}/client/logo.png"
-            alt="four colorfull 45 degrees lines aka the logo" 
+            src="${window.location.origin}/client/logo.svg"
+            alt="an isometric garden plot with a sprout aka the logo"
           />
         </div>
         <div class="topbar-link" id="topbar-link-1"></div>
