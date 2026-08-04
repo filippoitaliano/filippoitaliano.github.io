@@ -68,9 +68,11 @@ The footer says one thing: which version of the site you are looking at. It is
 calver, three numbers like an npm package — `anno.mese.build` — and it lives in
 `client/version.js`.
 
-**Bump `SITE_VERSION` on every change that ships.** Same month: add one to the
-build. New month: the first two numbers become the current year and month and
-the build starts over at `1`.
+**Bump `SITE_VERSION` on every change that ships.** The build is a running
+count and only ever goes forward: add one, whatever the date says. It started
+at `91` — the commits on master the day the footer was planted — and it never
+resets. The first two numbers are just the year and month of that bump, so a
+change made in a new month moves them along with it.
 
 ## Conventions
 
