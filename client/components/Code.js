@@ -18,11 +18,14 @@ class Code extends Component {
     const template = appendInnerHtmlTemplate(parentNode, this.id, `
       <div class="code-block" id="${this.id}">
         <div class="code-wrapper">
-          ${this.props.source.map((sourceLine) => (`
-            <div class="code-source-line">
-              ${sourceLine}
-            </div>
-          `))}
+          ${this.props.source.map((sourceLine) => (
+            // Joined by hand, and with nothing around the line but its own tags:
+            // an array dropped into a template literal is joined with commas,
+            // which would land between one line and the next, and the line is
+            // set `pre`, so any indentation of the markup would be read as
+            // indentation of the code.
+            `<div class="code-source-line">${sourceLine}</div>`
+          )).join('')}
           <div class="code-type-ribbon">${this.props.type}</div>
         </div>
       </div>

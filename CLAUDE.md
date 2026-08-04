@@ -51,9 +51,11 @@ picture. The point of the logo is that it is never finished.
 
 ## Articles
 
-Only the newest article is `promoted`: the home page shows the promoted ones in
-full, and everything `listed` is reachable from `/articles`, the index behind the
-first topbar link. Promoting a new article means demoting the previous one.
+The home page shows the `promoted` ones in full, in the order they sit in
+`data/articles.json`, and everything `listed` is reachable from `/articles`, the
+index behind the first topbar link. Only the most recent handful stays promoted —
+a home page that shows everything in full is the index with extra steps — so
+adding one at the top means demoting the one at the bottom.
 
 ## Conventions
 

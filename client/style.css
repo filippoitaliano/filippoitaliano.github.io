@@ -145,6 +145,36 @@ img {
   overflow-wrap: break-word;
 }
 
+/* An article long enough to need sections says so in the same Garamond the
+   title is set in, one size down from it: a heading in the body font would be
+   just a paragraph in bold. */
+.body-wrapper h3 {
+  font-family: 'Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 200;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin: 48px 0 16px;
+}
+
+/* The step below a heading — the line that names a single example — and the one
+   place a `b` stands on its own instead of sitting inside a sentence, so it has
+   to be told it is a line and given the room a line needs. */
+.body-wrapper > b {
+  display: block;
+  font-size: 1.05rem;
+  margin: 40px 0 -8px;
+}
+
+/* Code inside a sentence, set in the same face as a code block but at the size
+   of the words around it, and free to break: an API path in the middle of a
+   paragraph must not be the thing that decides how wide the page is. */
+.paragraph-body-text code {
+  font-family: 'FiraCode-Regular', monospace;
+  font-size: 0.75em;
+  overflow-wrap: anywhere;
+}
+
 .article-wrapper {
   grid-column-start: 2;
   grid-column-end: 3;
@@ -637,9 +667,20 @@ a.articles-index-link:hover {
   position: relative;
 }
 
+/* `pre` rather than `nowrap`: both keep the line on one line, but only `pre`
+   keeps the spaces at the start of it, and a snippet whose indentation has been
+   collapsed away is a snippet that has lost its structure. */
 .code-source-line {
   padding: 2px 5px;
-  white-space: nowrap;
+  white-space: pre;
+}
+
+/* A line with nothing on it lays out no line at all and the blank line a
+   snippet was written with disappears, closing up the paragraphs of the code.
+   An empty inline box gives it back its height without giving it any ink. */
+.code-source-line:empty::before {
+  content: '';
+  display: inline-block;
 }
 
 /* Content that runs past its box gets cut off at the edge with nothing to say

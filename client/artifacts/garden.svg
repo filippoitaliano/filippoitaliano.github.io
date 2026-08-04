@@ -104,10 +104,16 @@
       <circle r="1.7" fill="#a7852d"/>
     </g>
   </g>
-  <ellipse cx="34.96" cy="85.76" rx="1.93" ry="1.04" fill="#b89183"/>
-  <ellipse cx="47.05" cy="86.49" rx="1.93" ry="1.04" fill="#b89183"/>
+  <g transform="translate(40.80 86.44) scale(0.743)">
+    <path d="M0 0 C2 -12 -2 -20 0 -30" fill="none" stroke="#235f52" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M0 -13 C-10 -15 -15 -21 -16 -28 C-7 -27 -2 -20 0 -13 z" fill="#2a7061"/>
+    <path d="M0 -30 C-5 -33 -5 -41 0 -45 C5 -41 5 -33 0 -30 z" fill="#f71735"/>
+    <path d="M0 -30 C-3 -33 -3 -41 0 -45 z" fill="#f95c71"/>
+  </g>
   <ellipse cx="81.66" cy="112.73" rx="1.93" ry="1.04" fill="#b89183"/>
   <ellipse cx="93.75" cy="113.45" rx="1.93" ry="1.04" fill="#b89183"/>
   <ellipse cx="105.01" cy="72.28" rx="1.93" ry="1.04" fill="#b89183"/>
   <ellipse cx="117.11" cy="73.00" rx="1.93" ry="1.04" fill="#b89183"/>
+  <ellipse cx="58.31" cy="72.28" rx="1.93" ry="1.04" fill="#b89183"/>
+  <ellipse cx="70.40" cy="73.00" rx="1.93" ry="1.04" fill="#b89183"/>
 </svg>
