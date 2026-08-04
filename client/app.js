@@ -60,6 +60,8 @@ const renderContent = (articles) => {
   }
 
   root.appendChild(createNode('end-page-margin', 'div'));
+
+  Footer.appendTo(root);
 };
 
 const renderFallback = () => {

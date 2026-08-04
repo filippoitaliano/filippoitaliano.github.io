@@ -57,6 +57,21 @@ index behind the first topbar link. Only the most recent handful stays promoted 
 a home page that shows everything in full is the index with extra steps — so
 adding one at the top means demoting the one at the bottom.
 
+Every article carries a `date`, the day it was planted, written `YYYY-MM-DD`.
+It shows under the big title — on the home page and on the article's own page —
+spelled out in Italian by `formatArticleDate`. A new article needs one, or it
+goes up looking like it has always been there.
+
+## The version in the footer
+
+The footer says one thing: which version of the site you are looking at. It is
+calver, three numbers like an npm package — `anno.mese.build` — and it lives in
+`client/version.js`.
+
+**Bump `SITE_VERSION` on every change that ships.** Same month: add one to the
+build. New month: the first two numbers become the current year and month and
+the build starts over at `1`.
+
 ## Conventions
 
 - No build step, no framework, no dependencies on the front-end: plain classes

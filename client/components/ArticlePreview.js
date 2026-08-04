@@ -36,7 +36,7 @@ class ArticlePreview extends Component {
     });
 
     if (this.props.promoted) {
-      const title = new Title({ text: this.props.title });
+      const title = new Title({ text: this.props.title, date: this.props.date });
       title.appendTo(template.querySelector('.title-wrapper'));
 
       if (this.props.body.length > 0) {

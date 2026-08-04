@@ -27,7 +27,7 @@ class Article extends Component {
       <div>
     `);
 
-    const title = new Title({ text: this.props.title });
+    const title = new Title({ text: this.props.title, date: this.props.date });
     title.appendTo(template.querySelector('.title-wrapper'));
 
     const abstPar = new Paragraph({ text: this.props.abstract });
