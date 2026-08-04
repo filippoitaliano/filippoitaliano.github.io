@@ -53,6 +53,523 @@
     ]
   },
   {
+    "id": "9c1f4b6a-2e77-4a30-8f5b-6d0c1a2e7b94",
+    "relevance": 0,
+    "promoted": true,
+    "listed": true,
+    "title": "Come scegliere una libreria di stato globale senza pentirsene",
+    "abstract": "Non ho una libreria di stato preferita da difendere: ogni dipendenza deve dirmi che problema risolve e quanto costa. Un carrello della spesa fatto passare per cinque librerie diverse, per arrivare al sospetto che “quale store uso?” sia quasi sempre la domanda sbagliata.",
+    "previewPicture": "../data/placeholder.jpg",
+    "body": [
+      {
+        "type": "p",
+        "content": "La mia prima applicazione React seria è del 2017, e a quel tempo la risposta alla domanda “dove metto lo stato?” era una sola: Redux. Non l'ho scelto, l'ho ereditato dall'ecosistema — come mettere l'olio in padella prima di aver deciso cosa cucinare."
+      },
+      {
+        "type": "p",
+        "content": "In quello stesso periodo mi è capitato tra le mani un esperimento che mi è rimasto addosso: <a href=\"https://www.npmjs.com/package/t-redux\" target=\"_blank\" rel=\"noreferrer\">t-redux</a> di Emanuele Del Bono, «a mini redux pattern implementation». Un higher order component, un dispatcher di action, qualche utility per costruire i reducer, e finiva lì. Serviva a mostrare i principi dietro Redux senza portarsi dietro tutto il resto, e la lezione che mi ha lasciato è quella che uso ancora oggi: <strong>il pattern è una cosa, la cerimonia della libreria è un'altra</strong>. Sono separabili. E quasi sempre quello che ti serve è il primo."
+      },
+      {
+        "type": "p",
+        "content": "Da lì è stato abbastanza rapido capire dove Redux si guadagna davvero lo stipendio, e non è “condividere un valore tra componenti distanti”. È la <strong>consistenza dei dati</strong> quando diventa difficile: molte scritture correlate, invarianti da tenere in piedi tra parti diverse dello stato, la necessità di ricostruire come si è arrivati a un certo stato. Fuori da quei casi stavo pagando la cerimonia senza incassare niente. Così già pochi anni dopo ho iniziato a cercare alternative, e più spesso a cercare di farne a meno — cosa diventata concretamente praticabile quando <code>Context</code> e gli hook sono diventati comodi."
+      },
+      {
+        "type": "p",
+        "content": "Ci tengo a dire una cosa, perché spiega il resto dell'articolo: non ho una libreria preferita da difendere, e ogni dipendenza che aggiungo deve dirmi che problema risolve, quanto costa e cosa succederebbe se non la aggiungessi. La cultura del cargo cult — si fa così perché si fa così — non mi ha mai convinto: è il modo più efficiente di ereditare i costi di una scelta senza ereditarne i benefici. Su questo tema poi cambio idea con una certa regolarità, quindi quello che segue è il punto in cui sono arrivato adesso, con un paio di questioni ancora aperte che segnalo strada facendo."
+      },
+      {
+        "type": "p",
+        "content": "E la prima è che la domanda “quale libreria di stato globale uso?” mi sembra ormai quasi sempre quella sbagliata. Quella giusta viene prima ed è più scomoda."
+      },
+      {
+        "type": "p",
+        "content": "Per non perdermi in astrazioni prendo un solo dominio — <strong>un carrello della spesa</strong> — e lo faccio passare attraverso tutte le librerie di cui parlo. Stesso problema, cinque teste diverse."
+      },
+      { "type": "hr" },
+      {
+        "type": "h3",
+        "content": "Il primo taglio: chi possiede il dato?"
+      },
+      {
+        "type": "p",
+        "content": "Prima di scegliere una libreria bisogna fare un taglio netto tra due cose che chiamiamo entrambe “stato” e che si comportano in modo completamente diverso."
+      },
+      {
+        "type": "p",
+        "content": "Il <strong>client state</strong> è il dato che l'applicazione possiede e muta: la sidebar aperta, il tema scuro, il passo del wizard, il contenuto di una form. Nessun server sa niente di questa roba e nessuno la reclamerà."
+      },
+      {
+        "type": "p",
+        "content": "Il <strong>server state</strong> è il dato che vive su un backend e di cui il client tiene soltanto una <strong>cache</strong>. L'elenco prodotti, il profilo utente, gli ordini. Non è mio. È una fotografia che invecchia — a volte in un secondo, a volte in un mese — e che ha esigenze tutte sue: freschezza, deduplicazione delle richieste, retry, aggiornamento in background."
+      },
+      {
+        "type": "p",
+        "content": "Confondere i due è la causa più comune di over-engineering che conosco: <strong>moltissimo “stato globale” è in realtà server-state che vorrebbe una cache, non uno store</strong>. Tutto il codice <code>isLoading</code>/<code>error</code>/<code>data</code> che ho scritto a mano dentro un reducer, per anni, era con il senno di ora la reimplementazione mediocre di una libreria che esisteva già."
+      },
+      {
+        "type": "p",
+        "content": "Aggiungo un terzo caso che non è né uno né l'altro: lo stato che <strong>vive nell'URL</strong>. La pagina corrente, la query di ricerca, l'ID della risorsa aperta. Questo ha già un padrone — il router — e ogni volta che lo duplico in uno store mi compro il problema di tenere sincronizzate due verità."
+      },
+      { "type": "hr" },
+      {
+        "type": "h3",
+        "content": "Cosa fanno tutte queste librerie, in fondo"
+      },
+      {
+        "type": "p",
+        "content": "Prima delle differenze, le somiglianze. Perché sotto il vestito fanno tutte lo stesso mestiere in tre mosse:"
+      },
+      {
+        "type": "p",
+        "content": "1) <strong>Conservano</strong> un valore fuori dai componenti, così sopravvive allo smontaggio di un componente."
+      },
+      {
+        "type": "p",
+        "content": "2) <strong>Notificano</strong> chi si è iscritto quando quel valore cambia."
+      },
+      {
+        "type": "p",
+        "content": "3) <strong>Permettono di leggere un pezzetto</strong> del valore, così chi legge il numero di articoli nel carrello non si risveglia quando cambia il coupon."
+      },
+      {
+        "type": "p",
+        "content": "Contenere, notificare, selezionare. È tutto qui. React stesso gestisce nativamente lo stato locale (<code>useState</code>, <code>useReducer</code>) e la sua propagazione (<code>Context</code>): il problema che le librerie risolvono è lo stato <strong>condiviso tra molti componenti distanti nell'albero</strong>, con re-render efficienti."
+      },
+      {
+        "type": "p",
+        "content": "Il che significa una cosa liberatoria: <strong>non stai scegliendo una capacità, stai scegliendo una forma mentale</strong>. Nessuna di queste librerie ti impedisce di fare ciò che un'altra fa. Ti impone però un modo di pensare, e quel modo ti verrà comodo o ti darà fastidio ogni giorno, per tutta la vita del progetto."
+      },
+      { "type": "hr" },
+      {
+        "type": "h3",
+        "content": "Le quattro famiglie del client state"
+      },
+      {
+        "type": "p",
+        "content": "Questa parte è la mappa; il territorio arriva dopo, con gli esempi. Quattro modelli mentali, e per ciascuno il modo in cui arriva il re-render."
+      },
+      {
+        "type": "p",
+        "content": "<strong>Flux / store centralizzato</strong> — un unico store, muti tramite action e reducer, e il re-render passa da selettori e comparazione. È Redux."
+      },
+      {
+        "type": "p",
+        "content": "<strong>Minimal store a hook</strong> — uno store che <em>è</em> un hook, pochissima cerimonia, sempre selettori. È Zustand."
+      },
+      {
+        "type": "p",
+        "content": "<strong>Atomica</strong> — tanti piccoli atomi componibili, con una sottoscrizione per atomo. Sono Jotai e, prima di lui, Recoil."
+      },
+      {
+        "type": "p",
+        "content": "<strong>Proxy / observable</strong> — muti l'oggetto e la libreria traccia gli accessi, con un re-render fine-grained automatico. Sono MobX, Valtio, Legend-State."
+      },
+      {
+        "type": "p",
+        "content": "Tradotto in sensazioni, perché è quello che conta quando ci lavori dentro ogni giorno: con Redux sai sempre <em>perché</em> qualcosa è cambiato, e paghi ogni cambiamento in righe di codice. Con Zustand scrivi quasi niente e la disciplina te la devi dare da solo. Con gli atomi componi formule invece di aggiornare valori. Con gli observable smetti di pensare al re-render, finché un giorno qualcosa non si aggiorna e non hai un filo da tirare."
+      },
+      {
+        "type": "p",
+        "content": "I confini sono porosi, me ne rendo conto. E fuori da questo elenco, in un campionato suo, c'è il <strong>server state</strong>: TanStack Query (l'ex React Query), e con filosofie simili RTK Query e SWR."
+      },
+      {
+        "type": "p",
+        "content": "La Context API di React non è in nessuna delle due liste, e non per dimenticanza: <strong>non è uno state manager</strong>, è un modo per <em>passare</em> un valore in profondità senza portarlo a mano di componente in componente. Non gestisce sottoscrizioni fini: quando il valore cambia, tutto ciò che lo consuma si ridisegna. Per il tema e la lingua va benissimo. Per un carrello aggiornato trenta volte al minuto è un piccolo generatore di lentezza."
+      },
+      { "type": "hr" },
+      {
+        "type": "h3",
+        "content": "L'asse che decide davvero: la granularità del re-render"
+      },
+      {
+        "type": "p",
+        "content": "Se dovessi indicare un solo criterio tecnico che sposta la scelta più di tutti gli altri, non sarebbe il boilerplate né la dimensione del bundle. Sarebbe questo: <strong>chi decide quanto finemente si ridisegna la tua interfaccia, tu o la libreria?</strong>"
+      },
+      {
+        "type": "p",
+        "content": "Negli store “coarse” — Redux, Zustand — il re-render è governato dai <strong>selettori</strong>, e i selettori li scrivi tu. Se selezioni con attenzione, ridisegni il minimo indispensabile. Se selezioni con distrazione, ridisegni mezza applicazione e non te ne accorgi finché la lista non arriva a duemila righe. La responsabilità è tua, e questo è al tempo stesso il costo e il controllo."
+      },
+      {
+        "type": "p",
+        "content": "Nella reattività <strong>fine-grained</strong> — MobX, Valtio, Legend-State — il re-render è legato al <strong>singolo path che hai letto</strong>, e la libreria lo capisce da sola osservando chi legge cosa. Scrivi molto meno e ottieni aggiornamenti mirati quasi per caso. Il prezzo è che la magia è invisibile: quando qualcosa non si aggiorna, non hai una traccia da seguire, hai un'assenza da indovinare — di solito un <code>observer</code> dimenticato."
+      },
+      {
+        "type": "p",
+        "content": "È l'argomento forte di tutta la famiglia observable, e vale la pena tenerlo a mente perché non emerge da nessun confronto di API."
+      },
+      { "type": "hr" },
+      {
+        "type": "h3",
+        "content": "Adesso gli esempi, che è la parte che serve"
+      },
+      {
+        "type": "b",
+        "content": "1) L'elenco prodotti, che non è mio"
+      },
+      {
+        "type": "p",
+        "content": "Tabella di prodotti, filtri, paginazione. Zero dati inventati dal client: tutto arriva da un backend."
+      },
+      {
+        "type": "p",
+        "content": "Qui la libreria di stato globale non serve. Serve <strong>TanStack Query</strong>."
+      },
+      {
+        "type": "code",
+        "codeType": "TSX",
+        "content": "const { data, isLoading, error } = useQuery({\n  queryKey: [\"products\"],\n  queryFn: () =&gt; api.get(\"/products\"),\n});\n\nconst qc = useQueryClient();\nconst addProduct = useMutation({\n  mutationFn: (p: NewProduct) =&gt; api.post(\"/products\", p),\n  onSuccess: () =&gt; qc.invalidateQueries({ queryKey: [\"products\"] }),\n});"
+      },
+      {
+        "type": "p",
+        "content": "Perché calza: la <strong>query key</strong> <em>è</em> la mia dipendenza e la mia identità di cache. Due componenti che chiedono <code>[\"products\"]</code> fanno una sola richiesta. Il dato in cache lo vedo subito mentre viene ricontrollato in silenzio — è lo <code>stale-while-revalidate</code>. E dopo una scrittura non aggiorno lo stato a mano: <strong>invalido</strong> e lascio che si rifetchi."
+      },
+      {
+        "type": "p",
+        "content": "Quello che ottengo gratis, e che a mano non scriverò mai bene: dedup delle richieste in volo, refetch al ritorno sulla finestra e alla riconnessione, <code>staleTime</code> e <code>gcTime</code> per governare freschezza e pulizia, retry, paginazione, prefetch, optimistic update."
+      },
+      {
+        "type": "p",
+        "content": "Regola pratica che ho fatto mia: <strong>appena l'app fa fetch non banale, questo passo viene prima di qualsiasi store</strong>. Separando bene i due mondi, lo store client globale si riduce spesso a pochissimo — e a volte a niente."
+      },
+      {
+        "type": "b",
+        "content": "2) Gli elenchi di anagrafiche, il caso che inganna di più"
+      },
+      {
+        "type": "p",
+        "content": "Paesi, valute, ruoli, reparti, categorie merceologiche. Gli elenchi che popolano quaranta select sparse per l'applicazione, letti continuamente, che cambiano una volta al mese."
+      },
+      {
+        "type": "p",
+        "content": "Se c'è un caso in cui la mano corre allo store globale è questo. Sono condivisi da tutti, sono stabili, sembrano infrastruttura più che dati. Per molto tempo li ho caricati all'avvio e parcheggiati in uno store, convinto che fosse la cosa ovvia."
+      },
+      {
+        "type": "p",
+        "content": "E invece sono server state esattamente come l'elenco prodotti. Cambia un parametro solo:"
+      },
+      {
+        "type": "code",
+        "codeType": "TS",
+        "content": "export const useCountries = () =&gt;\n  useQuery({\n    queryKey: [\"registry\", \"countries\"],\n    queryFn: () =&gt; api.get(\"/registry/countries\"),\n    staleTime: Infinity,\n  });"
+      },
+      {
+        "type": "p",
+        "content": "Perché calza: <code>staleTime: Infinity</code> significa “non si aggiorna da sé”. Niente refetch al rimontaggio, niente al ritorno sulla finestra. La cache è condivisa per chiave, quindi quaranta select che chiamano <code>useCountries()</code> producono <strong>una</strong> richiesta e tutte le altre leggono dalla memoria. L'aggiornamento torna esplicito e mio: invalido quando succede l'evento che lo giustifica, oppure faccio un prefetch all'avvio e le select sono già piene al primo render."
+      },
+      {
+        "type": "p",
+        "content": "Nota una cosa nello snippet: il componente non vede nessuna query key. Vede <code>useCountries()</code>. La chiave resta un dettaglio interno di un piccolo <strong>hook di dominio</strong>, e questo è il motivo per cui il giorno in cui cambia l'endpoint o la strategia di caching non tocco quaranta file."
+      },
+      {
+        "type": "p",
+        "content": "Due dettagli che ho imparato a non trascurare. Il primo: le chiavi conviene farle <strong>gerarchiche</strong> — <code>['registry','countries']</code>, <code>['registry','roles']</code>, <code>['registry','departments']</code>. Il prefisso comune permette di invalidare un'area intera con una riga, quando il backend cambia sotto. Cache separate ma governabili insieme."
+      },
+      {
+        "type": "p",
+        "content": "Il secondo vale come correzione a quello che ho scritto nell'esempio precedente: non sempre “invalido e lascio rifetchare” è la mossa giusta. Se il dato aggiornato <strong>ce l'ho già in mano</strong> — me l'ha restituito la mutation, me l'ha portato un evento — lo scrivo direttamente in cache:"
+      },
+      {
+        "type": "code",
+        "codeType": "TS",
+        "content": "qc.setQueryData([\"registry\", \"roles\"], next);   // nessuna richiesta in più"
+      },
+      {
+        "type": "p",
+        "content": "<code>invalidateQueries</code> quando devo <em>richiedere</em>, <code>setQueryData</code> quando devo <em>riallineare</em>. Confonderli non rompe niente, fa solo traffico inutile."
+      },
+      {
+        "type": "p",
+        "content": "E lo store, qui, serve ancora? Sì, ma per altro: il testo digitato nel filtro, la selezione corrente, i metadati di presentazione. Lo stato UI che circonda l'anagrafica, non l'anagrafica."
+      },
+      {
+        "type": "b",
+        "content": "3) Le preferenze noiose, e il carrello di un'app piccola"
+      },
+      {
+        "type": "p",
+        "content": "Tema, sidebar, lingua, e il carrello di un e-commerce senza troppe pretese."
+      },
+      {
+        "type": "p",
+        "content": "Se sono valori che cambiano quasi mai: <strong>Context</strong> e via, senza installare niente. Appena diventano una decina, o cambiano spesso, o mi servono anche fuori da React: <strong>Zustand</strong>."
+      },
+      {
+        "type": "code",
+        "codeType": "TS",
+        "content": "type CartState = {\n  items: string[];\n  add: (sku: string) =&gt; void;\n  clear: () =&gt; void;\n};\n\nconst useCart = create&lt;CartState&gt;((set) =&gt; ({\n  items: [],\n  add: (sku) =&gt; set((s) =&gt; ({ items: [...s.items, sku] })),\n  clear: () =&gt; set({ items: [] }),\n}));"
+      },
+      {
+        "type": "code",
+        "codeType": "TSX",
+        "content": "const count = useCart((s) =&gt; s.items.length); // re-render solo se count cambia\nconst add = useCart((s) =&gt; s.add);\n// niente &lt;Provider&gt; da montare"
+      },
+      {
+        "type": "p",
+        "content": "Perché calza: lo store <strong>è</strong> un hook. Niente provider, niente action-type, niente file separato per i reducer. E quel selettore è il punto: un componente che legge solo <code>items.length</code> non si ridisegna quando cambia il coupon."
+      },
+      {
+        "type": "p",
+        "content": "I middleware coprono quasi tutto il resto senza cambiare libreria: <code>persist</code> per la persistenza, <code>immer</code> per scritture ergonomiche, <code>devtools</code> per agganciarsi ai Redux DevTools — che è un dettaglio simpatico, perché ti prendi lo strumento di ispezione di Redux senza prenderti Redux."
+      },
+      {
+        "type": "p",
+        "content": "Torno un attimo sulle anagrafiche, perché qui c'è un confine che vale la pena saper riconoscere. Uno store minimale <strong>basta da solo</strong> quando il ciclo di vita è davvero elementare: <em>carica la lista all'avvio, tienila in memoria, aggiornala su un evento preciso</em>. Se non ti servono staleness, dedup, refetch su focus e riconnessione, retry — una cache manuale esplicita in venti righe è una scelta legittima e con molta meno infrastruttura. Il momento in cui inizi a riscrivere a mano il terzo di quei comportamenti è il momento in cui hai scelto male."
+      },
+      {
+        "type": "p",
+        "content": "Il rovescio onesto di Zustand: è poco opinionato, quindi <strong>le convenzioni le metti tu</strong>. In un team piccolo è libertà. In un team che cambia composizione ogni sei mesi, senza una convenzione scritta diventa dieci stili diversi nello stesso repository."
+      },
+      {
+        "type": "b",
+        "content": "4) Il carrello con regole di business, e la domanda “perché questo totale?”"
+      },
+      {
+        "type": "p",
+        "content": "Sconti a scaglioni, promozioni che si escludono, quantità minime, IVA per paese. E soprattutto la richiesta — che arriva sempre — di capire <em>perché</em> a quel tale utente sia stato applicato quel totale."
+      },
+      {
+        "type": "p",
+        "content": "Qui <strong>Redux Toolkit</strong>, ed è il caso in cui torno a scegliere volentieri la libreria da cui stavo scappando: è esattamente il problema di consistenza dei dati di cui parlavo all'inizio."
+      },
+      {
+        "type": "code",
+        "codeType": "TS",
+        "content": "const cart = createSlice({\n  name: \"cart\",\n  initialState: { items: [] as string[] },\n  reducers: {\n    add: (s, a: PayloadAction&lt;string&gt;) =&gt; { s.items.push(a.payload); }, // Immer: sembra mutazione\n    clear: (s) =&gt; { s.items = []; },\n  },\n});\n\nconst count = useSelector((s: RootState) =&gt; s.cart.items.length);\ndispatch(add(\"sku-1\"));"
+      },
+      {
+        "type": "p",
+        "content": "Il flusso è rigido e va in una sola direzione:"
+      },
+      {
+        "type": "code",
+        "codeType": "FLUSSO",
+        "content": "UI -&gt; dispatch(action) -&gt; reducer(state, action) -&gt; nuovo state -&gt; UI (via selettori)"
+      },
+      {
+        "type": "p",
+        "content": "Perché calza: ogni cambiamento è un'<strong>action con un nome</strong>. <code>cart/add</code> con il suo payload finisce nei DevTools, si può registrare, rigiocare, riavvolgere. La logica sta in <strong>reducer puri</strong>, funzioni <code>(state, action) => nuovoState</code> senza side effect, che testo senza montare un solo componente."
+      },
+      {
+        "type": "p",
+        "content": "Va detto che Redux Toolkit ha reso obsoleta buona parte delle critiche storiche: Immer permette di scrivere <code>s.items.push(...)</code> mantenendo l'immutabilità sotto, e il boilerplate è una frazione del Redux “vanilla”. Ma un po' di cerimonia resta, per costruzione. E qui sta il punto che secondo me si racconta male: <strong>quella cerimonia è esattamente il meccanismo che produce la tracciabilità</strong>. Quando la tracciabilità non ti serve, è peso morto. Quando ti serve, è l'unica cosa che stai comprando."
+      },
+      {
+        "type": "b",
+        "content": "5) Il badge del carrello, e i valori derivati"
+      },
+      {
+        "type": "p",
+        "content": "Un badge in alto che mostra il numero di articoli, un totale, un contatore di sconti applicati. Valori <strong>derivati</strong> da altri valori, che devono restare corretti senza che nessuno si ricordi di aggiornarli."
+      },
+      {
+        "type": "p",
+        "content": "Qui <strong>MobX</strong> si trova a casa."
+      },
+      {
+        "type": "code",
+        "codeType": "TS",
+        "content": "class CartStore {\n  items: string[] = [];\n  constructor() { makeAutoObservable(this); }\n  add(sku: string) { this.items.push(sku); }   // muti direttamente\n  get count() { return this.items.length; }     // computed cache-ato\n}\nexport const cartStore = new CartStore();"
+      },
+      {
+        "type": "code",
+        "codeType": "TSX",
+        "content": "// si ri-renderizza SOLO quando cambia count\nconst CartBadge = observer(() =&gt; &lt;Text&gt;{cartStore.count}&lt;/Text&gt;);"
+      },
+      {
+        "type": "p",
+        "content": "Perché calza: non scrivo selettori, non scrivo action-type. Muto l'oggetto e i componenti <code>observer</code> che leggono quel path si aggiornano. I <code>computed</code> sono cache-ati e si ricalcolano solo quando cambiano i loro ingredienti — che è precisamente il bug che avevo con un reducer unico, dove <em>io</em> devo ricordarmi in che ordine aggiornare le cose derivate. Se poi ti trovi bene a modellare a classi, il fatto che uno store sia semplicemente un oggetto con metodi è un sollievo."
+      },
+      {
+        "type": "p",
+        "content": "E ora la trappola, che merita il grassetto perché ci si perde un pomeriggio: <strong>dimenticare <code>observer</code> sul componente significa nessuna reattività</strong>. Il componente non si aggiorna e non c'è nessun errore, nessun warning, niente. Solo un numero che resta fermo."
+      },
+      {
+        "type": "b",
+        "content": "6) L'app mobile che deve funzionare in metropolitana"
+      },
+      {
+        "type": "p",
+        "content": "Il caso che secondo me cambia la conversazione. Un'app React Native: lo stato deve <strong>sopravvivere al riavvio</strong>, sincronizzarsi con il backend quando c'è rete, e mostrare qualcosa di sensato quando la rete non c'è."
+      },
+      {
+        "type": "p",
+        "content": "Qui la persistenza non è un extra da aggiungere dopo: è un requisito. Ed è il terreno di <strong>Legend-State</strong>, stessa famiglia di MobX ma con due tratti suoi — reattività fine-grained <strong>per-path</strong> molto spinta, e sync più persistenza <strong>di prima classe</strong>."
+      },
+      {
+        "type": "code",
+        "codeType": "TS",
+        "content": "interface CartState { items: string[]; coupon: string | null }\nconst cart$ = observable&lt;CartState&gt;({ items: [], coupon: null });\n\ncart$.items.push(\"sku-1\");     // mutazione\ncart$.coupon.set(\"WELCOME\");   // set esplicito\nconst c = cart$.coupon.peek(); // lettura one-shot NON reattiva, tipica nelle callback"
+      },
+      {
+        "type": "p",
+        "content": "Nella UI la distinzione tra le due letture è tutto:"
+      },
+      {
+        "type": "code",
+        "codeType": "TSX",
+        "content": "function Coupon() {\n  const coupon = use$(cart$.coupon);   // reattivo: legato SOLO a questo path\n  return &lt;Text&gt;{coupon ?? \"nessuno\"}&lt;/Text&gt;;\n}"
+      },
+      {
+        "type": "p",
+        "content": "<code>use$</code> in render, <code>peek</code> nelle callback. Sbagliare direzione non dà un errore, dà un componente che non si aggiorna o un valore letto un istante troppo tardi."
+      },
+      {
+        "type": "p",
+        "content": "E poi il pezzo che le altre librerie non hanno di serie:"
+      },
+      {
+        "type": "code",
+        "codeType": "TS",
+        "content": "syncObservable(\n  cart$,\n  syncedFetch&lt;CartState&gt;({\n    activate: \"auto\",\n    get: \"https://api.example.com/cart\",\n    retry: { infinite: true },\n    persist: {\n      name: \"cart\",\n      plugin: new ObservablePersistMMKV({ id: \"app-state\" }),\n      retrySync: true,\n    },\n  }),\n);"
+      },
+      {
+        "type": "p",
+        "content": "Con <code>activate: \"auto\"</code> la sincronizzazione parte da sola, la persistenza su MMKV idrata lo stato all'avvio e sopravvive ai riavvii. Non ho scritto un solo <code>useEffect</code>."
+      },
+      {
+        "type": "p",
+        "content": "Il rovescio, e va detto perché conta in una scelta reale: è una libreria <strong>giovane e in rapida evoluzione</strong>, con API a volte in beta, e un ecosistema molto più piccolo di quello di Redux. Su un progetto che deve durare cinque anni senza manutenzione, questo pesa. Su un'app mobile offline-first, il fatto che persist e sync siano nativi pesa di più."
+      },
+      {
+        "type": "p",
+        "content": "Un dettaglio noioso ma serio: la persistenza non è un posto unico. Lo stato applicativo va su uno storage veloce come MMKV; i <strong>segreti</strong> — token, credenziali — no, quelli vanno sul keystore di sistema, un boundary separato. Metterli nello stesso posto “per fare prima” è una di quelle scelte che nessuno rivede più."
+      },
+      {
+        "type": "b",
+        "content": "Un asterisco su due famiglie su cui non ho abbastanza chilometri"
+      },
+      {
+        "type": "p",
+        "content": "Sulla famiglia <strong>atomica</strong> — Jotai, e prima di lui Recoil — ho letto molto e costruito poco, e la differenza si sente: non un contenitore ma tanti valori piccoli e indipendenti, con valori derivati che si ricalcolano da soli. Un foglio di calcolo: scrivi la formula una volta e non pensi più a chi aggiorna cosa. Sul carrello sarebbe un atomo per gli articoli, uno per il coupon, uno derivato per il totale."
+      },
+      {
+        "type": "p",
+        "content": "Il sospetto è che sia la forma giusta quando la complessità principale è il <strong>grafo delle dipendenze</strong> — un configuratore di prodotto, per dire. Quello che invece mi sono convinto a non fare è usarla per il caso delle anagrafiche: gli strumenti per rinfrescare un atomo esistono, ma sono building block, non una soluzione idiomatica per un catalogo condiviso che arriva dal backend. Ed è una decisione che ho preso leggendo, non provando: la segnalo per quello che è."
+      },
+      {
+        "type": "p",
+        "content": "Stessa onestà per le <strong>macchine a stati</strong> (XState): ci ho giocato, non le ho ancora portate in produzione. Il principio mi convince: dichiari gli stati possibili e le transizioni permesse, e il valore non sta in cosa ti consente di fare ma in cosa <strong>ti impedisce</strong> di fare. Da “pagamento in corso” non esiste transizione verso “modifica indirizzo”, quindi quel bug non è stato risolto: non è rappresentabile. Ogni volta che mi ritrovo con quattro booleani che si sorvegliano a vicenda — <code>sta_caricando &amp;&amp; !ha_errore &amp;&amp; ha_confermato</code> — il sospetto è che stia scrivendo male una macchina a stati. È il prossimo esperimento in lista."
+      },
+      { "type": "hr" },
+      {
+        "type": "h3",
+        "content": "La parte di cui si parla poco: non quale store, ma dove lo metti"
+      },
+      {
+        "type": "p",
+        "content": "Qui secondo me si vince o si perde davvero, e non dipende dalla libreria."
+      },
+      {
+        "type": "p",
+        "content": "Il riflesso naturale è un <code>GlobalState</code> unico, o un <code>store.ts</code> più un <code>types.ts</code> che aggregano tutto. Funziona per tre mesi. Poi diventa il posto dove finisce qualunque cosa non si sappia dove mettere."
+      },
+      {
+        "type": "p",
+        "content": "L'alternativa che uso è separare lo stato <strong>per area funzionale</strong>. Ogni area vive nel proprio file e porta con sé le proprie cose: il tipo-stato e il valore iniziale, l'observable interno, il proprio sync remoto, la propria persistenza su una chiave dedicata. Quante e quali aree esistono è una conseguenza dei casi d'uso, non un contratto fissato in anticipo."
+      },
+      {
+        "type": "code",
+        "codeType": "TS",
+        "content": "interface ProductsState { items: Product[]; lastServerSync: string }\n\nabstract class BaseProducts {\n  constructor(protected readonly storage: Storage) {}\n  protected readonly _state$ = observable&lt;ProductsState&gt;(PRODUCTS_INITIAL);\n  get state$(): Observable&lt;ProductsState&gt; { return this._state$; }\n}\n\nclass Products extends BaseProducts {          // concreta: avvia sync + persist\n  constructor(storage: Storage) { super(storage); syncObservable(/* ... */); }\n}\n\nclass ProductsMock extends BaseProducts {}     // mock no-sync per test e storybook"
+      },
+      {
+        "type": "p",
+        "content": "La base definisce l'observable e come si espone. La concreta avvia il sync. Il mock riusa la base senza sync — e questo è il motivo per cui i test non toccano mai la rete né lo storage reale, che da solo giustifica la struttura."
+      },
+      {
+        "type": "p",
+        "content": "Le istanze si costruiscono in un unico punto — un <strong>composition root</strong> — con una factory che non sa niente di React:"
+      },
+      {
+        "type": "code",
+        "codeType": "TS",
+        "content": "export function createServices(): AppServices {\n  const storage = new Storage();\n  const productsState = new Products(storage);\n  const cartState = new Cart(storage);\n  return { storage, productsState, cartState };\n}"
+      },
+      {
+        "type": "p",
+        "content": "Un solo context la invoca una volta sola, e la UI accede tramite accessor mirati (<code>useCartState()</code>) invece di pescare dall'intero container. Nessun container DI, nessun registry di token: un grafo di dipendenze concreto e leggibile."
+      },
+      {
+        "type": "p",
+        "content": "È lo stesso principio dell'<code>useCountries()</code> di prima, e non è una coincidenza: <strong>la UI non deve conoscere il meccanismo</strong>. Non deve sapere se dietro c'è una query key, un observable o una classe. Deve sapere che esiste un hook che le dà il dato. Il giorno in cui cambi il meccanismo — e succede — l'unica cosa che cambia è quello che sta dentro l'hook."
+      },
+      {
+        "type": "p",
+        "content": "E qui torna anche una cosa che avevo attribuito distrattamente a Zustand: “lo store vive fuori da React”. La ragione vera, quella che si sente nelle mani, è questa: poiché <code>createServices()</code> è React-agnostica, <strong>un entry point headless ricostruisce le stesse dipendenze senza hook e senza context</strong>. Un job in background che deve sincronizzare il carrello alle tre di notte usa la stessa factory della UI. Se lo stato fosse inchiodato dentro un provider React, quel job andrebbe scritto due volte."
+      },
+      {
+        "type": "p",
+        "content": "Due avvertenze oneste, perché il pattern ha un costo. La prima: più classi-stato da governare rispetto a un monolite, e serve disciplina perché <strong>lo stato globale non diventi la scorciatoia per non scrivere la logica applicativa</strong> — se ogni comportamento diventa “scrivo un flag nello stato e qualcuno reagirà”, hai un monolite travestito."
+      },
+      {
+        "type": "p",
+        "content": "La seconda è un punto che tengo aperto e non ho ancora chiuso: se un'area sincronizza in sola lettura dal server, la convenzione è che la UI <strong>legga soltanto</strong> e non chiami mai <code>set</code>. Ma senza una protezione vera — un getter read-only stretto, un wrapper, o almeno una regola di lint — la UI <em>potrebbe</em> scrivere su uno stato che il server sovrascriverà, e divergere in silenzio. Una convenzione non è un vincolo. Va deciso consapevolmente: o la si accetta per quello che è, o si irrigidisce."
+      },
+      { "type": "hr" },
+      {
+        "type": "h3",
+        "content": "L'euristica che uso adesso"
+      },
+      {
+        "type": "p",
+        "content": "Non è molto elegante, lo ammetto:"
+      },
+      {
+        "type": "p",
+        "content": "1) Il dato <strong>arriva da un'API</strong>? → cache del server state (TanStack Query o simile). E fermati qui, prima di installare altro."
+      },
+      {
+        "type": "p",
+        "content": "2) È un dato che arriva da un'API ma <strong>cambia di rado ed è letto da tutti</strong> (anagrafiche, cataloghi)? → sempre la cache, con <code>staleTime</code> alto o <code>Infinity</code> e un hook di dominio davanti. Non uno store."
+      },
+      {
+        "type": "p",
+        "content": "3) Deve <strong>stare in un link condivisibile</strong>? → URL, gestito dal router. Non duplicarlo."
+      },
+      {
+        "type": "p",
+        "content": "4) Serve solo a <strong>due componenti vicini</strong>? → <code>useState</code> nel loro genitore comune. Non tutto ciò che è condiviso è globale."
+      },
+      {
+        "type": "p",
+        "content": "5) È una <strong>preferenza di interfaccia</strong> che cambia raramente? → <code>Context</code>, senza aggiungere librerie."
+      },
+      {
+        "type": "p",
+        "content": "6) Serve uno <strong>store client condiviso</strong> con poca cerimonia? → Zustand."
+      },
+      {
+        "type": "p",
+        "content": "7) Ci sono <strong>regole di business</strong> e serve sapere chi ha cambiato cosa, in un team ampio che vuole convenzioni forti? → Redux Toolkit."
+      },
+      {
+        "type": "p",
+        "content": "8) Preferisci <strong>mutare e funzioni</strong>, con molti valori derivati? → observable (MobX)."
+      },
+      {
+        "type": "p",
+        "content": "9) Servono anche <strong>persistenza e sync</strong>, offline, mobile? → observable con persist/sync di serie (Legend-State)."
+      },
+      {
+        "type": "p",
+        "content": "E una regola che vale più delle altre nove: <strong>si usano insieme</strong>. TanStack Query per i dati del server e Zustand per l'interfaccia, nello stesso progetto, è probabilmente la combinazione più sana che conosco per un'applicazione web normale. L'idea che debba esistere un unico posto per tutto lo stato è la sopravvivenza di un'epoca in cui l'unico attrezzo disponibile era lo store globale."
+      },
+      { "type": "hr" },
+      {
+        "type": "h3",
+        "content": "Dove finisco"
+      },
+      {
+        "type": "p",
+        "content": "Se dovessi riassumere in una riga: la libreria di stato non elimina la complessità, <strong>decide dove metterla</strong>. Redux la mette nel boilerplate e te la restituisce come tracciabilità. Legend-State e MobX la nascondono nel tracking automatico e te la restituiscono come prestazioni. Le macchine a stati la mettono nella modellazione e te la restituiscono come bug irrappresentabili. TanStack Query si prende tutta quella del fetching e non chiede niente in cambio, e per questo è l'unico consiglio che mi sento di dare quasi a occhi chiusi."
+      },
+      {
+        "type": "p",
+        "content": "L'articolo è finito ma ho senza dubbio tralasciato qualche dettaglio importante. Non ho parlato di rendering sul server e idratazione, che cambia le carte in tavola per almeno tre di queste librerie. Non ho parlato di form, che sono un mondo con librerie proprie. E non ho toccato quello che succede fuori da React, dove i “signals” — Solid, Angular, Preact — stanno riscrivendo tutta questa discussione partendo da un'altra direzione. Se il tema vi interessa scrivetemi, o ripassate qui tra qualche settimana per vedere se ci sono aggiornamenti."
+      }
+    ]
+  },
+  {
     "id": "b80baaa9-1b0e-490c-8dd1-ab87e66e7a68",
     "relevance": 0,
     "promoted": false,
