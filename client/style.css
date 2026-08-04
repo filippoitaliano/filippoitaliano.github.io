@@ -322,6 +322,15 @@ a:hover .arrow-link-text {
   }
 }
 
+/* The day the article was planted, right under the title it belongs to: said
+   quietly, because it is a caption and not the second thing you read. */
+.title-date {
+  display: block;
+  font-size: 0.75rem;
+  color: #707070;
+  margin-top: 12px;
+}
+
 /* Between the two the title has the whole article to itself (see the stacking
    rule above) but not much of it, so it scales with the viewport rather than
    staying at the size it takes on a wide screen. */
@@ -757,6 +766,24 @@ a.articles-index-link:hover {
 
 .end-page-margin {
   margin: 80px;
+}
+
+/* The last line of the page, and all it says is which version of the site you
+   are looking at. Its own line comes from the `hr` inside it, so the margin
+   above only has to hold the two apart. */
+.footer {
+  padding: 0 20px 32px;
+  text-align: center;
+}
+
+.footer hr {
+  margin-bottom: 24px;
+}
+
+.footer-version {
+  font-family: 'FiraCode-Regular', monospace;
+  font-size: 0.7rem;
+  color: #707070;
 }
 
 /* Holds the arrow, and takes back the room the bar below reserves for its

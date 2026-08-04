@@ -44,6 +44,21 @@ const prefersReducedMotion = () => (
   !!window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 );
 
+const MONTHS_IT = [
+  'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
+  'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
+];
+
+// The day an article was planted, said the way it would be said out loud.
+// Split by hand rather than through `new Date`, which reads a bare `2026-08-02`
+// as midnight UTC and hands back the day before to anyone west of Greenwich.
+const formatArticleDate = (isoDate) => {
+  if (!isoDate) return null;
+  const [year, month, day] = String(isoDate).split('-').map(Number);
+  if (!year || !month || !day) return null;
+  return `${day} ${MONTHS_IT[month - 1]} ${year}`;
+};
+
 const getRandomNumber = () => (
   Math.floor(Math.random() * 10000000000000000)
 );

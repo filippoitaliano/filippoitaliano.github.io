@@ -1,6 +1,7 @@
 [
   {
     "id": "0eab022f-dc50-42db-b405-479c57dfffa4",
+    "date": "2026-08-02",
     "relevance": 0,
     "promoted": true,
     "listed": true,
@@ -54,6 +55,7 @@
   },
   {
     "id": "9c1f4b6a-2e77-4a30-8f5b-6d0c1a2e7b94",
+    "date": "2026-08-04",
     "relevance": 0,
     "promoted": true,
     "listed": true,
@@ -571,6 +573,7 @@
   },
   {
     "id": "b80baaa9-1b0e-490c-8dd1-ab87e66e7a68",
+    "date": "2021-09-02",
     "relevance": 0,
     "promoted": false,
     "listed": true,
@@ -604,6 +607,7 @@
   },
   {
     "id": "b7c710ce-fce7-4cc2-a6c4-3111c5008366",
+    "date": "2022-01-15",
     "relevance": 0,
     "promoted": false,
     "listed": true,
@@ -690,6 +694,7 @@
   },
   {
     "id": "2067fceb-1790-497a-a921-beb1c44fc13e",
+    "date": "2021-09-07",
     "relevance": 0,
     "promoted": false,
     "listed": false,
