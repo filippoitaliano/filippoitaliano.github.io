@@ -147,7 +147,7 @@ button {
   justify-self: center;
   align-items: center;
   border-radius: 30px;
-  width: 60px;
+  width: 70px;
   height: 30px;
 }
 
@@ -188,4 +188,20 @@ button {
   position: absolute;
   background: conic-gradient(var(--soft-grey) 0deg, transparent 0deg 360deg);
   z-index: 0;
+}
+
+.analog-timer-wrapper.paused #analog-timer-needle {
+  animation: paused-needle-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes paused-needle-blink {
+  50% { opacity: 0.2; }
+}
+
+.app-footer {
+  text-align: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.2px;
+  color: var(--dialog-bg-color);
+  margin: 0 auto 40px;
 }
