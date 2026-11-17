@@ -1,5 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap');
 
+/* The bright colours of the first tomato timer, in the shapes of GeobadgeDevEnvironment, whose
+   Pomodoro panel shows this page: cards with a darker 3px lip at the bottom, pill buttons that
+   bounce under the mouse, dashed fields that turn solid while typing. */
 :root {
   --bg-color: #6ECCBC;
   --bg-dot-color: #7CD4BD;
@@ -7,84 +10,192 @@
   --dialog-bg-color: #F5F7E2;
   --soft-grey: #f7f2f2;
   --dialog-text-color: #855C25;
+  --badge-color: #F49800;
+  --input-color: #EDE8D3;
+  --card-line: #E3E0C4;
+  --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 body {
+  margin: 0;
+  min-height: 100vh;
   background: var(--bg-color);
   background-image: radial-gradient(var(--bg-dot-color) 20%, transparent 0), radial-gradient(var(--bg-dot-color) 20%, transparent 0);
   background-size: 48px 48px;
   background-position: 0 0, 24px 24px;
 
-  font-family: 'Raleway', sans-serif;
-  font-weight: 800;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
   color: var(--dialog-text-color);
 }
 
-button {
-  border: 0;
-  font-family: 'Raleway', sans-serif;
-  font-weight: 800;
-  background-color: var(--btn-color);
-  color: white;
+.app {
+  box-sizing: border-box;
+  max-width: 640px;
+  min-width: 0;
+  margin: 0 auto;
+  padding: 28px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
+
+.card {
+  position: relative;
+  border: 1px solid var(--card-line);
+  border-bottom: 4px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 80, 70, 0.18);
+}
+
+/* Buttons: a coloured pill, dark lip below, a thin light rim above. A veil lightens it under the
+   mouse while it bounces a bit bigger, and darkens it while it is squeezed by a press. */
+
+.btn {
+  --fill: var(--btn-color);
+  position: relative;
+  height: 34px;
+  padding: 0 18px 2px;
+  border: 0;
+  border-radius: 13px;
+  background-color: var(--fill);
+  color: white;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.18s ease-out;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn:hover {
+  transform: scale(1.08);
+  transition: transform 0.28s var(--bounce);
+}
+
+.btn:hover::after {
+  opacity: 0.25;
+}
+
+.btn:active {
+  transform: scale(0.92);
+  transition: transform 0.08s ease-out;
+}
+
+.btn:active::after {
+  background: black;
+  opacity: 0.1;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--badge-color);
+  outline-offset: 2px;
+}
+
+/* Settings */
 
 .dialog {
   background-color: var(--dialog-bg-color);
-  padding: 30px 30px;
-  border-radius: 60px;
-  box-shadow: 1px 1px 1px lightgrey;
-  position: relative;
-  max-width: 600px;
-  margin: 40px auto;
-}
-
-.dialog .settings-description {
-  font-size: 0.8rem;
-  letter-spacing: 0.2px;
-  line-height: 1.8rem;
+  padding: 30px 30px 26px;
+  border-radius: 40px;
 }
 
 .dialog .settings-badge {
-  background-color: #F49800;
-  width: auto;
-  text-align: center;
-  padding: 5px 8px;
   position: absolute;
-  left: 10px;
-  top: -10px;
+  left: 18px;
+  top: -13px;
+  padding: 4px 12px 5px;
   border-radius: 30px;
+  background-color: var(--badge-color);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.15);
   color: #F3FBFE;
+  font-weight: 800;
 }
 
-.dialog .settings-form {
-  margin-top: 30px;
+.dialog .settings-description {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.2px;
+  line-height: 1.6;
+}
+
+.settings-form {
+  margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 15px;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 14px;
+  align-items: end;
+}
+
+.settings-form-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
 }
 
 .settings-form-control-label {
-  position: relative;
-  left: 8px;
-  margin-bottom: 10px;
-  color: var(--dialog-text-color);
+  padding-left: 8px;
 }
 
-.settings-form-control-input-wrapper input {
-  background-color: #ede8d3;
-  border: 0;
-  padding: 15px;
-  width: 80px;
+/* Like the notes of GeobadgeDevEnvironment: a dashed post-it border, solid while typing. */
+.field {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 12px;
+  border: 1.5px dashed #D8C79A;
   border-radius: 30px;
+  background-color: var(--input-color);
+  transition: border-color 0.15s;
+}
+
+.field:hover {
+  border-color: #C4A86A;
+}
+
+.field:focus-within {
+  border-style: solid;
+  border-color: var(--btn-color);
+}
+
+.field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--dialog-text-color);
   text-align: center;
+  -moz-appearance: textfield;
+}
+
+.field input::-webkit-outer-spin-button,
+.field input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.field-unit {
+  font-size: 0.75rem;
+  opacity: 0.6;
 }
 
 .settings-form-save-button {
-  border-radius: 30px;
-  width: 85px;
-  height: 30px;
-  align-self: end;
-  justify-self: end;
+  margin-bottom: 4px;
 }
 
 #settings-dialog-content {
@@ -95,77 +206,85 @@ button {
   display: none;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
 
-.settings-dialog-change-settings-button {
-  border-radius: 30px;
-  width: 130px;
-  height: 30px;
+@media (max-width: 480px) {
+  .settings-form {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .settings-form-save-button {
+    grid-column: 1 / -1;
+    justify-self: end;
+  }
 }
+
+/* Timer */
 
 .main-content {
-  max-width: 800px;
   background-color: white;
-  margin: 40px auto;
-  height: 600px;
   border-radius: 30px;
-  box-shadow: 1px 1px 1px lightgrey;
+  overflow: hidden;
+  padding-bottom: 26px;
 }
 
 .clock-title {
   background-color: var(--dialog-bg-color);
-  border-radius: 30px 30px 0 0;
   height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 800;
 }
 
-.clock-wrapper, .analog-timer-wrapper {
+.clock-subtitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+.analog-timer-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 34px 0 22px;
+}
+
+/* The dial keeps the drawing of the first version: a 300px face, a needle that turns a notch a
+   second, a grey slice that fills the whole session and a hairline between one phase and the
+   next. */
+.analog-timer-dial {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  height: 75%;
-  position: relative;
-}
-
-.clock-digital-time {
-  font-size: 100px;
-  color: var(--dialog-text-color);
-}
-
-.clock-controls {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 15px;
-  max-width: 200px;
-  margin: 0 auto;
-}
-
-.clock-control-button {
-  justify-self: center;
-  align-items: center;
-  border-radius: 30px;
-  width: 70px;
-  height: 30px;
 }
 
 #analog-timer-circle {
+  box-sizing: content-box;
+  position: absolute;
+  inset: 0;
   height: 300px;
   width: 300px;
   border-radius: 100%;
   border: solid 10px var(--soft-grey);
-  position: relative;
+  box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.03), 0 3px 0 #ECE6E6;
 }
 
 #analog-timer-needle {
   height: 130px;
-  width: 2px;
+  width: 4px;
+  border-radius: 2px;
   background-color: var(--btn-color);
   position: absolute;
   top: 20px;
-  right: 150px;
+  right: 148px;
   transform-origin: 50% 100%;
   z-index: 1;
 }
@@ -190,12 +309,58 @@ button {
   z-index: 0;
 }
 
-.analog-timer-wrapper.paused #analog-timer-needle {
-  animation: paused-needle-blink 1.2s ease-in-out infinite;
+.analog-timer-hub {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  background-color: var(--btn-color);
+  box-shadow: 0 0 0 4px white;
+  z-index: 2;
 }
 
-@keyframes paused-needle-blink {
+.timer-readout {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.timer-time {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-phase {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.analog-timer-wrapper[data-phase="work"] .timer-time {
+  color: var(--btn-color);
+}
+
+.analog-timer-wrapper[data-phase="break"] .timer-time {
+  color: var(--badge-color);
+}
+
+.analog-timer-wrapper.paused #analog-timer-needle,
+.analog-timer-wrapper.paused .timer-time {
+  animation: paused-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes paused-blink {
   50% { opacity: 0.2; }
+}
+
+.clock-controls {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.clock-control-button {
+  min-width: 92px;
 }
 
 .app-footer {
@@ -203,5 +368,265 @@ button {
   font-size: 0.7rem;
   letter-spacing: 0.2px;
   color: var(--dialog-bg-color);
-  margin: 0 auto 40px;
+}
+
+@media (max-width: 380px) {
+  .analog-timer-dial {
+    transform: scale(0.85);
+    margin: -24px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn:hover,
+  .btn:active {
+    transform: none;
+    transition: none;
+  }
+
+  .analog-timer-wrapper.paused #analog-timer-needle,
+  .analog-timer-wrapper.paused .timer-time {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+/* What the focus is about: it goes with the tree it plants. */
+
+.focus-description {
+  display: block;
+  width: min(360px, calc(100% - 48px));
+  margin: 0 auto 20px;
+}
+
+.field-wide input {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.field-wide input::placeholder {
+  color: var(--dialog-text-color);
+  opacity: 0.45;
+}
+
+/* The magic forest: an island under a night sky that fills as phases are completed. */
+
+.forest {
+  background-color: white;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.forest-scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: linear-gradient(#2E2A6E, #5A4A9E 55%, #F2A7C3);
+}
+
+.forest-tree,
+.forest-decoration {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.forest-tree:hover {
+  filter: brightness(1.12);
+}
+
+.forest-sprouting {
+  animation: forest-sprout 0.9s var(--bounce) both;
+}
+
+@keyframes forest-sprout {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.forest-twinkle {
+  animation: forest-twinkle 3s ease-in-out infinite;
+}
+
+@keyframes forest-twinkle {
+  50% { opacity: 0.35; }
+}
+
+.forest-firefly {
+  animation: forest-firefly 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 2px #FFF07A);
+}
+
+@keyframes forest-firefly {
+  0%, 100% { transform: translate(0, 0); opacity: 1; }
+  50% { transform: translate(4px, -6px); opacity: 0.3; }
+}
+
+.forest-journal {
+  list-style: none;
+  margin: 0;
+  padding: 6px 22px 16px;
+}
+
+.forest-journal:empty {
+  display: none;
+}
+
+.forest-journal li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #E3DDC4;
+  font-size: 0.85rem;
+}
+
+.forest-journal li:last-child {
+  border-bottom: 0;
+}
+
+.journal-description {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.journal-meta {
+  flex: none;
+  opacity: 0.6;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forest-sprouting,
+  .forest-twinkle,
+  .forest-firefly {
+    animation: none;
+  }
+}
+
+/* The first row: settings and forest side by side, about square, so the timer comes up sooner.
+   The forest sets the height; the settings stretch to match it. */
+
+.top-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.top-row .dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 26px 18px 18px;
+  border-radius: 30px;
+}
+
+.top-row .dialog .settings-badge {
+  left: 14px;
+  top: -12px;
+  font-size: 0.85rem;
+}
+
+.top-row .settings-description {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.top-row .settings-form {
+  margin-top: 12px;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.top-row .settings-form-control {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.top-row .settings-form-control-label {
+  padding-left: 4px;
+  font-size: 0.85rem;
+}
+
+.top-row .field {
+  flex: none;
+  width: 104px;
+  height: 34px;
+  padding: 0 10px;
+}
+
+.top-row .settings-form-save-button {
+  justify-self: end;
+  margin: 4px 0 0;
+}
+
+.top-row #settings-dialog-closed-content {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.settings-done-emoji {
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.top-row .forest {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 1;
+}
+
+.top-row .clock-title {
+  flex: none;
+  flex-direction: column;
+  gap: 0;
+  height: auto;
+  padding: 8px 10px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* The scene fills what the square leaves under the title, cropping the sky rather than
+   shrinking the island. */
+.top-row .forest-scene {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+.journal {
+  background-color: white;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+/* Nothing completed yet: no journal to show. */
+.journal:has(.forest-journal:empty) {
+  display: none;
+}
+
+.journal .forest-journal {
+  padding-top: 10px;
+}
+
+@media (max-width: 520px) {
+  .top-row {
+    grid-template-columns: 1fr;
+  }
+
+  .top-row .forest {
+    aspect-ratio: auto;
+  }
+
+  .top-row .forest-scene {
+    height: auto;
+  }
 }

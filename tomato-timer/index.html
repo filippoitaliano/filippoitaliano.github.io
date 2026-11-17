@@ -2,6 +2,8 @@
 <html lang="en">
 
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tomato timer</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="logic.js"></script>
@@ -9,77 +11,107 @@
   </head>
 
   <body>
-    <div class="dialog">
-      <div class="settings-badge">
-        Filippo
-      </div>
-      <div id="settings-dialog-content">
-        <p class="settings-description">
-          Welcome to the cutest tomato timer app. Take your time to set up the timings!
-        </p>
-        <div class="settings-form">
-          <div class="settings-form-control">
-            <div class="settings-form-control-label">
-              Duration
-            </div>
-            <div class="settings-form-control-input-wrapper">
-              <input type="number" id="work-duration-input">
+    <main class="app">
+      <div class="top-row">
+        <section class="card dialog">
+          <span class="settings-badge">Filippo</span>
+          <div id="settings-dialog-content">
+            <p class="settings-description">
+              Welcome to the cutest tomato timer app! Set up the timings.
+            </p>
+            <div class="settings-form">
+              <label class="settings-form-control">
+                <span class="settings-form-control-label">Duration</span>
+                <span class="field">
+                  <input type="number" min="1" id="work-duration-input">
+                  <span class="field-unit">min</span>
+                </span>
+              </label>
+              <label class="settings-form-control">
+                <span class="settings-form-control-label">Break</span>
+                <span class="field">
+                  <input type="number" min="1" id="break-duration-input">
+                  <span class="field-unit">min</span>
+                </span>
+              </label>
+              <label class="settings-form-control">
+                <span class="settings-form-control-label">Times</span>
+                <span class="field">
+                  <input type="number" min="1" id="work-times-input">
+                  <span class="field-unit">×</span>
+                </span>
+              </label>
+              <button class="btn settings-form-save-button wjs" onclick="oe()">
+                That's ok!
+              </button>
             </div>
           </div>
-          <div class="settings-form-control">
-            <div class="settings-form-control-label">
-              Break
-            </div>
-            <div class="settings-form-control-input-wrapper">
-              <input type="number" id="break-duration-input" >
-            </div>
-          </div>
-          <div class="settings-form-control">
-            <div class="settings-form-control-label">
-              Times
-            </div>
-            <div class="settings-form-control-input-wrapper">
-              <input type="number" id="work-times-input" >
-            </div>
-          </div>
-            <button class="settings-form-save-button wjs" onclick="C()">
-              That's ok!
+
+          <div id="settings-dialog-closed-content">
+            <span class="settings-done-emoji" aria-hidden="true">🍅</span>
+            <p class="settings-description">
+              Good luck and have fun!
+            </p>
+            <button class="btn wjs" onclick="re()">
+              Change settings
             </button>
-        </div>
+          </div>
+        </section>
+        <section class="card forest">
+          <div class="clock-title">
+            Magic forest
+            <span class="clock-subtitle" id="forest-summary"></span>
+          </div>
+          <svg id="forest-scene" class="forest-scene" viewBox="0 0 360 320" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Your magic forest"></svg>
+        </section>
       </div>
-      <div id="settings-dialog-closed-content">
-        <p class="settings-description">
-          Good luck and have fun!
-        </p>
-        <button class="settings-dialog-change-settings-button wjs" onclick="j()">
-          Change settings
-        </button>
-      </div>
-    </div>
 
-    <div class="main-content">
-      <div class="clock-title">
-        Timer
-      </div>
-      <div class="analog-timer-wrapper">
-        <div id="analog-timer-circle">
-          <div id="analog-timer-needle"></div>
+      <section class="card main-content">
+        <div class="clock-title">
+          Timer
+          <span class="clock-subtitle" id="session-summary"></span>
         </div>
-        <div id="analog-timer-completion"></div>
-      </div>
-      <div class="clock-controls">
-        <button id="session-toggle-button" class="clock-control-button wjs" onclick="K()">
-          Start
-        </button>
-        <button class="clock-control-button wjs" onclick="U()">
-          Abort
-        </button>
-      </div>
-    </div>
+        <div class="analog-timer-wrapper" data-phase="idle">
+          <div class="analog-timer-dial">
+            <div id="analog-timer-circle">
+              <div id="analog-timer-needle"></div>
+            </div>
+            <div id="analog-timer-completion"></div>
+            <div class="analog-timer-hub"></div>
+          </div>
+          <div class="timer-readout">
+            <span id="timer-time" class="timer-time">25:00</span>
+            <span id="timer-phase" class="timer-phase">Ready</span>
+          </div>
+        </div>
+        <label class="focus-description">
+          <span class="field field-wide">
+            <input type="text" id="focus-description" maxlength="120" placeholder="What are you working on?">
+          </span>
+        </label>
+        <div class="clock-controls">
+          <button id="session-toggle-button" class="btn clock-control-button wjs" onclick="W()">
+            Start
+          </button>
+          <button class="btn clock-control-button wjs" onclick="z()">
+            Abort
+          </button>
+        </div>
+      </section>
 
-    <footer class="app-footer">
-      v<span id="app-version">2026.11.20</span>
-    </footer>
+
+      <section class="card journal">
+        <div class="clock-title">
+          Journal
+          <span class="clock-subtitle">the last focuses you completed</span>
+        </div>
+        <ul id="forest-journal" class="forest-journal"></ul>
+      </section>
+
+      <footer class="app-footer">
+        v<span id="app-version">2026.11.24</span>
+      </footer>
+    </main>
   </body>
 
 </html>
