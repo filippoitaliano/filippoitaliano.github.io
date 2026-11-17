@@ -1,19 +1,32 @@
 
+let remainingSeconds = 0;
+let timerIntervalId = null;
+
 onmessage = function(event) {
   switch(event.data.action) {
     case 'start-timer':
-      startTimer(event.data.timerSeconds);
+      remainingSeconds = event.data.timerSeconds;
+      runTimer();
+      break;
+    case 'pause-timer':
+      // The remaining seconds stay where they are: resuming picks up from there.
+      clearInterval(timerIntervalId);
+      timerIntervalId = null;
+      break;
+    case 'resume-timer':
+      runTimer();
   }
 }
 
-function startTimer(durationInSeconds) {
-  let duration = durationInSeconds;
-  const timerIntervalId = setInterval(() => {
-    if (duration === 0) {
+function runTimer() {
+  if (timerIntervalId !== null) return;
+  timerIntervalId = setInterval(() => {
+    if (remainingSeconds === 0) {
       clearInterval(timerIntervalId);
+      timerIntervalId = null;
       postMessage({ action: 'end-timer' });
     } else {
-      duration -= 1;
+      remainingSeconds -= 1;
       postMessage({ action: 'step-timer' });
     }
   }, 1000);

@@ -42,7 +42,7 @@
               <input type="number" id="work-times-input" >
             </div>
           </div>
-            <button class="settings-form-save-button wjs" onclick="L()">
+            <button class="settings-form-save-button wjs" onclick="C()">
               That's ok!
             </button>
         </div>
@@ -68,14 +68,18 @@
         <div id="analog-timer-completion"></div>
       </div>
       <div class="clock-controls">
-        <button class="clock-control-button wjs" onclick="P()">
+        <button id="session-toggle-button" class="clock-control-button wjs" onclick="K()">
           Start
         </button>
-        <button class="clock-control-button wjs" onclick="$()">
+        <button class="clock-control-button wjs" onclick="U()">
           Abort
         </button>
       </div>
     </div>
+
+    <footer class="app-footer">
+      v<span id="app-version">2026.11.20</span>
+    </footer>
   </body>
 
 </html>
