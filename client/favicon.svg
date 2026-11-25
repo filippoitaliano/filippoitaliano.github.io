@@ -26,12 +26,13 @@
     <path d="M0 -22 C11 -24 18 -32 19 -41 C8 -40 2 -32 0 -22 z" fill="#588f83"/>
     <g transform="translate(0 -36)">
       <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(0.0)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(51.4)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(102.9)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(154.3)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(205.7)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(257.1)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(308.6)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(45.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(90.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(135.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(180.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(225.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(270.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(315.0)"/>
       <circle r="4" fill="#e8b93f"/>
       <circle r="1.7" fill="#a7852d"/>
     </g>

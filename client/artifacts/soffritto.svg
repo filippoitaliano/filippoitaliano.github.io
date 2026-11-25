@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 150" width="175" height="150" role="img" aria-label="soffritto">
+  <title>soffritto</title>
+  <defs>
+    <radialGradient id="sh" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a3532" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#3a3532" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g fill="none" stroke="#e6e2dc" stroke-width="0.6" opacity="0.9">
+    <circle cx="87.5" cy="75" r="61"/>
+    <path d="M87.5 12 V138"/>
+    <path d="M33 43.5 L142 106.5"/>
+    <path d="M33 106.5 L142 43.5"/>
+  </g>
+  <g fill="none" stroke="#d9d5cf" stroke-width="0.9" stroke-linecap="round" opacity="0.75">
+    <path d="M18 47 L52 67"/>
+    <path d="M24 41 L46 54"/>
+    <path d="M124 96 L158 116"/>
+    <path d="M132 106 L152 118"/>
+  </g>
+  <ellipse cx="87.5" cy="124" rx="48" ry="15" fill="url(#sh)"/>
+  <g>
+    <polygon points="35.54,99.00 87.50,129.00 87.50,132.00 35.54,102.00" fill="#5a5857"/>
+<polygon points="139.46,99.00 87.50,129.00 87.50,132.00 139.46,102.00" fill="#6c6968"/>
+<polygon points="87.50,69.00 139.46,99.00 87.50,129.00 35.54,99.00" fill="#7e7b79"/>
+  </g>
+  <path d="M113.50 75.00 L144.66 53.00" fill="none" stroke="#2e2a28" stroke-width="7" stroke-linecap="round"/>
+  <path d="M113.50 74.00 L144.66 52.00" fill="none" stroke="#9c9a98" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <g>
+    <path d="M49.50 93.00 A38 22 0 0 0 125.50 93.00 L125.50 85.00 A38 22 0 0 1 49.50 85.00 z" fill="#2f2b29"/>
+    <ellipse cx="87.50" cy="85.00" rx="38" ry="22" fill="#6b6765"/>
+    <ellipse cx="87.50" cy="86.00" rx="34" ry="19.40" fill="#3a3532"/>
+    <ellipse cx="87.50" cy="86.50" rx="29" ry="16.50" fill="#c6aa4a" opacity="0.28"/>
+  </g>
+  <path transform="translate(51.99 107.50)" d="M0 0 C-4 -2 -3 -7 0 -11 C3 -7 4 -2 0 0 z" fill="#f71735" opacity="0.9"/>
+  <path transform="translate(67.00 116.65)" d="M0 0 C-4 -2 -3 -7 0 -11 C3 -7 4 -2 0 0 z" fill="#f71735" opacity="0.9"/>
+  <path transform="translate(87.50 120.00)" d="M0 0 C-4 -2 -3 -7 0 -11 C3 -7 4 -2 0 0 z" fill="#f71735" opacity="0.9"/>
+  <path transform="translate(108.00 116.65)" d="M0 0 C-4 -2 -3 -7 0 -11 C3 -7 4 -2 0 0 z" fill="#f71735" opacity="0.9"/>
+  <path transform="translate(123.01 107.50)" d="M0 0 C-4 -2 -3 -7 0 -11 C3 -7 4 -2 0 0 z" fill="#f71735" opacity="0.9"/>
+  <g>
+    <polygon points="74.51,78.50 80.57,82.00 80.57,89.00 74.51,85.50" fill="#386e5b"/>
+<polygon points="86.63,78.50 80.57,82.00 80.57,89.00 86.63,85.50" fill="#43846d"/>
+<polygon points="80.57,75.00 86.63,78.50 80.57,82.00 74.51,78.50" fill="#4f9a7f"/>
+    <polygon points="97.03,81.50 103.09,85.00 103.09,92.00 97.03,88.50" fill="#a75e29"/>
+<polygon points="109.15,81.50 103.09,85.00 103.09,92.00 109.15,88.50" fill="#c77031"/>
+<polygon points="103.09,78.00 109.15,81.50 103.09,85.00 97.03,81.50" fill="#e8833a"/>
+    <polygon points="55.46,83.50 61.52,87.00 61.52,94.00 55.46,90.50" fill="#aea9a3"/>
+<polygon points="67.58,83.50 61.52,87.00 61.52,94.00 67.58,90.50" fill="#d0cac3"/>
+<polygon points="61.52,80.00 67.58,83.50 61.52,87.00 55.46,83.50" fill="#f3ece3"/>
+    <polygon points="69.31,89.50 75.38,93.00 75.38,100.00 69.31,96.50" fill="#a75e29"/>
+<polygon points="81.44,89.50 75.38,93.00 75.38,100.00 81.44,96.50" fill="#c77031"/>
+<polygon points="75.38,86.00 81.44,89.50 75.38,93.00 69.31,89.50" fill="#e8833a"/>
+    <polygon points="98.76,92.50 104.82,96.00 104.82,103.00 98.76,99.50" fill="#386e5b"/>
+<polygon points="110.88,92.50 104.82,96.00 104.82,103.00 110.88,99.50" fill="#43846d"/>
+<polygon points="104.82,89.00 110.88,92.50 104.82,96.00 98.76,92.50" fill="#4f9a7f"/>
+    <polygon points="84.90,94.50 90.96,98.00 90.96,105.00 84.90,101.50" fill="#aea9a3"/>
+<polygon points="97.03,94.50 90.96,98.00 90.96,105.00 97.03,101.50" fill="#d0cac3"/>
+<polygon points="90.96,91.00 97.03,94.50 90.96,98.00 84.90,94.50" fill="#f3ece3"/>
+  </g>
+  <path d="M72 52 c-5 -4 5 -6.4 0 -9.6 c-5 -4 5 -3.2 0 -6.4" fill="none" stroke="#c6aa4a" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+  <path d="M90 44 c-5 -4 5 -8.0 0 -12.0 c-5 -4 5 -4.0 0 -8.0" fill="none" stroke="#c6aa4a" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M106 54 c-5 -4 5 -5.6 0 -8.4 c-5 -4 5 -2.8 0 -5.6" fill="none" stroke="#c6aa4a" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <circle cx="40" cy="40" r="3.2" fill="#f71735" opacity="0.5"/>
+  <circle cx="138" cy="74" r="2.6" fill="#f71735" opacity="0.45"/>
+  <circle cx="128" cy="34" r="2.0" fill="#f71735" opacity="0.35"/>
+</svg>

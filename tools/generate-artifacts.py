@@ -250,6 +250,59 @@ def atmosfere():
 
 
 # --------------------------------------------------------------------------
+# soffritto: a desktop app that keeps several copies of the same project on
+# the go at once — a pan on the burner, with the environments diced into it
+# like onion, carrot and celery, all sizzling together.
+# --------------------------------------------------------------------------
+def soffritto():
+    ink, flame, steam = "#3a3532", "#f71735", "#c6aa4a"
+    onion, carrot, celery = "#f3ece3", "#e8833a", "#4f9a7f"
+    oy = 102.0
+    out = [ground_shadow(87.5, 124, 48, 15)]
+    out.append("  <g>")
+    # the burner: an iron grate, with the flame licking out from under the pan
+    out.append("    " + box(-30, -30, 0, 60, 60, 3, shade(ink, 1.35), oy=oy))
+    out.append("  </g>")
+    # the pan, seen from above at the isometric angle: rim, wall, oil
+    cx, cy = iso(0, 0, 9, oy=oy)
+    rx, ry = 38, 22
+    # the handle, sticking out towards the back right, under the rim
+    hx, hy = iso(0, -66, 16, oy=oy)
+    out.append(f'  <path d="M{cx + 26:.2f} {cy - 18:.2f} L{hx:.2f} {hy:.2f}" fill="none" '
+               f'stroke="{shade(ink, 0.8)}" stroke-width="7" stroke-linecap="round"/>')
+    out.append(f'  <path d="M{cx + 26:.2f} {cy - 19:.2f} L{hx:.2f} {hy - 1:.2f}" fill="none" '
+               f'stroke="{shade(ink, 1.5)}" stroke-width="2" stroke-linecap="round" opacity="0.6"/>')
+    out.append(f"""  <g>
+    <path d="M{cx - rx:.2f} {cy:.2f} A{rx} {ry} 0 0 0 {cx + rx:.2f} {cy:.2f} L{cx + rx:.2f} {cy - 8:.2f} A{rx} {ry} 0 0 1 {cx - rx:.2f} {cy - 8:.2f} z" fill="{shade(ink, 0.82)}"/>
+    <ellipse cx="{cx:.2f}" cy="{cy - 8:.2f}" rx="{rx}" ry="{ry}" fill="{shade(ink, 1.25)}"/>
+    <ellipse cx="{cx:.2f}" cy="{cy - 7:.2f}" rx="{rx - 4}" ry="{ry - 2.6:.2f}" fill="{ink}"/>
+    <ellipse cx="{cx:.2f}" cy="{cy - 6.5:.2f}" rx="{rx - 9}" ry="{ry - 5.5:.2f}" fill="{steam}" opacity="0.28"/>
+  </g>""")
+    # the flame, licking up round the front of the pan from the burner below
+    for a in (-150, -120, -90, -60, -30):
+        t = math.radians(a)
+        fx, fy = cx + math.cos(t) * (rx + 3), cy - math.sin(t) * (ry + 3) + 2
+        out.append(f'  <path transform="translate({fx:.2f} {fy:.2f})" '
+                   f'd="M0 0 C-4 -2 -3 -7 0 -11 C3 -7 4 -2 0 0 z" fill="{flame}" opacity="0.9"/>')
+    # the environments, diced: one cube each, all in the same pan
+    out.append("  <g>")
+    dice = ((-14, -6, celery), (2, -16, carrot), (8, 4, onion),
+            (-6, 8, carrot), (-20, 10, onion), (14, -6, celery))
+    # back to front, so the nearer cubes sit on top of the farther ones
+    for x, y, color in sorted(dice, key=lambda d: d[0] + d[1]):
+        out.append("    " + box(x, y, 10, 7, 7, 7, color, oy=oy))
+    out.append("  </g>")
+    # and the sizzle: a few curls of steam going up
+    for sx, sy, h, o in ((72, 52, 16, 0.75), (90, 44, 20, 0.6), (106, 54, 14, 0.5)):
+        out.append(f'  <path d="M{sx} {sy} c-5 -4 5 -{h * 0.4:.1f} 0 -{h * 0.6:.1f} '
+                   f'c-5 -4 5 -{h * 0.2:.1f} 0 -{h * 0.4:.1f}" fill="none" stroke="{steam}" '
+                   f'stroke-width="2" stroke-linecap="round" opacity="{o}"/>')
+    for nx, ny, r, o in ((40, 40, 3.2, 0.5), (138, 74, 2.6, 0.45), (128, 34, 2.0, 0.35)):
+        out.append(f'  <circle cx="{nx}" cy="{ny}" r="{r}" fill="{flame}" opacity="{o}"/>')
+    return wrap("soffritto", "\n".join(out))
+
+
+# --------------------------------------------------------------------------
 # blindtales-app: an exquisite-corpse card game — a fan of face-down cards
 # with the one card you are given, face up, on top of the pile.
 # --------------------------------------------------------------------------
@@ -679,6 +732,7 @@ if __name__ == "__main__":
     growth = read_growth(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     # Paths are relative to the client dir: `python3 tools/generate-artifacts.py client`.
     targets = {
+        "artifacts/soffritto.svg": soffritto(),
         "artifacts/blindtales-app.svg": blindtales_app(),
         "artifacts/tomato-timer.svg": tomato_timer(),
         "artifacts/react-webpack-seed.svg": react_webpack_seed(),

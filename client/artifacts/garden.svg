@@ -94,12 +94,13 @@
     <path d="M0 -22 C11 -24 18 -32 19 -41 C8 -40 2 -32 0 -22 z" fill="#588f83"/>
     <g transform="translate(0 -36)">
       <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(0.0)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(51.4)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(102.9)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(154.3)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(205.7)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(257.1)"/>
-      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(308.6)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(45.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(90.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(135.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(180.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(225.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f71735" transform="rotate(270.0)"/>
+      <ellipse cx="0" cy="-7.2" rx="4.1" ry="7.6" fill="#f84a61" transform="rotate(315.0)"/>
       <circle r="4" fill="#e8b93f"/>
       <circle r="1.7" fill="#a7852d"/>
     </g>
@@ -110,10 +111,17 @@
     <path d="M0 -30 C-5 -33 -5 -41 0 -45 C5 -41 5 -33 0 -30 z" fill="#f71735"/>
     <path d="M0 -30 C-3 -33 -3 -41 0 -45 z" fill="#f95c71"/>
   </g>
-  <ellipse cx="81.66" cy="112.73" rx="1.93" ry="1.04" fill="#b89183"/>
-  <ellipse cx="93.75" cy="113.45" rx="1.93" ry="1.04" fill="#b89183"/>
+  <g transform="translate(87.50 113.41) scale(0.743)">
+    <g fill="none" stroke="#2a7061" stroke-width="2.4" stroke-linecap="round">
+      <path d="M0 0 C-2 -8 -6 -13 -10 -17"/>
+      <path d="M0 0 C1 -10 1 -16 0 -22" stroke="#548c80"/>
+      <path d="M0 0 C3 -7 7 -11 11 -14"/>
+    </g>
+  </g>
   <ellipse cx="105.01" cy="72.28" rx="1.93" ry="1.04" fill="#b89183"/>
   <ellipse cx="117.11" cy="73.00" rx="1.93" ry="1.04" fill="#b89183"/>
   <ellipse cx="58.31" cy="72.28" rx="1.93" ry="1.04" fill="#b89183"/>
   <ellipse cx="70.40" cy="73.00" rx="1.93" ry="1.04" fill="#b89183"/>
+  <ellipse cx="105.01" cy="99.24" rx="1.93" ry="1.04" fill="#b89183"/>
+  <ellipse cx="117.11" cy="99.97" rx="1.93" ry="1.04" fill="#b89183"/>
 </svg>
