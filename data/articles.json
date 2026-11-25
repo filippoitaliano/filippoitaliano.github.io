@@ -21,9 +21,7 @@
         "type": "p",
         "content": "Così ho scritto <strong>Soffritto</strong>, e oggi l'ho pubblicato."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "Cosa fa"
@@ -52,9 +50,7 @@
         "type": "p",
         "content": "3) <strong>Parlare con gli agenti.</strong> Un server MCP mostra gli stessi ambienti a Claude Code e a qualunque altro client MCP, e un'estensione di Visual Studio porta lo stato della copia aperta dentro l'IDE. Tutto quello che fa l'agente si può fare anche a mano dall'app: l'MCP è solo un'altra porta sulle stesse azioni."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "Perché si chiama così"
@@ -71,9 +67,7 @@
         "type": "p",
         "content": "Una cosa a cui ho tenuto parecchio: Soffritto non sa niente del mio progetto. Nomi, cartelle, porte e comandi stanno tutti nella configurazione, che si compila dal setup. L'ho scritto per il mio modo di lavorare, ma non è cucito addosso a un repository in particolare."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "Come provarlo"
@@ -110,9 +104,7 @@
         "type": "p",
         "content": "Mi sembrava sbagliato. Se il sito è un orto allora il logo dovrebbe essere la foto dell'orto, non il ricordo di com'era il primo giorno."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "p",
         "content": "Quindi ho smesso di considerarlo un disegno e ho iniziato a considerarlo un risultato. Il logo, la favicon e l'artefatto di questo repository non sono più tre file che ho fatto a mano: sono tre file che uno script Python genera contando quello che c'è sul sito. La regola sta tutta in tre righe:"
@@ -129,9 +121,7 @@
         "type": "p",
         "content": "3) Il fiore al centro apre un petalo in più ogni tanto, man mano che articoli e progetti si sommano. È il mio contatore, e finalmente è un fiore vero e non un puntino rosso."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "p",
         "content": "La parte che mi convince di più è che non devo ricordarmi di aggiornare niente a mano. Lo script legge il file degli articoli e la lista dei progetti, fa i suoi conti e ridisegna i tre SVG. Se pubblico qualcosa e non lo lancio, il logo resta indietro — e a quel punto è colpa mia, non del disegno."
@@ -184,9 +174,7 @@
         "type": "p",
         "content": "Per non perdermi in astrazioni prendo un solo dominio — <strong>un carrello della spesa</strong> — e lo faccio passare attraverso tutte le librerie di cui parlo. Stesso problema, cinque teste diverse."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "Il primo taglio: chi possiede il dato?"
@@ -211,9 +199,7 @@
         "type": "p",
         "content": "Aggiungo un terzo caso che non è né uno né l'altro: lo stato che <strong>vive nell'URL</strong>. La pagina corrente, la query di ricerca, l'ID della risorsa aperta. Questo ha già un padrone — il router — e ogni volta che lo duplico in uno store mi compro il problema di tenere sincronizzate due verità."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "Cosa fanno tutte queste librerie, in fondo"
@@ -242,9 +228,7 @@
         "type": "p",
         "content": "Il che significa una cosa liberatoria: <strong>non stai scegliendo una capacità, stai scegliendo una forma mentale</strong>. Nessuna di queste librerie ti impedisce di fare ciò che un'altra fa. Ti impone però un modo di pensare, e quel modo ti verrà comodo o ti darà fastidio ogni giorno, per tutta la vita del progetto."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "Le quattro famiglie del client state"
@@ -281,9 +265,7 @@
         "type": "p",
         "content": "La Context API di React non è in nessuna delle due liste, e non per dimenticanza: <strong>non è uno state manager</strong>, è un modo per <em>passare</em> un valore in profondità senza portarlo a mano di componente in componente. Non gestisce sottoscrizioni fini: quando il valore cambia, tutto ciò che lo consuma si ridisegna. Per il tema e la lingua va benissimo. Per un carrello aggiornato trenta volte al minuto è un piccolo generatore di lentezza."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "L'asse che decide davvero: la granularità del re-render"
@@ -304,9 +286,7 @@
         "type": "p",
         "content": "È l'argomento forte di tutta la famiglia observable, e vale la pena tenerlo a mente perché non emerge da nessun confronto di API."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "Adesso gli esempi, che è la parte che serve"
@@ -559,9 +539,7 @@
         "type": "p",
         "content": "Stessa onestà per le <strong>macchine a stati</strong> (XState): ci ho giocato, non le ho ancora portate in produzione. Il principio mi convince: dichiari gli stati possibili e le transizioni permesse, e il valore non sta in cosa ti consente di fare ma in cosa <strong>ti impedisce</strong> di fare. Da “pagamento in corso” non esiste transizione verso “modifica indirizzo”, quindi quel bug non è stato risolto: non è rappresentabile. Ogni volta che mi ritrovo con quattro booleani che si sorvegliano a vicenda — <code>sta_caricando &amp;&amp; !ha_errore &amp;&amp; ha_confermato</code> — il sospetto è che stia scrivendo male una macchina a stati. È il prossimo esperimento in lista."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "La parte di cui si parla poco: non quale store, ma dove lo metti"
@@ -616,9 +594,7 @@
         "type": "p",
         "content": "La seconda è un punto che tengo aperto e non ho ancora chiuso: se un'area sincronizza in sola lettura dal server, la convenzione è che la UI <strong>legga soltanto</strong> e non chiami mai <code>set</code>. Ma senza una protezione vera — un getter read-only stretto, un wrapper, o almeno una regola di lint — la UI <em>potrebbe</em> scrivere su uno stato che il server sovrascriverà, e divergere in silenzio. Una convenzione non è un vincolo. Va deciso consapevolmente: o la si accetta per quello che è, o si irrigidisce."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "L'euristica che uso adesso"
@@ -667,9 +643,7 @@
         "type": "p",
         "content": "E una regola che vale più delle altre nove: <strong>si usano insieme</strong>. TanStack Query per i dati del server e Zustand per l'interfaccia, nello stesso progetto, è probabilmente la combinazione più sana che conosco per un'applicazione web normale. L'idea che debba esistere un unico posto per tutto lo stato è la sopravvivenza di un'epoca in cui l'unico attrezzo disponibile era lo store globale."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "h3",
         "content": "Dove finisco"
@@ -748,9 +722,7 @@
         "type": "p",
         "content": "Sto rischiando di andare fuori tema. Quello che volevo lasciare e lasciarmi in questo momento è una breve guida su come sto mantenendo online questo sito senza avere un hosting. Partiamo subito."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "p",
         "content": "Prima di tutto ho creato un repository su Github contenente tutto il codice delle diverse parti del sistema. Nella directory “server” ho messo la logica del back-end Node.js. Nella directory “client” ho collocato la logica e le risorse del front-end. Attualmente non è prevista una fase di compilazione per nessuna componente del progetto. Il repository di sviluppo coincide quindi con il codice che verrà effettivamente “schierato” in produzione — mi diverto a scrivere in italiano ma forse complico le cose."
@@ -771,9 +743,7 @@
         "type": "p",
         "content": "Non è molto pulito, lo ammetto, ma questo mi permette di avere un’unica codebase — un unico codice sorgente — su cui lavorare non appena mi viene un’idea."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "p",
         "content": "Ora che abbiamo back-end e front-end pubblicati arriva la parte più sistemistica, quella che ho risolto facendo esperimenti e recuperando nozioni sulle reti che pensavo di aver dimenticato. La prima cosa da verificare è che il server sia sempre raggiungibile dall’esterno della rete locale domestica. La seconda cosa è che il server accetti richieste provenienti dal front-end servito da Github — essendo un’origine diversa da quella che serve il back-end c’è un dettaglio da sistemare. L’ultima cosa, che tutte le trasmissioni avvengano in HTTPS."
@@ -802,9 +772,7 @@
         "type": "p",
         "content": "Per generare i certificati HTTPS ho utilizzato Let’s Encrypt tramite “certbot”. In sostanza questa utility davvero molto comoda deve essere installata sulla stessa macchina del server e effettua una verifica che il dominio specificato punti effettivamente a quella macchina. Completata la verifica genera i certificati SSL che sono subito disponibili per l’utilizzo e in teoria si occupa anche del rinnovo periodico automaticamente."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "p",
         "content": "Il risultato funziona molto bene (lo state usando ora). Attualmente il sito non ha traffico quindi non so fino a quanti utenti contemporanei possa soddisfare. Sicuramente per avviare subito un progetto con pochissime spese e tante soddisfazioni è una scelta percorribile. L’articolo ora è finito ma ho senza dubbio tralasciato qualche dettaglio importante e potrei chiarire meglio alcuni passaggi e aggiungere delle soluzioni alternative. Se vi interessa il tema contattatemi o ritornate qui tra qualche settimana per vedere se ci sono aggiornamenti!"
@@ -825,9 +793,7 @@
         "type": "p",
         "content": "Morbi ut ornare tortor, vel posuere velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla pulvinar justo nunc, at faucibus lectus tempus a. Phasellus ipsum felis, viverra sed faucibus semper, porttitor at felis. Fusce suscipit, odio eu tincidunt lacinia, lorem nisi bibendum nunc, vel iaculis dui orci quis tortor. Nullam lobortis elementum elit eu aliquam. Integer pellentesque nisl ac scelerisque condimentum. Duis tempus, quam feugiat scelerisque sagittis, massa massa ullamcorper dui, quis elementum eros nisi at lacus. In hac habitasse platea dictumst."
       },
-      {
-        "type": "hr"
-      },
+      { "type": "hr" },
       {
         "type": "p",
         "content": "Cras molestie gravida fringilla. Curabitur rhoncus mollis fringilla. Aenean scelerisque eros urna, in eleifend purus tincidunt non. Vivamus commodo felis est, eget pellentesque tortor pharetra eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas elementum nulla nec justo facilisis ornare. Vivamus tincidunt diam quis nisi sodales porttitor. Quisque elementum rutrum lorem, eget aliquet magna scelerisque ut. Maecenas vestibulum pulvinar nunc, a luctus nulla varius quis. Nunc magna ante, tempor id convallis et, dignissim vitae ligula."
