@@ -1,5 +1,11 @@
 const ARTICLES_BAR_ARTIFACTS = [
   {
+    name: 'soffritto',
+    src: '/client/artifacts/soffritto.svg',
+    href: 'https://github.com/filippoitaliano/Soffritto/releases',
+    alt: 'an isometric pan on a lit burner, with diced cubes sizzling in it',
+  },
+  {
     name: 'blindtales-app',
     src: '/client/artifacts/blindtales-app.svg',
     href: 'https://blindtales.app/',
